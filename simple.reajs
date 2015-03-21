@@ -1,14 +1,22 @@
 desc: 'A simple meter that utilizes js gfx scripting'
 
-slider1:0.8<0, 1, 0.1>level
+slider1:1<0, 8, 0.1>level
 
 @slider
-amount = slider1;
+multiplier = slider1;
 
 @init
-a = 0;
+wBuff = 0;
+wBuffPosition = 0;
+wBuffTotal = 0;
+wBuffRMS = 0;
 
-@block
+// Clear the buffer;
+index = 0;
+loop(srate,
+  wBuff[index] = 0;
+  index += 1;
+)
 
 @sample
 w = spl0;
@@ -16,18 +24,27 @@ x = spl1;
 y = spl2;
 z = spl3;
 
+// Calculate the RMS of w buffer
+wBuffTotal -= pow(wBuff[wBuffPosition], 2);
+wBuff[wBuffPosition] = w;
+wBuffTotal += pow(w, 2);
+wBuffRMS = sqrt(wBuffTotal / srate);
+
+wBuffPosition += 1;
+wBuffPosition >= srate ? (wBuffPosition = 0;);
+
 @gfx 360 360
 
 quarter_width = gfx_w / 4;
 half_width = gfx_w / 2;
+half_height = gfx_h / 2;
 
-gfx_r = 1;
 position_in_degrees = -quarter_width;
 loop(half_width, // for now it's okay to consider our resolution equal to a value in degrees
-  level = cos(position_in_degrees * $pi / 180) * amount;
+  level = cos(position_in_degrees * $pi / 180) * multiplier * wBuffRMS;
   // for now, gfx_x, gfx_y are equal to degrees, because the window size is 360x360
   gfx_x = half_width + position_in_degrees;
-  gfx_y =  180;
+  gfx_y =  half_height;
   gfx_setpixel(level, 0, 0);
   position_in_degrees += 1;
 );
