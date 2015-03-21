@@ -1,4 +1,4 @@
-<REAPER_PROJECT 0.1 "4.77/OSX" 1426962912
+<REAPER_PROJECT 0.1 "4.77/OSX" 1426971979
   RIPPLE 0
   GROUPOVERRIDE 0 0 0
   AUTOXFADE 1
@@ -12,9 +12,9 @@
   GRID 3199 8 1 8 1 0 0
   TIMEMODE 1 5 -1 30 0
   PANMODE 3
-  CURSOR 256
+  CURSOR 0
   ZOOM 0.62061571213046 0 0
-  VZOOMEX 0
+  VZOOMEX 2
   USE_REC_CFG 0
   RECMODE 1
   SMPTESYNC 0 30 100 40 1000 300 0 0 1
@@ -78,7 +78,7 @@
     DEFSHAPE 0 -1 -1
   >
   <TEMPOENVEX
-    ACT 1
+    ACT 0
     VIS 1 0 1
     LANEHEIGHT 0 0
     ARM 0
@@ -204,7 +204,7 @@
     SEL 0
     REC 0 0 0 0 0 0 0
     VU 2
-    TRACKHEIGHT 195 0
+    TRACKHEIGHT 0 0
     INQ 0 0 0 0.5 100 0 0 100
     NCHAN 6
     FX 1
@@ -292,28 +292,6 @@
       FXID {F412CBF8-6451-3D4D-8B74-B6C9B29211D0}
       WAK 0
     >
-    <ITEM
-      POSITION 0
-      SNAPOFFS 0
-      LENGTH 251.46666666666664
-      LOOP 1
-      ALLTAKES 0
-      FADEIN 0 0 0 0 0 0
-      FADEOUT 0 0 0 0 0 0
-      MUTE 0
-      SEL 1
-      IGUID {33DC1156-ADFE-1645-8C0F-50E095CE91A0}
-      IID 2
-      NAME "01 Everything in Its Right Place.aif"
-      VOLPAN 1 0 1 -1
-      SOFFS 0
-      PLAYRATE 1 1 0 -1 0 0.0025
-      CHANMODE 3
-      GUID {7D1B008B-2EAA-D84C-9860-F3D28AA943A8}
-      <SOURCE WAVE
-        FILE "01 Everything in Its Right Place.aif"
-      >
-    >
   >
   <TRACK {3B8F9022-6FAF-E74D-9CF9-BF001242C597}
     NAME ""
@@ -330,7 +308,7 @@
     SEL 0
     REC 0 0 0 0 0 0 0
     VU 2
-    TRACKHEIGHT 136 0
+    TRACKHEIGHT 124 0
     INQ 0 0 0 0.5 100 0 0 100
     NCHAN 6
     FX 1
@@ -340,17 +318,40 @@
     MIDIOUT -1
     MAINSEND 0 0
     <FXCHAIN
-      WNDRECT 383 363 785 605
+      WNDRECT 412 132 785 555
       SHOW 1
       LASTSEL 0
       DOCKED 0
       BYPASS 0 0 0
-      <JS charles/simple-meter ""
-        - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+      <JS Charles/simple.reajs ""
+        6.500000 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
       >
+      JS_DIMS 554 505
       FLOATPOS 0 0 0 0
-      FXID {C8F1F909-224E-1E44-97B0-A83D0BDD0873}
+      FXID {C2DBD345-9048-D14F-B057-A3421499902D}
       WAK 0
+    >
+    <ITEM
+      POSITION 0
+      SNAPOFFS 0
+      LENGTH 231.90666666666664
+      LOOP 1
+      ALLTAKES 0
+      FADEIN 1 0 0 1 0 0
+      FADEOUT 1 0 0 1 0 0
+      MUTE 0
+      SEL 0
+      IGUID {F705FA67-442E-CE48-B52A-57DDB0907A84}
+      IID 3
+      NAME "Joan Armatrading - Down To Zero.wav"
+      VOLPAN 1 0 1 -1
+      SOFFS 0
+      PLAYRATE 1 1 0 -1 0 0.0025
+      CHANMODE 0
+      GUID {D16AFA1F-6EF7-4045-91FD-D8BA561B49DA}
+      <SOURCE WAVE
+        FILE "Joan Armatrading - Down To Zero.wav"
+      >
     >
   >
   <TRACK {7566FB9B-CBF6-BF41-9BB5-DC9B37F5DAAC}
@@ -358,17 +359,17 @@
     PEAKCOL 16576
     BEAT -1
     AUTOMODE 0
-    VOLPAN 0.80045807461246 0 -1 -1 1
+    VOLPAN 1 0 -1 -1 1
     MUTESOLO 0 0 0
     IPHASE 0
     ISBUS 2 -1
     BUSCOMP 0 0
     SHOWINMIX 1 0.6667 0.5 1 0.5 -1 -1 -1
     FREEMODE 0
-    SEL 1
+    SEL 0
     REC 0 0 0 0 0 0 0
     VU 2
-    TRACKHEIGHT 153 0
+    TRACKHEIGHT 0 0
     INQ 0 0 0 0.5 100 0 0 100
     NCHAN 6
     FX 1
@@ -378,13 +379,13 @@
     MIDIOUT -1
     MAINSEND 1 0
     <FXCHAIN
-      WNDRECT 586 309 794 645
-      SHOW 2
-      LASTSEL 1
+      WNDRECT 448 70 794 645
+      SHOW 0
+      LASTSEL 0
       DOCKED 0
-      BYPASS 0 0 0
+      BYPASS 1 0 0
       <JS Synthesis/tonegenerator ""
-        -12.000000 -6.000000 440.000000 0.000000 0.000000 0.000000 0.000000 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+        0.000000 -120.000000 440.000000 0.000000 0.000000 0.000000 0.000000 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
       >
       <JS_PINMAP
         6AMAADwAAADoAwAABgAAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8AAAA6AMAAAYAAAAGAAAAAQAAAAAAAAAAAAAA
@@ -393,7 +394,7 @@
       FLOATPOS 0 0 0 0
       FXID {F7817CCC-988B-8F42-8D36-CEDC0A4D521C}
       WAK 0
-      BYPASS 0 0 0
+      BYPASS 1 0 0
       <JS ATK/FOA/Encode/Planewave ""
         0.000000 0.000000 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
       >
@@ -408,5 +409,29 @@
       FXID {A26956FC-60EE-B740-9738-FDAF1EC0F171}
       WAK 0
     >
+  >
+  <TRACK {4C41607A-F559-074B-89C9-EECBA005C853}
+    NAME "Joan Armatrading - Down To Zero"
+    PEAKCOL 16576
+    BEAT -1
+    AUTOMODE 0
+    VOLPAN 1 0 -1 -1 1
+    MUTESOLO 0 0 0
+    IPHASE 0
+    ISBUS 0 0
+    BUSCOMP 0 0
+    SHOWINMIX 1 0.6667 0.5 1 0.5 -1 -1 -1
+    FREEMODE 0
+    SEL 0
+    REC 0 0 0 0 0 0 0
+    VU 2
+    TRACKHEIGHT 0 0
+    INQ 0 0 0 0.5 100 0 0 100
+    NCHAN 2
+    FX 1
+    TRACKID {4C41607A-F559-074B-89C9-EECBA005C853}
+    PERF 0
+    MIDIOUT -1
+    MAINSEND 1 0
   >
 >
