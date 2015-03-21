@@ -1,12 +1,14 @@
 desc: 'A simple meter that utilizes js gfx scripting'
 
+slider1:0.8<0, 1, 0.1>level
+
+@slider
+amount = slider1;
+
 @init
 a = 0;
-zzz[0] = 4;
 
 @block
-a += 1;
-a = a % gfx_w;
 
 @sample
 w = spl0;
@@ -14,10 +16,18 @@ x = spl1;
 y = spl2;
 z = spl3;
 
-@gfx 300 500
+@gfx 360 360
 
-gfx_r = 0.8;
-gfx_g = 1;
-gfx_b = 1;
+quarter_width = gfx_w / 4;
+half_width = gfx_w / 2;
 
-gfx_rect(a, 20, 30, 30);
+gfx_r = 1;
+position_in_degrees = -quarter_width;
+loop(half_width, // for now it's okay to consider our resolution equal to a value in degrees
+  level = cos(position_in_degrees * $pi / 180) * amount;
+  // for now, gfx_x, gfx_y are equal to degrees, because the window size is 360x360
+  gfx_x = half_width + position_in_degrees;
+  gfx_y =  180;
+  gfx_setpixel(level, 0, 0);
+  position_in_degrees += 1;
+);
