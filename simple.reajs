@@ -1,0 +1,23 @@
+desc: 'A simple meter that utilizes js gfx scripting'
+
+@init
+a = 0;
+zzz[0] = 4;
+
+@block
+a += 1;
+a = a % gfx_w;
+
+@sample
+w = spl0;
+x = spl1;
+y = spl2;
+z = spl3;
+
+@gfx 300 500
+
+gfx_r = 0.8;
+gfx_g = 1;
+gfx_b = 1;
+
+gfx_rect(a, 20, 30, 30);
