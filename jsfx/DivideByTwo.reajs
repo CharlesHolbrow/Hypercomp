@@ -1,0 +1,6 @@
+@sample
+index = 0;
+loop(num_ch,
+  spl(index) *= 0.5;
+  index += 1;
+);

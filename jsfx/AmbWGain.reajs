@@ -1,0 +1,5 @@
+@init
+multiplier = sqrt(2);
+
+@sample
+spl0 *= multiplier;
