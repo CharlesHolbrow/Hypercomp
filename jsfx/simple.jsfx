@@ -42,7 +42,7 @@ aY = spl2;
 aZ = spl3;
 
 // Calculate the RMS of buff
-inputVal = aW;
+inputVal = aW; // TODO: aW * sqrt(2); aW * 0.5; aX * 0.5; aW + aX;
 buffTotal -= pow(buff[buffPosition], 2);
 buff[buffPosition] = inputVal;
 buffTotal += pow(inputVal, 2);
