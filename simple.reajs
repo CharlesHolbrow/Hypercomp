@@ -4,75 +4,119 @@ slider1:1<0, 1, 0.01>first
 slider2:1<0, 4, 1>second
 
 @slider
-mult1 = cos($pi*slider1/2) * .707;
-mult2 = sin($pi*slider1/2) * .707;
+mult1 = sin($pi*slider1/2) * .707;
+mult2 = .707 - mult1;
 
 @init
-wBuff = 0;
-wBuffPosition = 0;
-wBuffTotal = 0;
-wBuffRMS = 0;
+buff = srate * 1; // memory allocation
+buffPosition = 0;
+buffTotal = 0;
+buffRMS = 0;
 
-// Clear the buffer;
+// Clear the buffer
 index = 0;
-loop(srate,
-  wBuff[index] = 0;
+buffSize = srate;
+loop(buffSize,
+  buff[index] = 0;
   index += 1;
-)
+);
+
+// How big is the region we render to?
+box_width = 720;
+box_height = 360;
+box_width_inverse = 1 / box_width;
+border = 2;
+
+// Store row-major sin wav over 0 to pi
+sin_buff = srate * 2;
+x = 0;
+loop(box_width,
+  sin_buff[x] = abs(sin(x * box_width_inverse * $pi));
+  x += 1;
+);
 
 @sample
-w = spl0;
-x = spl1;
-y = spl2;
-z = spl3;
+aW = spl0;
+aX = spl1;
+aY = spl2;
+aZ = spl3;
 
-// Calculate the RMS of w buffer
-wBuffTotal -= pow(wBuff[wBuffPosition], 2);
-wBuff[wBuffPosition] = w;
-wBuffTotal += pow(w, 2);
-wBuffRMS = sqrt(wBuffTotal / srate);
+// Calculate the RMS of buff
+inputVal = aW;
+buffTotal -= pow(buff[buffPosition], 2);
+buff[buffPosition] = inputVal;
+buffTotal += pow(inputVal, 2);
+buffRMS = sqrt(buffTotal / buffSize);
 
-wBuffPosition += 1;
-wBuffPosition >= srate ? (wBuffPosition = 0;);
+buffPosition += 1;
+buffPosition >= buffSize ? (buffPosition = 0;);
+
+@block
+buffMin = 0;
+buffMax= 0;
+index = 0;
+// note that buff does NOT contain all samples since the last block
+loop(buffSize,
+  buff[index] > buffMax ? (buffMax = buff[index]);
+  buff[index] < buffMin ? (buffMin = buff[index]);
+  index += 1;
+);
 
 @gfx 360 360
 
-quarter_width = gfx_w / 4;
 half_width = gfx_w / 2;
 half_height = gfx_h / 2;
 
+////////////////////////////////////////////////////////////////
+//
+// Draw a box around the region we will render to
+//
+////////////////////////////////////////////////////////////////
+
+// The origin is the upper left, and y axis increases downward
+// box_x and box_y are the coordinates of the upper-left
+// position that we will render to
+box_x = half_width - (box_width * 0.5);
+box_y = half_height - (box_height * 0.5);
+gfx_mode = 0;
 gfx_r = 0; gfx_g = 0; gfx_b = 1;
-gfx_rect(half_width - 181, half_height - 181, 362, 362);
-gfx_r = 0; gfx_g = 0; gfx_b = 0;
-gfx_rect(half_width - 180, half_height - 180, 360, 360);
-
-position_in_degrees = - 90;
-loop(180, // for now it's okay to consider our resolution equal to a value in degrees
-  level = cos(position_in_degrees * $pi / 180) * mult1;// * wBuffRMS;
-  // for now, gfx_x, gfx_y are equal to degrees, because the window size is 360x360
-  gfx_x = half_width + position_in_degrees;
-  gfx_y =  half_height;
-  gfx_setpixel(level, 0, 0);
-  loop(30,
-    gfx_y += 1; gfx_setpixel(level, 0, 0);
-  );
-  position_in_degrees += 1;
+// draw a large blue box
+gfx_rect(
+  box_x - border,
+  box_y - border,
+  box_width + (border * 2),
+  box_height + (border * 2)
 );
+// A black box inside the blue box is our render canvas
+gfx_r = 0; gfx_g = 0; gfx_b = 0;
+gfx_rect(box_x, box_y, box_width, box_height);
 
-position_in_degrees = 0;
-loop(180,
-  level = sin(position_in_degrees * $pi / 180) * mult2;
-  gfx_x = half_width + position_in_degrees;
+
+////////////////////////////////////////////////////////////////
+//
+// Show where power is allocated.
+//
+////////////////////////////////////////////////////////////////
+
+// our starting point
+gfx_x = box_x;
+gfx_y = box_y;
+
+// additive mode for the draw loop
+gfx_mode = 1;
+
+// Pixel position within the box, upper left is 0, 0 of render box
+x = 0; loop(box_width,
+
+  // draw
   gfx_y = half_height;
-  gfx_getpixel(r, g, b);
-  gfx_setpixel(level + r, g, b);
-  loop(30,
-    gfx_y += 1; gfx_setpixel(level + r, g, b);
+  loop(100,
+    gfx_setpixel(sin_buff[x] * buffRMS, 0, 0);
+    gfx_y += 1;
   );
-  gfx_y += 1; gfx_setpixel(1, 0, 0);
-  gfx_y += 1; gfx_setpixel(1, 0, 0);
-  gfx_y += 1; gfx_setpixel(1, 0, 0);
-  gfx_y += 1; gfx_setpixel(1, 0, 0);
-  position_in_degrees += 1;
+
+  // increment our counters
+  gfx_x += 1;
+  x += 1;
 );
 
