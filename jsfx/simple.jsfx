@@ -1,11 +1,10 @@
 desc: 'A simple meter that utilizes js gfx scripting'
 
-slider1:1<0, 1, 0.01>first
+slider1:0<0, 1, 0.01>first
 slider2:1<0, 4, 1>second
 
 @slider
-mult1 = sin($pi*slider1/2) * .707;
-mult2 = .707 - mult1;
+shift_left = slider1 * $pi;
 
 @init
 buff = srate * 1; // memory allocation
@@ -98,25 +97,33 @@ gfx_rect(box_x, box_y, box_width, box_height);
 //
 ////////////////////////////////////////////////////////////////
 
-// our starting point
-gfx_x = box_x;
-gfx_y = box_y;
+function draw_region(gain, shift_left)(
 
-// additive mode for the draw loop
-gfx_mode = 1;
+  // our starting point
+  gfx_x = box_x;
+  gfx_y = box_y;
 
-// Pixel position within the box, upper left is 0, 0 of render box
-x = 0; loop(box_width,
+  // additive mode for the draw loop
+  gfx_mode = 1;
 
-  // draw
-  gfx_y = half_height;
-  loop(100,
-    gfx_setpixel(sin_buff[x] * buffRMS, 0, 0);
-    gfx_y += 1;
+  // Pixel position within the box, upper left is 0, 0 of render box
+  x = 0;
+
+  loop(box_width,
+
+    level = abs(sin(x * box_width_inverse * $pi + shift_left)) * gain;
+    gfx_y = half_height;
+    loop(100,
+      gfx_setpixel(level, 0, 0);
+      gfx_y += 1;
+    );
+
+    // increment our counters
+    gfx_x += 1;
+    x += 1;
   );
 
-  // increment our counters
-  gfx_x += 1;
-  x += 1;
 );
 
+draw_region(slider1, 0);
+draw_region(1 - slider1, 0.5 * $pi);
