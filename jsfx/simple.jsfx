@@ -21,7 +21,7 @@ loop(buffSize,
 );
 
 // How big is the region we render to?
-box_width = 720;
+box_width = 360;
 box_height = 360;
 box_width_inverse = 1 / box_width;
 border = 2;
@@ -99,30 +99,31 @@ gfx_rect(box_x, box_y, box_width, box_height);
 
 function draw_region(gain, shift_left)(
 
-  // our starting point
-  gfx_x = box_x;
-  gfx_y = box_y;
 
   // additive mode for the draw loop
   gfx_mode = 1;
 
-  // Pixel position within the box, upper left is 0, 0 of render box
-  x = 0;
+  // setup our outer loop on the y axis
+  gfx_y = box_y;
+  y = 0;
+  loop(box_height,
 
-  loop(box_width,
+    // setup our inner loop on the x axis
+    gfx_x = box_x;
+    x = 0;
+    loop(box_width,
 
-    level = abs(sin(x * box_width_inverse * $pi + shift_left)) * gain;
-    gfx_y = half_height;
-    loop(100,
+      level = abs(sin(x * box_width_inverse * $pi + shift_left)) * gain;
+      level *= abs(sin(y * box_width_inverse * $pi + shift_up)) * gain;
       gfx_setpixel(level, 0, 0);
-      gfx_y += 1;
+
+      gfx_x += 1;
+      x += 1;
     );
 
-    // increment our counters
-    gfx_x += 1;
-    x += 1;
+    gfx_y += 1;
+    y += 1;
   );
-
 );
 
 draw_region(slider1, 0);
