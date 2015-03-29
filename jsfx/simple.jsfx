@@ -9,7 +9,15 @@ shift_left = slider1 * $pi;
 
 
 @init
-k_sqrt2 = sqrt(2);
+// How big is the region we render to?
+box_width = 360;
+box_height = 360;
+border = 2;
+
+// Cached constants
+box_width_inverse = 1 / box_width;
+box_height_inverse = 1 / box_height;
+sqrt2 = sqrt(2);
 
 malloc_ptr = 0;
 function malloc(size)(
@@ -23,14 +31,14 @@ function malloc(size)(
   this.ptr;
 );
 
-function create_buffer(size)(
-  this.buff = malloc(size + 4);
+function create_buffer(size_samples)(
+  this.buff = malloc(size_samples + 4);
   // the first four memory locations store meta-data about the buffer
   // - buff[0] stores the size of the audio buffer in samples
-  // - buff[1] stores the position in the buffer relative to this.buff
+  // - buff[1] stores the position where we will place the next sample (relative to this.buff)
   // - buff[2] stores the sum of the square of each sample
   // - buff[3] stores the RMS over the buffer
-  this.buff[0] = size;
+  this.buff[0] = size_samples;
   this.buff[1] = 4;
   this.buff;
 );
@@ -50,16 +58,41 @@ function buff_rms(buff)(
   buff[3];
 );
 
-// How big is the region we render to?
-box_width = 360;
-box_height = 360;
-box_width_inverse = 1 / box_width;
-box_height_inverse = 1 / box_height;
-border = 2;
+////////////////////////////////////////////////////////////////
+//
+// For a given azimuth and elevation, calculate the level. The
+// units of both arguments are integers relative to box_height
+// and box_width.
+//
+////////////////////////////////////////////////////////////////
+function calculate_level(azimuth elevation)(
+  this.elevation_mult = sin_azimuth[elevation];
+  // contribution of front
+  this.level = 0;
+  this.level += 0.5 * buff_rms(buff_front) * sin_azimuth[azimuth] * this.elevation_mult;
+  this.level += 0.5 * buff_rms(buff_left) * sin_azimuth[(azimuth + box_width * 0.25) % box_width] * this.elevation_mult;
+  this.level += 0.5 * buff_rms(buff_right) * sin_azimuth[(azimuth + box_width * 0.75) % box_width] * this.elevation_mult;
+  this.level += 0.5 * buff_rms(buff_rear) * sin_azimuth[(azimuth + box_width * 0.5) % box_width] * this.elevation_mult;
+  this.level;
+);
 
-// How long to we calculate the RMS over?
+// How long do we calculate the RMS over?
 buff_size_ms = 100;
 buff_size_samples = floor(srate / 1000 * buff_size_ms);
+
+// sin_azimuth is the half cycle of a sin wave over box_width
+sin_azimuth = malloc(box_width);
+index = 0; loop(box_width,
+  sin_azimuth[index] = sin(index * box_width_inverse * $pi);
+  index += 1;
+);
+
+// cos_elevation is the quarter cycle of cos wave over box_heights
+cos_elevation = malloc(box_height);
+index = 0; loop(box_height,
+  cos_elevation[index] = cos(index * box_height_inverse * $pi * 0.5);
+  index += 1;
+);
 
 buff_front = create_buffer(buff_size_samples);
 buff_right = create_buffer(buff_size_samples);
@@ -68,7 +101,7 @@ buff_rear = create_buffer(buff_size_samples);
 
 
 @sample
-a_w = spl0 * k_sqrt2;
+a_w = spl0 * sqrt2;
 a_x = spl1;
 a_y = spl2;
 a_z = spl3;
@@ -91,9 +124,6 @@ loop(buff_front[0],
   index += 1;
 );
 
-rms_left = buff_rms(buff_left);
-rms_right = buff_rms(buff_right);
-rms_front = buff_rms(buff_front);
 
 @gfx 360 360
 
@@ -125,13 +155,14 @@ gfx_r = 0; gfx_g = 0; gfx_b = 0;
 gfx_rect(box_x, box_y, box_width, box_height);
 
 
+
 ////////////////////////////////////////////////////////////////
 //
 // Show where power is allocated.
 //
 ////////////////////////////////////////////////////////////////
 
-function draw_region(gain, shift_left)(
+function draw_region()(
 
 
   // additive mode for the draw loop
@@ -147,9 +178,8 @@ function draw_region(gain, shift_left)(
     x = 0;
     loop(box_width,
 
-      level = abs(sin(x * box_width_inverse * $pi + shift_left)) * gain;
-      level *= abs(sin(y * box_width_inverse * $pi + shift_up)) * gain;
-      gfx_setpixel(level, 0, 0);
+      this.level = calculate_level(x, y);
+      gfx_setpixel(this.level, 0, 0);
 
       gfx_x += 1;
       x += 1;
@@ -160,7 +190,5 @@ function draw_region(gain, shift_left)(
   );
 );
 
-draw_region(buff_rms(buff_front), 0);
-draw_region(buff_rms(buff_right), 0.75 * $pi);
-draw_region(buff_rms(buff_left), 0.25 * $pi);
-draw_region(buff_rms(buff_rear), 0.5 * $pi);
+draw_region();
+
