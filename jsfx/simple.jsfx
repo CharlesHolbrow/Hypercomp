@@ -9,6 +9,8 @@ shift_left = slider1 * $pi;
 
 
 @init
+k_sqrt2 = sqrt(2);
+
 malloc_ptr = 0;
 function malloc(size)(
   this.ptr = malloc_ptr;
@@ -30,7 +32,7 @@ function create_buffer(size)(
   // - buff[3] stores the RMS over the buffer
   this.buff[0] = size;
   this.buff[1] = 4;
-  buff;
+  this.buff;
 );
 
 // Add a value to the buffer, keeping all meta-data up to date.
@@ -55,19 +57,27 @@ box_width_inverse = 1 / box_width;
 box_height_inverse = 1 / box_height;
 border = 2;
 
-buff = create_buffer(srate);
+// How long to we calculate the RMS over?
+buff_size_ms = 100;
+buff_size_samples = floor(srate / 1000 * buff_size_ms);
+
+buff_front = create_buffer(buff_size_samples);
+buff_right = create_buffer(buff_size_samples);
+buff_left = create_buffer(buff_size_samples);
+buff_rear = create_buffer(buff_size_samples);
 
 
 @sample
-aW = spl0;
-aX = spl1;
-aY = spl2;
-aZ = spl3;
+a_w = spl0 * k_sqrt2;
+a_x = spl1;
+a_y = spl2;
+a_z = spl3;
 
-// Calculate the RMS of buff
-buff_push(buff, aW); // TODO: aW * sqrt(2); aW * 0.5; aX * 0.5; aW + aX;
-rms = buff_rms(buff);
-b0 = buff[0];
+half_w = a_w * 0.5;
+buff_push(buff_front, half_w + a_x * 0.5);
+buff_push(buff_rear,  half_w - a_x * 0.5);
+buff_push(buff_left,  half_w + a_y * 0.5);
+buff_push(buff_right, half_w - a_y * 0.5);
 
 
 @block
@@ -75,11 +85,15 @@ buffMin = 0;
 buffMax= 0;
 index = 4;
 // note that buff does NOT contain all samples since the last block
-loop(buff[0],
-  buff[index] > buffMax ? (buffMax = buff[index]);
-  buff[index] < buffMin ? (buffMin = buff[index]);
+loop(buff_front[0],
+  buff_front[index] > buffMax ? (buffMax = buff_front[index]);
+  buff_front[index] < buffMin ? (buffMin = buff_front[index]);
   index += 1;
 );
+
+rms_left = buff_rms(buff_left);
+rms_right = buff_rms(buff_right);
+rms_front = buff_rms(buff_front);
 
 @gfx 360 360
 
@@ -146,5 +160,7 @@ function draw_region(gain, shift_left)(
   );
 );
 
-draw_region(slider1, 0);
-draw_region(1 - slider1, 0.5 * $pi);
+draw_region(buff_rms(buff_front), 0);
+draw_region(buff_rms(buff_right), 0.75 * $pi);
+draw_region(buff_rms(buff_left), 0.25 * $pi);
+draw_region(buff_rms(buff_rear), 0.5 * $pi);
