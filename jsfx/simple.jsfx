@@ -3,36 +3,60 @@ desc: 'A simple meter that utilizes js gfx scripting'
 slider1:0<0, 1, 0.01>first
 slider2:1<0, 4, 1>second
 
+
 @slider
 shift_left = slider1 * $pi;
 
-@init
-buff = srate * 1; // memory allocation
-buffPosition = 0;
-buffTotal = 0;
-buffRMS = 0;
 
-// Clear the buffer
-index = 0;
-buffSize = srate;
-loop(buffSize,
-  buff[index] = 0;
-  index += 1;
+@init
+malloc_ptr = 0;
+function malloc(size)(
+  this.ptr = malloc_ptr;
+  this.i = 0;
+  loop(size,
+    malloc_ptr[this.i] = 0;
+    this.i += 1;
+  );
+  malloc_ptr += size;
+  this.ptr;
+);
+
+function create_buffer(size)(
+  this.buff = malloc(size + 4);
+  // the first four memory locations store meta-data about the buffer
+  // - buff[0] stores the size of the audio buffer in samples
+  // - buff[1] stores the position in the buffer relative to this.buff
+  // - buff[2] stores the sum of the square of each sample
+  // - buff[3] stores the RMS over the buffer
+  this.buff[0] = size;
+  this.buff[1] = 4;
+  buff;
+);
+
+// Add a value to the buffer, keeping all meta-data up to date.
+function buff_push(buff, value)(
+  buff[2] -= pow(buff[buff[1]], 2);
+  buff[buff[1]] = value;
+  buff[2] += pow(value, 2);
+  buff[3] = sqrt(buff[2] / buff[0]);
+
+  buff[1] += 1;
+  buff[1] >= (buff[0] + 4) ? (buff[1] = 4;);
+);
+
+function buff_rms(buff)(
+  buff[3];
 );
 
 // How big is the region we render to?
 box_width = 360;
 box_height = 360;
 box_width_inverse = 1 / box_width;
+box_height_inverse = 1 / box_height;
 border = 2;
 
-// Store row-major sin wav over 0 to pi
-sin_buff = srate * 2;
-x = 0;
-loop(box_width,
-  sin_buff[x] = abs(sin(x * box_width_inverse * $pi));
-  x += 1;
-);
+buff = create_buffer(srate);
+
 
 @sample
 aW = spl0;
@@ -41,21 +65,17 @@ aY = spl2;
 aZ = spl3;
 
 // Calculate the RMS of buff
-inputVal = aW; // TODO: aW * sqrt(2); aW * 0.5; aX * 0.5; aW + aX;
-buffTotal -= pow(buff[buffPosition], 2);
-buff[buffPosition] = inputVal;
-buffTotal += pow(inputVal, 2);
-buffRMS = sqrt(buffTotal / buffSize);
+buff_push(buff, aW); // TODO: aW * sqrt(2); aW * 0.5; aX * 0.5; aW + aX;
+rms = buff_rms(buff);
+b0 = buff[0];
 
-buffPosition += 1;
-buffPosition >= buffSize ? (buffPosition = 0;);
 
 @block
 buffMin = 0;
 buffMax= 0;
-index = 0;
+index = 4;
 // note that buff does NOT contain all samples since the last block
-loop(buffSize,
+loop(buff[0],
   buff[index] > buffMax ? (buffMax = buff[index]);
   buff[index] < buffMin ? (buffMin = buff[index]);
   index += 1;
