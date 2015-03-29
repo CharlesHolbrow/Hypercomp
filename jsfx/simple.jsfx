@@ -10,8 +10,8 @@ shift_left = slider1 * $pi;
 
 @init
 // How big is the region we render to?
-box_width = 360;
-box_height = 360;
+box_width = 440;
+box_height = 220;
 border = 2;
 
 // Cached constants
@@ -66,8 +66,7 @@ function buff_rms(buff)(
 //
 ////////////////////////////////////////////////////////////////
 function calculate_level(azimuth elevation)(
-  this.elevation_mult = sin_azimuth[elevation];
-  // contribution of front
+  this.elevation_mult = buff_rms(buff_top) * cos_elevation[elevation] + buff_rms(buff_bottom) * cos_elevation[box_height - elevation - 1];
   this.level = 0;
   this.level += 0.5 * buff_rms(buff_front) * sin_azimuth[azimuth] * this.elevation_mult;
   this.level += 0.5 * buff_rms(buff_left) * sin_azimuth[(azimuth + box_width * 0.25) % box_width] * this.elevation_mult;
@@ -98,6 +97,8 @@ buff_front = create_buffer(buff_size_samples);
 buff_right = create_buffer(buff_size_samples);
 buff_left = create_buffer(buff_size_samples);
 buff_rear = create_buffer(buff_size_samples);
+buff_top = create_buffer(buff_size_samples);
+buff_bottom = create_buffer(buff_size_samples);
 
 
 @sample
@@ -111,6 +112,8 @@ buff_push(buff_front, half_w + a_x * 0.5);
 buff_push(buff_rear,  half_w - a_x * 0.5);
 buff_push(buff_left,  half_w + a_y * 0.5);
 buff_push(buff_right, half_w - a_y * 0.5);
+buff_push(buff_top, half_w + a_z * 0.5);
+buff_push(buff_bottom, half_w - a_z * 0.5);
 
 
 @block
@@ -123,7 +126,6 @@ loop(buff_front[0],
   buff_front[index] < buffMin ? (buffMin = buff_front[index]);
   index += 1;
 );
-
 
 @gfx 360 360
 
