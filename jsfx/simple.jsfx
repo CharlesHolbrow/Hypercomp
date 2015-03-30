@@ -1,20 +1,18 @@
-desc: 'A simple meter that utilizes js gfx scripting'
+desc: A Simple Surround Meter
 
-slider1:0<0, 1, 0.01>first
-slider2:1<0, 4, 1>second
-
-
+slider1:0.75<0, 1, 0.01>Display Threshold
+slider2:1<0, 2, 0.01>Scaling Factor
 @slider
-shift_left = slider1 * $pi;
+display_threshold = slider1 * slider1;
 
 
 @init
-// How big is the region we render to?
+// Set analysis resolution.
 box_width = 440;
 box_height = 220;
 border = 2;
 
-// Cached constants
+// Cached some constants
 box_width_inverse = 1 / box_width;
 box_height_inverse = 1 / box_height;
 sqrt2 = sqrt(2);
@@ -66,12 +64,14 @@ function buff_rms(buff)(
 //
 ////////////////////////////////////////////////////////////////
 function calculate_level(azimuth elevation)(
-  this.elevation_mult = buff_rms(buff_top) * cos_elevation[elevation] + buff_rms(buff_bottom) * cos_elevation[box_height - elevation - 1];
+  this.elevation_mult = sin_half_elevation[elevation];
   this.level = 0;
-  this.level += 0.5 * buff_rms(buff_front) * sin_azimuth[azimuth] * this.elevation_mult;
-  this.level += 0.5 * buff_rms(buff_left) * sin_azimuth[(azimuth + box_width * 0.25) % box_width] * this.elevation_mult;
-  this.level += 0.5 * buff_rms(buff_right) * sin_azimuth[(azimuth + box_width * 0.75) % box_width] * this.elevation_mult;
-  this.level += 0.5 * buff_rms(buff_rear) * sin_azimuth[(azimuth + box_width * 0.5) % box_width] * this.elevation_mult;
+  this.level += buff_rms(buff_front) * sin_azimuth[azimuth] * this.elevation_mult;
+  this.level += buff_rms(buff_left) * sin_azimuth[(azimuth + box_width * 0.25) % box_width] * this.elevation_mult;
+  this.level += buff_rms(buff_right) * sin_azimuth[(azimuth + box_width * 0.75) % box_width] * this.elevation_mult;
+  this.level += buff_rms(buff_rear) * sin_azimuth[(azimuth + box_width * 0.5) % box_width]   * this.elevation_mult;
+  this.level += buff_rms(buff_top) * cos_elevation[elevation];
+  this.level += buff_rms(buff_bottom) * cos_elevation[box_height - elevation - 1]; 
   this.level;
 );
 
@@ -86,10 +86,24 @@ index = 0; loop(box_width,
   index += 1;
 );
 
-// cos_elevation is the quarter cycle of cos wave over box_heights
+// cos_elevation is the quarter cycle of cos wave over box_height
 cos_elevation = malloc(box_height);
 index = 0; loop(box_height,
   cos_elevation[index] = cos(index * box_height_inverse * $pi * 0.5);
+  index += 1;
+);
+
+// cos_half_elevation is a quarter cycle of cos over half of box_height
+cos_half_elevation = malloc(box_height);
+index = 0; loop(box_height / 2,
+  cos_half_elevation[index] = cos(index * box_height_inverse * $pi);
+  index += 1;
+);
+
+// sin_half_elevation is a quarter cycle of a sine wave centered on the peak
+sin_half_elevation = malloc(box_height);
+index = 0; loop(box_height,
+  sin_half_elevation[index] = sin(index * box_height_inverse * $pi * 0.5 + ($pi * 0.25));
   index += 1;
 );
 
@@ -164,33 +178,43 @@ gfx_rect(box_x, box_y, box_width, box_height);
 //
 ////////////////////////////////////////////////////////////////
 
-function draw_region()(
+// stats 
+max_level_temp = 0;
+total = 0;
 
+// additive mode for the draw loop
+gfx_mode = 1;
 
-  // additive mode for the draw loop
-  gfx_mode = 1;
+// setup our outer loop on the y axis
+gfx_y = box_y;
+y = 0;
+loop(box_height,
 
-  // setup our outer loop on the y axis
-  gfx_y = box_y;
-  y = 0;
-  loop(box_height,
+  // setup our inner loop on the x axis
+  gfx_x = box_x;
+  x = 0;
+  loop(box_width,
 
-    // setup our inner loop on the x axis
-    gfx_x = box_x;
-    x = 0;
-    loop(box_width,
+    level = calculate_level(x, y);
+    // Track the highest pixel value in this frame
+    level > max_level_temp ? max_level_temp = level;
+    // Summation of all pixels in this frame
+    total += level;
 
-      this.level = calculate_level(x, y);
-      gfx_setpixel(this.level, 0, 0);
+    // condition for viewing
+    level = pow(level, slider2);
+    level -= display_threshold;
+    level *= 1/(1 - display_threshold);
 
-      gfx_x += 1;
-      x += 1;
-    );
+    gfx_setpixel(level, 0, 0);
 
-    gfx_y += 1;
-    y += 1;
+    gfx_x += 1;
+    x += 1;
   );
+
+  gfx_y += 1;
+  y += 1;
 );
 
-draw_region();
-
+max_level = max_level_temp;
+avg_level = max_level / (box_width * box_height);
