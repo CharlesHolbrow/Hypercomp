@@ -1,7 +1,8 @@
 desc: A Simple Surround Meter
-
 slider1:0.75<0, 1, 0.01>Display Threshold
 slider2:1<0, 2, 0.01>Scaling Factor
+
+
 @slider
 display_threshold = slider1 * slider1;
 
@@ -70,9 +71,11 @@ function calculate_level(azimuth elevation)(
   this.level += buff_rms(buff_left) * sin_azimuth[(azimuth + box_width * 0.25) % box_width] * this.elevation_mult;
   this.level += buff_rms(buff_right) * sin_azimuth[(azimuth + box_width * 0.75) % box_width] * this.elevation_mult;
   this.level += buff_rms(buff_rear) * sin_azimuth[(azimuth + box_width * 0.5) % box_width]   * this.elevation_mult;
-  this.level += buff_rms(buff_top) * cos_elevation[elevation];
-  this.level += buff_rms(buff_bottom) * cos_elevation[box_height - elevation - 1]; 
-  this.level;
+  // I am mystified why the mystery_scalar helps. but it does.
+  this.mystery_scalar = sqrt2;
+  this.level += buff_rms(buff_top) * linear_elevation[elevation] * this.mystery_scalar;
+  this.level += buff_rms(buff_bottom) * linear_elevation[box_height - elevation - 1] * this.mystery_scalar;
+  this.level / this.mystery_scalar;
 );
 
 // How long do we calculate the RMS over?
@@ -104,6 +107,13 @@ index = 0; loop(box_height / 2,
 sin_half_elevation = malloc(box_height);
 index = 0; loop(box_height,
   sin_half_elevation[index] = sin(index * box_height_inverse * $pi * 0.5 + ($pi * 0.25));
+  index += 1;
+);
+
+// linear_elevation is a linear ramp from 1 to 0 over box_height
+linear_elevation = malloc(box_height);
+index = 0; loop(box_height,
+  linear_elevation[index] = 1 - (index * box_height_inverse);
   index += 1;
 );
 
