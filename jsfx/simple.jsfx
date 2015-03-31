@@ -1,6 +1,6 @@
-desc: A Simple Surround Meter
+desc: Ambisonic Compressor
 slider1:0.75<0, 1, 0.01>Display Threshold
-slider2:1<0, 2, 0.01>Scaling Factor
+slider2:1<0, 2, 0.01>Scale Brightness
 
 
 @slider
@@ -11,13 +11,21 @@ display_threshold = slider1 * slider1;
 // Set analysis resolution.
 box_width = 440;
 box_height = 220;
+// For display only, draw a border around the visulization rectangle
 border = 2;
+
+// How long do we calculate the RMS over?
+buff_size_ms = 100;
+buff_size_samples = floor(srate / 1000 * buff_size_ms);
 
 // Cached some constants
 box_width_inverse = 1 / box_width;
 box_height_inverse = 1 / box_height;
 sqrt2 = sqrt(2);
 
+// My very simple memory allocator. We never need to free
+// memory, so our program code is responsible for keeping
+// track of how large each block of memory is. 
 malloc_ptr = 0;
 function malloc(size)(
   this.ptr = malloc_ptr;
@@ -30,14 +38,16 @@ function malloc(size)(
   this.ptr;
 );
 
-function create_buffer(size_samples)(
-  this.buff = malloc(size_samples + 4);
-  // the first four memory locations store meta-data about the buffer
-  // - buff[0] stores the size of the audio buffer in samples
-  // - buff[1] stores the position where we will place the next sample (relative to this.buff)
-  // - buff[2] stores the sum of the square of each sample
-  // - buff[3] stores the RMS over the buffer
-  this.buff[0] = size_samples;
+// Allocate an audio buffer
+// the first four memory locations store meta-data about the buffer
+// - buff[0] stores the number of audio samples this buffer can store
+// Assuming we use buff_push to add each sample to our buffer:
+// - buff[1] stores the position where we will place the next sample (relative to this.buff)
+// - buff[2] stores the sum of the square of each sample
+// - buff[3] stores the RMS of the buffer
+function create_buffer(size_in_samples)(
+  this.buff = malloc(size_in_samples + 4);
+  this.buff[0] = size_in_samples;
   this.buff[1] = 4;
   this.buff;
 );
@@ -53,34 +63,17 @@ function buff_push(buff, value)(
   buff[1] >= (buff[0] + 4) ? (buff[1] = 4;);
 );
 
+// Retrieve the RMS of buff
 function buff_rms(buff)(
   buff[3];
 );
 
 ////////////////////////////////////////////////////////////////
 //
-// For a given azimuth and elevation, calculate the level. The
-// units of both arguments are integers relative to box_height
-// and box_width.
+// We know the resolution at which we are calculating the sound
+// field, so we can cache most of the interpolation values.
 //
 ////////////////////////////////////////////////////////////////
-function calculate_level(azimuth elevation)(
-  this.elevation_mult = sin_half_elevation[elevation];
-  this.level = 0;
-  this.level += buff_rms(buff_front) * sin_azimuth[azimuth] * this.elevation_mult;
-  this.level += buff_rms(buff_left) * sin_azimuth[(azimuth + box_width * 0.25) % box_width] * this.elevation_mult;
-  this.level += buff_rms(buff_right) * sin_azimuth[(azimuth + box_width * 0.75) % box_width] * this.elevation_mult;
-  this.level += buff_rms(buff_rear) * sin_azimuth[(azimuth + box_width * 0.5) % box_width]   * this.elevation_mult;
-  // I am mystified why the mystery_scalar helps. but it does.
-  this.mystery_scalar = sqrt2;
-  this.level += buff_rms(buff_top) * linear_elevation[elevation] * this.mystery_scalar;
-  this.level += buff_rms(buff_bottom) * linear_elevation[box_height - elevation - 1] * this.mystery_scalar;
-  this.level / this.mystery_scalar;
-);
-
-// How long do we calculate the RMS over?
-buff_size_ms = 100;
-buff_size_samples = floor(srate / 1000 * buff_size_ms);
 
 // sin_azimuth is the half cycle of a sin wave over box_width
 sin_azimuth = malloc(box_width);
@@ -124,6 +117,23 @@ buff_rear = create_buffer(buff_size_samples);
 buff_top = create_buffer(buff_size_samples);
 buff_bottom = create_buffer(buff_size_samples);
 
+// For a given azimuth and elevation, calculate the level. The
+// units of both arguments are integers relative to box_height
+// and box_width.
+function calculate_level(azimuth elevation)(
+  this.elevation_mult = sin_half_elevation[elevation];
+  this.level = 0;
+  this.level += buff_rms(buff_front) * sin_azimuth[azimuth] * this.elevation_mult;
+  this.level += buff_rms(buff_left) * sin_azimuth[(azimuth + box_width * 0.25) % box_width] * this.elevation_mult;
+  this.level += buff_rms(buff_right) * sin_azimuth[(azimuth + box_width * 0.75) % box_width] * this.elevation_mult;
+  this.level += buff_rms(buff_rear) * sin_azimuth[(azimuth + box_width * 0.5) % box_width]   * this.elevation_mult;
+  // I don't quite understand why we need to scale the elevation axis, but adding this makes things work correctly
+  this.elevation_scale = sqrt2;
+  this.level += buff_rms(buff_top) * linear_elevation[elevation] * this.elevation_scale;
+  this.level += buff_rms(buff_bottom) * linear_elevation[box_height - elevation - 1] * this.elevation_scale;
+  this.level / this.elevation_scale;
+);
+
 
 @sample
 a_w = spl0 * sqrt2;
@@ -140,28 +150,19 @@ buff_push(buff_top, half_w + a_z * 0.5);
 buff_push(buff_bottom, half_w - a_z * 0.5);
 
 
-@block
-buffMin = 0;
-buffMax= 0;
-index = 4;
-// note that buff does NOT contain all samples since the last block
-loop(buff_front[0],
-  buff_front[index] > buffMax ? (buffMax = buff_front[index]);
-  buff_front[index] < buffMin ? (buffMin = buff_front[index]);
-  index += 1;
-);
-
+////////////////////////////////////////////////////////////////
+//
+// Execute gfx code approximately 30 times per second. Note that
+// it runs on a separate thread from audio processing above. 
+//
+////////////////////////////////////////////////////////////////
 @gfx 360 360
 
 half_width = gfx_w / 2;
 half_height = gfx_h / 2;
 
-////////////////////////////////////////////////////////////////
+// Draw a box around the region we will render to.
 //
-// Draw a box around the region we will render to
-//
-////////////////////////////////////////////////////////////////
-
 // The origin is the upper left, and y axis increases downward
 // box_x and box_y are the coordinates of the upper-left
 // position that we will render to
@@ -180,15 +181,7 @@ gfx_rect(
 gfx_r = 0; gfx_g = 0; gfx_b = 0;
 gfx_rect(box_x, box_y, box_width, box_height);
 
-
-
-////////////////////////////////////////////////////////////////
-//
-// Show where power is allocated.
-//
-////////////////////////////////////////////////////////////////
-
-// stats 
+// keep track of these stats for each frame
 max_level_temp = 0;
 total = 0;
 
