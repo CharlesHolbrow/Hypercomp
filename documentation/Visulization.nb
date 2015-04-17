@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     38106,        822]
-NotebookOptionsPosition[     37746,        805]
-NotebookOutlinePosition[     38091,        820]
-CellTagsIndexPosition[     38048,        817]
+NotebookDataLength[     14085,        340]
+NotebookOptionsPosition[     13725,        323]
+NotebookOutlinePosition[     14070,        338]
+CellTagsIndexPosition[     14027,        335]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -33,8 +33,7 @@ Cell[BoxData[
           RowBox[{"[", "2", "]"}], "]"}], "]"}], " ", "*", " ", 
         RowBox[{"Cos", "[", 
          RowBox[{"#", "[", 
-          RowBox[{"[", "3", "]"}], "]"}], "]"}]}], ",", " ", 
-       "\[IndentingNewLine]", 
+          RowBox[{"[", "3", "]"}], "]"}], "]"}]}], ",", "\[IndentingNewLine]", 
        RowBox[{
         RowBox[{"#", "[", 
          RowBox[{"[", "1", "]"}], "]"}], " ", "*", " ", 
@@ -54,753 +53,272 @@ Cell[BoxData[
       "}"}], ")"}], "&"}]}], ";"}]], "Input",
  CellChangeTimes->{
   3.6382841923331575`*^9, {3.638284234358718*^9, 3.638284240204935*^9}, {
-   3.6382842919655247`*^9, 3.6382842971687436`*^9}, 3.638284701721616*^9}],
+   3.6382842919655247`*^9, 3.6382842971687436`*^9}, 3.638284701721616*^9, 
+   3.6382855132986135`*^9}],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[{
  RowBox[{
-  RowBox[{"points", " ", "=", " ", 
+  RowBox[{"sphericalCoordinates", " ", "=", " ", 
    RowBox[{"Flatten", "[", 
-    RowBox[{"Table", "[", "\[IndentingNewLine]", 
-     RowBox[{
-      RowBox[{"Point", "[", 
-       RowBox[{"SphericalToCartesian", "[", 
-        RowBox[{"{", 
-         RowBox[{"1", ",", " ", 
-          RowBox[{"x", " ", "*", " ", 
-           RowBox[{"Pi", " ", "/", " ", "180"}]}], ",", " ", 
-          RowBox[{"y", " ", "*", " ", 
-           RowBox[{"Pi", " ", "/", " ", "180"}]}]}], "}"}], "]"}], "]"}], ",",
-       " ", "\[IndentingNewLine]", 
-      RowBox[{"{", 
-       RowBox[{"y", ",", " ", 
-        RowBox[{"-", "90"}], ",", "  ", "90", ",", " ", "20"}], "}"}], ",", 
-      "\[IndentingNewLine]", 
-      RowBox[{"{", 
-       RowBox[{"x", ",", " ", 
-        RowBox[{"-", "180"}], ",", " ", "180", ",", " ", "20"}], "}"}]}], 
-     "\[IndentingNewLine]", "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"Table", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"1", ",", 
+         RowBox[{"x", "*", 
+          RowBox[{"Pi", "/", "180"}]}], ",", 
+         RowBox[{"y", "*", 
+          RowBox[{"Pi", "/", "180"}]}]}], "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"{", 
+        RowBox[{"y", ",", 
+         RowBox[{"-", "90"}], ",", "90", ",", "30"}], "}"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"{", 
+        RowBox[{"x", ",", 
+         RowBox[{"-", "180"}], ",", "180", ",", "30"}], "}"}]}], 
+      "\[IndentingNewLine]", "]"}], ",", " ", "1"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"cartesianCoordinates", " ", "=", 
+   RowBox[{"SphericalToCartesian", "/@", "sphericalCoordinates"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"points", " ", "=", " ", 
+   RowBox[{"Point", "/@", "cartesianCoordinates"}]}], 
+  ";"}], "\[IndentingNewLine]", 
  RowBox[{"Graphics3D", "[", 
   RowBox[{"Append", "[", 
    RowBox[{"points", ",", " ", 
     RowBox[{"Sphere", "[", 
      RowBox[{
       RowBox[{"{", 
-       RowBox[{"0", ",", " ", "0", ",", " ", "0"}], "}"}], ",", " ", "0.95"}],
-      "]"}]}], "]"}], "]"}]}], "Input",
- CellChangeTimes->CompressedData["
-1:eJxTTMoPSmViYGAQAWIQve1zxYl7Uq8dPz1KuQGi7SZp3AHRaffqnoFoGTee
-LyA6w0YNTBcU/OO4D6TfTdbgBNFhX9bwguhaw6/iIHrVcQZZEC3KUA+mnbYU
-KoLoA/HzwPQkuXRVEH1+wS1DEO2mOSMRRE84yJsEopWsZno8ANKL1y0F0yEz
-wyNA9MUKzygQ/WJfRhyITmu9B6aD17/tB9FJizQngujjUV9OV0oD9Z3ZfgZE
-37m9+CKI5poqdBVEnxGxuwWivyU13QPR8lz/v4DoRaJLvoFojX/1TFVA+pZd
-MAuIflZgKAWilwTsAdM3Z+9WBdFcK16pgWgAOOChMw==
-  "]],
+       RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", " ", "0.95"}], "]"}]}], 
+   "]"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.638284935403596*^9, 3.638285103845874*^9}, {
+  3.638285139124601*^9, 3.638285188678771*^9}, {3.6382852258449335`*^9, 
+  3.638285234018762*^9}, {3.638285464646158*^9, 3.6382854754601803`*^9}, {
+  3.6382856034321327`*^9, 3.6382856225937943`*^9}, {3.638285676097785*^9, 
+  3.63828586351264*^9}, {3.6382858976859636`*^9, 3.638285943620135*^9}, {
+  3.638286011862776*^9, 3.6382860152117863`*^9}}],
 
 Cell[BoxData[
  Graphics3DBox[{Point3DBox[{0, 0, -1}], 
    Point3DBox[
-    NCache[{0, Sin[Rational[1, 9] Pi], -Cos[Rational[1, 9] Pi]}, {
-     0, 0.3420201433256687, -0.9396926207859084}]], 
-   Point3DBox[
-    NCache[{0, Sin[Rational[2, 9] Pi], -Cos[Rational[2, 9] Pi]}, {
-     0, 0.6427876096865393, -0.766044443118978}]], 
+    NCache[{0, Rational[1, 2], Rational[-1, 2] 3^Rational[1, 2]}, {
+     0, 0.5, -0.8660254037844386}]], 
    Point3DBox[
     NCache[{0, Rational[1, 2] 3^Rational[1, 2], Rational[-1, 2]}, {
-     0, 0.8660254037844386, -0.5}]], 
-   Point3DBox[
-    NCache[{0, Cos[Rational[1, 18] Pi], -Sin[Rational[1, 18] Pi]}, {
-     0, 0.984807753012208, -0.17364817766693033`}]], 
-   Point3DBox[
-    NCache[{0, Cos[Rational[1, 18] Pi], Sin[Rational[1, 18] Pi]}, {
-     0, 0.984807753012208, 0.17364817766693033`}]], 
+     0, 0.8660254037844386, -0.5}]], Point3DBox[{0, 1, 0}], 
    Point3DBox[
     NCache[{0, Rational[1, 2] 3^Rational[1, 2], Rational[1, 2]}, {
      0, 0.8660254037844386, 0.5}]], 
    Point3DBox[
-    NCache[{0, Sin[Rational[2, 9] Pi], Cos[Rational[2, 9] Pi]}, {
-     0, 0.6427876096865393, 0.766044443118978}]], 
+    NCache[{0, Rational[1, 2], Rational[1, 2] 3^Rational[1, 2]}, {
+     0, 0.5, 0.8660254037844386}]], Point3DBox[{0, 0, 1}], 
    Point3DBox[
-    NCache[{0, Sin[Rational[1, 9] Pi], Cos[Rational[1, 9] Pi]}, {
-     0, 0.3420201433256687, 0.9396926207859084}]], Point3DBox[{0, 0, 1}], 
-   Point3DBox[
-    NCache[{0, -Sin[Rational[1, 9] Pi], Cos[Rational[1, 9] Pi]}, {
-     0, -0.3420201433256687, 0.9396926207859084}]], 
-   Point3DBox[
-    NCache[{0, -Sin[Rational[2, 9] Pi], Cos[Rational[2, 9] Pi]}, {
-     0, -0.6427876096865393, 0.766044443118978}]], 
+    NCache[{0, Rational[-1, 2], Rational[1, 2] 3^Rational[1, 2]}, {
+     0, -0.5, 0.8660254037844386}]], 
    Point3DBox[
     NCache[{0, Rational[-1, 2] 3^Rational[1, 2], Rational[1, 2]}, {
-     0, -0.8660254037844386, 0.5}]], 
-   Point3DBox[
-    NCache[{0, -Cos[Rational[1, 18] Pi], Sin[Rational[1, 18] Pi]}, {
-     0, -0.984807753012208, 0.17364817766693033`}]], 
-   Point3DBox[
-    NCache[{0, -Cos[Rational[1, 18] Pi], -Sin[Rational[1, 18] Pi]}, {
-     0, -0.984807753012208, -0.17364817766693033`}]], 
+     0, -0.8660254037844386, 0.5}]], Point3DBox[{0, -1, 0}], 
    Point3DBox[
     NCache[{0, Rational[-1, 2] 3^Rational[1, 2], Rational[-1, 2]}, {
      0, -0.8660254037844386, -0.5}]], 
    Point3DBox[
-    NCache[{0, -Sin[Rational[2, 9] Pi], -Cos[Rational[2, 9] Pi]}, {
-     0, -0.6427876096865393, -0.766044443118978}]], 
-   Point3DBox[
-    NCache[{0, -Sin[Rational[1, 9] Pi], -Cos[Rational[1, 9] Pi]}, {
-     0, -0.3420201433256687, -0.9396926207859084}]], Point3DBox[{0, 0, -1}], 
+    NCache[{0, Rational[-1, 2], Rational[-1, 2] 3^Rational[1, 2]}, {
+     0, -0.5, -0.8660254037844386}]], Point3DBox[{0, 0, -1}], 
    Point3DBox[{0, 0, -1}], 
    Point3DBox[
-    NCache[{-Sin[Rational[1, 9] Pi]^2, Cos[Rational[1, 9] Pi] 
-      Sin[Rational[1, 9] Pi], -
-      Cos[Rational[1, 9] Pi]}, {-0.11697777844051097`, 
-     0.3213938048432697, -0.9396926207859084}]], 
+    NCache[{Rational[-1, 4], Rational[1, 4] 3^Rational[1, 2], Rational[-1, 2] 
+      3^Rational[1, 2]}, {-0.25, 0.4330127018922193, -0.8660254037844386}]], 
    Point3DBox[
-    NCache[{-Sin[Rational[1, 9] Pi] Sin[Rational[2, 9] Pi], 
-      Cos[Rational[1, 9] Pi] Sin[Rational[2, 9] Pi], -
-      Cos[Rational[2, 9] Pi]}, {-0.21984631039295416`, 
-     0.6040227735550536, -0.766044443118978}]], 
+    NCache[{Rational[-1, 4] 3^Rational[1, 2], Rational[3, 4], 
+      Rational[-1, 2]}, {-0.4330127018922193, 0.75, -0.5}]], 
    Point3DBox[
-    NCache[{Rational[-1, 2] 3^Rational[1, 2] Sin[Rational[1, 9] Pi], 
-      Rational[1, 2] 3^Rational[1, 2] Cos[Rational[1, 9] Pi], 
-      Rational[-1, 2]}, {-0.2961981327260238, 0.8137976813493737, -0.5}]], 
+    NCache[{Rational[-1, 2], Rational[1, 2] 3^Rational[1, 2], 0}, {-0.5, 
+      0.8660254037844386, 0}]], 
    Point3DBox[
-    NCache[{-Cos[Rational[1, 18] Pi] Sin[Rational[1, 9] Pi], 
-      Cos[Rational[1, 18] Pi] Cos[Rational[1, 9] Pi], -
-      Sin[Rational[1, 18] Pi]}, {-0.33682408883346515`, 
-     0.9254165783983234, -0.17364817766693033`}]], 
+    NCache[{Rational[-1, 4] 3^Rational[1, 2], Rational[3, 4], Rational[
+      1, 2]}, {-0.4330127018922193, 0.75, 0.5}]], 
    Point3DBox[
-    NCache[{-Cos[Rational[1, 18] Pi] Sin[Rational[1, 9] Pi], 
-      Cos[Rational[1, 18] Pi] Cos[Rational[1, 9] Pi], Sin[
-      Rational[1, 18] Pi]}, {-0.33682408883346515`, 0.9254165783983234, 
-     0.17364817766693033`}]], 
+    NCache[{Rational[-1, 4], Rational[1, 4] 3^Rational[1, 2], Rational[1, 2] 
+      3^Rational[1, 2]}, {-0.25, 0.4330127018922193, 0.8660254037844386}]], 
+   Point3DBox[{0, 0, 1}], 
    Point3DBox[
-    NCache[{Rational[-1, 2] 3^Rational[1, 2] Sin[Rational[1, 9] Pi], 
-      Rational[1, 2] 3^Rational[1, 2] Cos[Rational[1, 9] Pi], Rational[
-      1, 2]}, {-0.2961981327260238, 0.8137976813493737, 0.5}]], 
+    NCache[{Rational[1, 4], Rational[-1, 4] 3^Rational[1, 2], Rational[1, 2] 
+      3^Rational[1, 2]}, {0.25, -0.4330127018922193, 0.8660254037844386}]], 
    Point3DBox[
-    NCache[{-Sin[Rational[1, 9] Pi] Sin[Rational[2, 9] Pi], 
-      Cos[Rational[1, 9] Pi] Sin[Rational[2, 9] Pi], Cos[
-      Rational[2, 9] Pi]}, {-0.21984631039295416`, 0.6040227735550536, 
-     0.766044443118978}]], 
+    NCache[{Rational[1, 4] 3^Rational[1, 2], Rational[-3, 4], Rational[
+      1, 2]}, {0.4330127018922193, -0.75, 0.5}]], 
    Point3DBox[
-    NCache[{-Sin[Rational[1, 9] Pi]^2, Cos[Rational[1, 9] Pi] 
-      Sin[Rational[1, 9] Pi], Cos[Rational[1, 9] Pi]}, {-0.11697777844051097`,
-      0.3213938048432697, 0.9396926207859084}]], Point3DBox[{0, 0, 1}], 
+    NCache[{Rational[1, 2], Rational[-1, 2] 3^Rational[1, 2], 0}, {
+     0.5, -0.8660254037844386, 0}]], 
    Point3DBox[
-    NCache[{Sin[Rational[1, 9] Pi]^2, -Cos[Rational[1, 9] Pi] 
-      Sin[Rational[1, 9] Pi], Cos[Rational[1, 9] Pi]}, {
-     0.11697777844051097`, -0.3213938048432697, 0.9396926207859084}]], 
+    NCache[{Rational[1, 4] 3^Rational[1, 2], Rational[-3, 4], 
+      Rational[-1, 2]}, {0.4330127018922193, -0.75, -0.5}]], 
    Point3DBox[
-    NCache[{Sin[Rational[1, 9] Pi] Sin[Rational[2, 9] Pi], -
-      Cos[Rational[1, 9] Pi] Sin[Rational[2, 9] Pi], Cos[
-      Rational[2, 9] Pi]}, {0.21984631039295416`, -0.6040227735550536, 
-     0.766044443118978}]], 
-   Point3DBox[
-    NCache[{Rational[1, 2] 3^Rational[1, 2] Sin[Rational[1, 9] Pi], 
-      Rational[-1, 2] 3^Rational[1, 2] Cos[Rational[1, 9] Pi], Rational[
-      1, 2]}, {0.2961981327260238, -0.8137976813493737, 0.5}]], 
-   Point3DBox[
-    NCache[{Cos[Rational[1, 18] Pi] Sin[Rational[1, 9] Pi], -
-      Cos[Rational[1, 18] Pi] Cos[Rational[1, 9] Pi], Sin[
-      Rational[1, 18] Pi]}, {0.33682408883346515`, -0.9254165783983234, 
-     0.17364817766693033`}]], 
-   Point3DBox[
-    NCache[{Cos[Rational[1, 18] Pi] Sin[Rational[1, 9] Pi], -
-      Cos[Rational[1, 18] Pi] Cos[Rational[1, 9] Pi], -
-      Sin[Rational[1, 18] Pi]}, {
-     0.33682408883346515`, -0.9254165783983234, -0.17364817766693033`}]], 
-   Point3DBox[
-    NCache[{Rational[1, 2] 3^Rational[1, 2] Sin[Rational[1, 9] Pi], 
-      Rational[-1, 2] 3^Rational[1, 2] Cos[Rational[1, 9] Pi], 
-      Rational[-1, 2]}, {0.2961981327260238, -0.8137976813493737, -0.5}]], 
-   Point3DBox[
-    NCache[{Sin[Rational[1, 9] Pi] Sin[Rational[2, 9] Pi], -
-      Cos[Rational[1, 9] Pi] Sin[Rational[2, 9] Pi], -
-      Cos[Rational[2, 9] Pi]}, {
-     0.21984631039295416`, -0.6040227735550536, -0.766044443118978}]], 
-   Point3DBox[
-    NCache[{Sin[Rational[1, 9] Pi]^2, -Cos[Rational[1, 9] Pi] 
-      Sin[Rational[1, 9] Pi], -Cos[Rational[1, 9] Pi]}, {
-     0.11697777844051097`, -0.3213938048432697, -0.9396926207859084}]], 
+    NCache[{Rational[1, 4], Rational[-1, 4] 3^Rational[1, 2], Rational[-1, 2] 
+      3^Rational[1, 2]}, {0.25, -0.4330127018922193, -0.8660254037844386}]], 
    Point3DBox[{0, 0, -1}], Point3DBox[{0, 0, -1}], 
    Point3DBox[
-    NCache[{-Sin[Rational[1, 9] Pi] Sin[Rational[2, 9] Pi], 
-      Cos[Rational[2, 9] Pi] Sin[Rational[1, 9] Pi], -
-      Cos[Rational[1, 9] Pi]}, {-0.21984631039295416`, 
-     0.2620026302293849, -0.9396926207859084}]], 
-   Point3DBox[
-    NCache[{-Sin[Rational[2, 9] Pi]^2, Cos[Rational[2, 9] Pi] 
-      Sin[Rational[2, 9] Pi], -
-      Cos[Rational[2, 9] Pi]}, {-0.41317591116653474`, 
-     0.49240387650610395`, -0.766044443118978}]], 
-   Point3DBox[
-    NCache[{Rational[-1, 2] 3^Rational[1, 2] Sin[Rational[2, 9] Pi], 
-      Rational[1, 2] 3^Rational[1, 2] Cos[Rational[2, 9] Pi], 
-      Rational[-1, 2]}, {-0.5566703992264193, 0.6634139481689384, -0.5}]], 
-   Point3DBox[
-    NCache[{-Cos[Rational[1, 18] Pi] Sin[Rational[2, 9] Pi], 
-      Cos[Rational[1, 18] Pi] Cos[Rational[2, 9] Pi], -
-      Sin[Rational[1, 18] Pi]}, {-0.633022221559489, 
-     0.7544065067354889, -0.17364817766693033`}]], 
-   Point3DBox[
-    NCache[{-Cos[Rational[1, 18] Pi] Sin[Rational[2, 9] Pi], 
-      Cos[Rational[1, 18] Pi] Cos[Rational[2, 9] Pi], Sin[
-      Rational[1, 18] Pi]}, {-0.633022221559489, 0.7544065067354889, 
-     0.17364817766693033`}]], 
-   Point3DBox[
-    NCache[{Rational[-1, 2] 3^Rational[1, 2] Sin[Rational[2, 9] Pi], 
-      Rational[1, 2] 3^Rational[1, 2] Cos[Rational[2, 9] Pi], Rational[
-      1, 2]}, {-0.5566703992264193, 0.6634139481689384, 0.5}]], 
-   Point3DBox[
-    NCache[{-Sin[Rational[2, 9] Pi]^2, Cos[Rational[2, 9] Pi] 
-      Sin[Rational[2, 9] Pi], Cos[Rational[2, 9] Pi]}, {-0.41317591116653474`,
-      0.49240387650610395`, 0.766044443118978}]], 
-   Point3DBox[
-    NCache[{-Sin[Rational[1, 9] Pi] Sin[Rational[2, 9] Pi], 
-      Cos[Rational[2, 9] Pi] Sin[Rational[1, 9] Pi], Cos[
-      Rational[1, 9] Pi]}, {-0.21984631039295416`, 0.2620026302293849, 
-     0.9396926207859084}]], Point3DBox[{0, 0, 1}], 
-   Point3DBox[
-    NCache[{Sin[Rational[1, 9] Pi] Sin[Rational[2, 9] Pi], -
-      Cos[Rational[2, 9] Pi] Sin[Rational[1, 9] Pi], Cos[
-      Rational[1, 9] Pi]}, {0.21984631039295416`, -0.2620026302293849, 
-     0.9396926207859084}]], 
-   Point3DBox[
-    NCache[{Sin[Rational[2, 9] Pi]^2, -Cos[Rational[2, 9] Pi] 
-      Sin[Rational[2, 9] Pi], Cos[Rational[2, 9] Pi]}, {
-     0.41317591116653474`, -0.49240387650610395`, 0.766044443118978}]], 
-   Point3DBox[
-    NCache[{Rational[1, 2] 3^Rational[1, 2] Sin[Rational[2, 9] Pi], 
-      Rational[-1, 2] 3^Rational[1, 2] Cos[Rational[2, 9] Pi], Rational[
-      1, 2]}, {0.5566703992264193, -0.6634139481689384, 0.5}]], 
-   Point3DBox[
-    NCache[{Cos[Rational[1, 18] Pi] Sin[Rational[2, 9] Pi], -
-      Cos[Rational[1, 18] Pi] Cos[Rational[2, 9] Pi], Sin[
-      Rational[1, 18] Pi]}, {0.633022221559489, -0.7544065067354889, 
-     0.17364817766693033`}]], 
-   Point3DBox[
-    NCache[{Cos[Rational[1, 18] Pi] Sin[Rational[2, 9] Pi], -
-      Cos[Rational[1, 18] Pi] Cos[Rational[2, 9] Pi], -
-      Sin[Rational[1, 18] Pi]}, {
-     0.633022221559489, -0.7544065067354889, -0.17364817766693033`}]], 
-   Point3DBox[
-    NCache[{Rational[1, 2] 3^Rational[1, 2] Sin[Rational[2, 9] Pi], 
-      Rational[-1, 2] 3^Rational[1, 2] Cos[Rational[2, 9] Pi], 
-      Rational[-1, 2]}, {0.5566703992264193, -0.6634139481689384, -0.5}]], 
-   Point3DBox[
-    NCache[{Sin[Rational[2, 9] Pi]^2, -Cos[Rational[2, 9] Pi] 
-      Sin[Rational[2, 9] Pi], -Cos[Rational[2, 9] Pi]}, {
-     0.41317591116653474`, -0.49240387650610395`, -0.766044443118978}]], 
-   Point3DBox[
-    NCache[{Sin[Rational[1, 9] Pi] Sin[Rational[2, 9] Pi], -
-      Cos[Rational[2, 9] Pi] Sin[Rational[1, 9] Pi], -
-      Cos[Rational[1, 9] Pi]}, {
-     0.21984631039295416`, -0.2620026302293849, -0.9396926207859084}]], 
-   Point3DBox[{0, 0, -1}], Point3DBox[{0, 0, -1}], 
-   Point3DBox[
-    NCache[{Rational[-1, 2] 3^Rational[1, 2] Sin[Rational[1, 9] Pi], 
-      Rational[1, 2] Sin[Rational[1, 9] Pi], -
-      Cos[Rational[1, 9] Pi]}, {-0.2961981327260238, 
-     0.17101007166283436`, -0.9396926207859084}]], 
-   Point3DBox[
-    NCache[{Rational[-1, 2] 3^Rational[1, 2] Sin[Rational[2, 9] Pi], 
-      Rational[1, 2] Sin[Rational[2, 9] Pi], -
-      Cos[Rational[2, 9] Pi]}, {-0.5566703992264193, 
-     0.3213938048432696, -0.766044443118978}]], 
+    NCache[{Rational[-1, 4] 3^Rational[1, 2], Rational[1, 4], Rational[-1, 2] 
+      3^Rational[1, 2]}, {-0.4330127018922193, 0.25, -0.8660254037844386}]], 
    Point3DBox[
     NCache[{Rational[-3, 4], Rational[1, 4] 3^Rational[1, 2], 
       Rational[-1, 2]}, {-0.75, 0.4330127018922193, -0.5}]], 
    Point3DBox[
-    NCache[{Rational[-1, 2] 3^Rational[1, 2] Cos[Rational[1, 18] Pi], 
-      Rational[1, 2] Cos[Rational[1, 18] Pi], -
-      Sin[Rational[1, 18] Pi]}, {-0.8528685319524432, 
-     0.492403876506104, -0.17364817766693033`}]], 
-   Point3DBox[
-    NCache[{Rational[-1, 2] 3^Rational[1, 2] Cos[Rational[1, 18] Pi], 
-      Rational[1, 2] Cos[Rational[1, 18] Pi], Sin[
-      Rational[1, 18] Pi]}, {-0.8528685319524432, 0.492403876506104, 
-     0.17364817766693033`}]], 
+    NCache[{Rational[-1, 2] 3^Rational[1, 2], Rational[1, 2], 
+      0}, {-0.8660254037844386, 0.5, 0}]], 
    Point3DBox[
     NCache[{Rational[-3, 4], Rational[1, 4] 3^Rational[1, 2], Rational[
       1, 2]}, {-0.75, 0.4330127018922193, 0.5}]], 
    Point3DBox[
-    NCache[{Rational[-1, 2] 3^Rational[1, 2] Sin[Rational[2, 9] Pi], 
-      Rational[1, 2] Sin[Rational[2, 9] Pi], Cos[
-      Rational[2, 9] Pi]}, {-0.5566703992264193, 0.3213938048432696, 
-     0.766044443118978}]], 
+    NCache[{Rational[-1, 4] 3^Rational[1, 2], Rational[1, 4], Rational[1, 2] 
+      3^Rational[1, 2]}, {-0.4330127018922193, 0.25, 0.8660254037844386}]], 
+   Point3DBox[{0, 0, 1}], 
    Point3DBox[
-    NCache[{Rational[-1, 2] 3^Rational[1, 2] Sin[Rational[1, 9] Pi], 
-      Rational[1, 2] Sin[Rational[1, 9] Pi], Cos[
-      Rational[1, 9] Pi]}, {-0.2961981327260238, 0.17101007166283436`, 
-     0.9396926207859084}]], Point3DBox[{0, 0, 1}], 
-   Point3DBox[
-    NCache[{Rational[1, 2] 3^Rational[1, 2] Sin[Rational[1, 9] Pi], 
-      Rational[-1, 2] Sin[Rational[1, 9] Pi], Cos[Rational[1, 9] Pi]}, {
-     0.2961981327260238, -0.17101007166283436`, 0.9396926207859084}]], 
-   Point3DBox[
-    NCache[{Rational[1, 2] 3^Rational[1, 2] Sin[Rational[2, 9] Pi], 
-      Rational[-1, 2] Sin[Rational[2, 9] Pi], Cos[Rational[2, 9] Pi]}, {
-     0.5566703992264193, -0.3213938048432696, 0.766044443118978}]], 
+    NCache[{Rational[1, 4] 3^Rational[1, 2], Rational[-1, 4], Rational[1, 2] 
+      3^Rational[1, 2]}, {0.4330127018922193, -0.25, 0.8660254037844386}]], 
    Point3DBox[
     NCache[{Rational[3, 4], Rational[-1, 4] 3^Rational[1, 2], Rational[
       1, 2]}, {0.75, -0.4330127018922193, 0.5}]], 
    Point3DBox[
-    NCache[{Rational[1, 2] 3^Rational[1, 2] Cos[Rational[1, 18] Pi], 
-      Rational[-1, 2] Cos[Rational[1, 18] Pi], Sin[Rational[1, 18] Pi]}, {
-     0.8528685319524432, -0.492403876506104, 0.17364817766693033`}]], 
-   Point3DBox[
-    NCache[{Rational[1, 2] 3^Rational[1, 2] Cos[Rational[1, 18] Pi], 
-      Rational[-1, 2] Cos[Rational[1, 18] Pi], -Sin[Rational[1, 18] Pi]}, {
-     0.8528685319524432, -0.492403876506104, -0.17364817766693033`}]], 
+    NCache[{Rational[1, 2] 3^Rational[1, 2], Rational[-1, 2], 0}, {
+     0.8660254037844386, -0.5, 0}]], 
    Point3DBox[
     NCache[{Rational[3, 4], Rational[-1, 4] 3^Rational[1, 2], 
       Rational[-1, 2]}, {0.75, -0.4330127018922193, -0.5}]], 
    Point3DBox[
-    NCache[{Rational[1, 2] 3^Rational[1, 2] Sin[Rational[2, 9] Pi], 
-      Rational[-1, 2] Sin[Rational[2, 9] Pi], -Cos[Rational[2, 9] Pi]}, {
-     0.5566703992264193, -0.3213938048432696, -0.766044443118978}]], 
-   Point3DBox[
-    NCache[{Rational[1, 2] 3^Rational[1, 2] Sin[Rational[1, 9] Pi], 
-      Rational[-1, 2] Sin[Rational[1, 9] Pi], -Cos[Rational[1, 9] Pi]}, {
-     0.2961981327260238, -0.17101007166283436`, -0.9396926207859084}]], 
+    NCache[{Rational[1, 4] 3^Rational[1, 2], Rational[-1, 4], Rational[-1, 2] 
+      3^Rational[1, 2]}, {0.4330127018922193, -0.25, -0.8660254037844386}]], 
    Point3DBox[{0, 0, -1}], Point3DBox[{0, 0, -1}], 
    Point3DBox[
-    NCache[{-Cos[Rational[1, 18] Pi] Sin[Rational[1, 9] Pi], 
-      Sin[Rational[1, 18] Pi] Sin[Rational[1, 9] Pi], -
-      Cos[Rational[1, 9] Pi]}, {-0.33682408883346515`, 
-     0.0593911746138847, -0.9396926207859084}]], 
+    NCache[{Rational[-1, 2], 0, Rational[-1, 2] 3^Rational[1, 2]}, {-0.5, 
+      0, -0.8660254037844386}]], 
    Point3DBox[
-    NCache[{-Cos[Rational[1, 18] Pi] Sin[Rational[2, 9] Pi], 
-      Sin[Rational[1, 18] Pi] Sin[Rational[2, 9] Pi], -
-      Cos[Rational[2, 9] Pi]}, {-0.633022221559489, 
-     0.11161889704894963`, -0.766044443118978}]], 
+    NCache[{Rational[-1, 2] 3^Rational[1, 2], 0, 
+      Rational[-1, 2]}, {-0.8660254037844386, 0, -0.5}]], 
+   Point3DBox[{-1, 0, 0}], 
    Point3DBox[
-    NCache[{Rational[-1, 2] 3^Rational[1, 2] Cos[Rational[1, 18] Pi], 
-      Rational[1, 2] 3^Rational[1, 2] Sin[Rational[1, 18] Pi], 
-      Rational[-1, 2]}, {-0.8528685319524432, 0.15038373318043527`, -0.5}]], 
+    NCache[{Rational[-1, 2] 3^Rational[1, 2], 0, Rational[
+      1, 2]}, {-0.8660254037844386, 0, 0.5}]], 
    Point3DBox[
-    NCache[{-Cos[Rational[1, 18] Pi]^2, Cos[Rational[1, 18] Pi] 
-      Sin[Rational[1, 18] Pi], -
-      Sin[Rational[1, 18] Pi]}, {-0.9698463103929541, 
-     0.17101007166283433`, -0.17364817766693033`}]], 
+    NCache[{Rational[-1, 2], 0, Rational[1, 2] 3^Rational[1, 2]}, {-0.5, 0, 
+      0.8660254037844386}]], Point3DBox[{0, 0, 1}], 
    Point3DBox[
-    NCache[{-Cos[Rational[1, 18] Pi]^2, Cos[Rational[1, 18] Pi] 
-      Sin[Rational[1, 18] Pi], Sin[Rational[1, 18] Pi]}, {-0.9698463103929541,
-      0.17101007166283433`, 0.17364817766693033`}]], 
+    NCache[{Rational[1, 2], 0, Rational[1, 2] 3^Rational[1, 2]}, {
+     0.5, 0, 0.8660254037844386}]], 
    Point3DBox[
-    NCache[{Rational[-1, 2] 3^Rational[1, 2] Cos[Rational[1, 18] Pi], 
-      Rational[1, 2] 3^Rational[1, 2] Sin[Rational[1, 18] Pi], Rational[
-      1, 2]}, {-0.8528685319524432, 0.15038373318043527`, 0.5}]], 
+    NCache[{Rational[1, 2] 3^Rational[1, 2], 0, Rational[1, 2]}, {
+     0.8660254037844386, 0, 0.5}]], Point3DBox[{1, 0, 0}], 
    Point3DBox[
-    NCache[{-Cos[Rational[1, 18] Pi] Sin[Rational[2, 9] Pi], 
-      Sin[Rational[1, 18] Pi] Sin[Rational[2, 9] Pi], Cos[
-      Rational[2, 9] Pi]}, {-0.633022221559489, 0.11161889704894963`, 
-     0.766044443118978}]], 
+    NCache[{Rational[1, 2] 3^Rational[1, 2], 0, Rational[-1, 2]}, {
+     0.8660254037844386, 0, -0.5}]], 
    Point3DBox[
-    NCache[{-Cos[Rational[1, 18] Pi] Sin[Rational[1, 9] Pi], 
-      Sin[Rational[1, 18] Pi] Sin[Rational[1, 9] Pi], Cos[
-      Rational[1, 9] Pi]}, {-0.33682408883346515`, 0.0593911746138847, 
-     0.9396926207859084}]], Point3DBox[{0, 0, 1}], 
-   Point3DBox[
-    NCache[{Cos[Rational[1, 18] Pi] Sin[Rational[1, 9] Pi], -
-      Sin[Rational[1, 18] Pi] Sin[Rational[1, 9] Pi], Cos[
-      Rational[1, 9] Pi]}, {0.33682408883346515`, -0.0593911746138847, 
-     0.9396926207859084}]], 
-   Point3DBox[
-    NCache[{Cos[Rational[1, 18] Pi] Sin[Rational[2, 9] Pi], -
-      Sin[Rational[1, 18] Pi] Sin[Rational[2, 9] Pi], Cos[
-      Rational[2, 9] Pi]}, {0.633022221559489, -0.11161889704894963`, 
-     0.766044443118978}]], 
-   Point3DBox[
-    NCache[{Rational[1, 2] 3^Rational[1, 2] Cos[Rational[1, 18] Pi], 
-      Rational[-1, 2] 3^Rational[1, 2] Sin[Rational[1, 18] Pi], Rational[
-      1, 2]}, {0.8528685319524432, -0.15038373318043527`, 0.5}]], 
-   Point3DBox[
-    NCache[{Cos[Rational[1, 18] Pi]^2, -Cos[Rational[1, 18] Pi] 
-      Sin[Rational[1, 18] Pi], Sin[Rational[1, 18] Pi]}, {
-     0.9698463103929541, -0.17101007166283433`, 0.17364817766693033`}]], 
-   Point3DBox[
-    NCache[{Cos[Rational[1, 18] Pi]^2, -Cos[Rational[1, 18] Pi] 
-      Sin[Rational[1, 18] Pi], -Sin[Rational[1, 18] Pi]}, {
-     0.9698463103929541, -0.17101007166283433`, -0.17364817766693033`}]], 
-   Point3DBox[
-    NCache[{Rational[1, 2] 3^Rational[1, 2] Cos[Rational[1, 18] Pi], 
-      Rational[-1, 2] 3^Rational[1, 2] Sin[Rational[1, 18] Pi], 
-      Rational[-1, 2]}, {0.8528685319524432, -0.15038373318043527`, -0.5}]], 
-   Point3DBox[
-    NCache[{Cos[Rational[1, 18] Pi] Sin[Rational[2, 9] Pi], -
-      Sin[Rational[1, 18] Pi] Sin[Rational[2, 9] Pi], -
-      Cos[Rational[2, 9] Pi]}, {
-     0.633022221559489, -0.11161889704894963`, -0.766044443118978}]], 
-   Point3DBox[
-    NCache[{Cos[Rational[1, 18] Pi] Sin[Rational[1, 9] Pi], -
-      Sin[Rational[1, 18] Pi] Sin[Rational[1, 9] Pi], -
-      Cos[Rational[1, 9] Pi]}, {
-     0.33682408883346515`, -0.0593911746138847, -0.9396926207859084}]], 
-   Point3DBox[{0, 0, -1}], Point3DBox[{0, 0, -1}], 
-   Point3DBox[
-    NCache[{-Cos[Rational[1, 18] Pi] Sin[Rational[1, 9] Pi], -
-      Sin[Rational[1, 18] Pi] Sin[Rational[1, 9] Pi], -
-      Cos[Rational[1, 9] 
-        Pi]}, {-0.33682408883346515`, -0.0593911746138847, \
--0.9396926207859084}]], 
-   Point3DBox[
-    NCache[{-Cos[Rational[1, 18] Pi] Sin[Rational[2, 9] Pi], -
-      Sin[Rational[1, 18] Pi] Sin[Rational[2, 9] Pi], -
-      Cos[Rational[2, 9] 
-        Pi]}, {-0.633022221559489, -0.11161889704894963`, \
--0.766044443118978}]], 
-   Point3DBox[
-    NCache[{Rational[-1, 2] 3^Rational[1, 2] Cos[Rational[1, 18] Pi], 
-      Rational[-1, 2] 3^Rational[1, 2] Sin[Rational[1, 18] Pi], 
-      Rational[-1, 2]}, {-0.8528685319524432, -0.15038373318043527`, -0.5}]], 
-   Point3DBox[
-    NCache[{-Cos[Rational[1, 18] Pi]^2, -Cos[Rational[1, 18] Pi] 
-      Sin[Rational[1, 18] Pi], -
-      Sin[Rational[1, 18] 
-        Pi]}, {-0.9698463103929541, -0.17101007166283433`, \
--0.17364817766693033`}]], 
-   Point3DBox[
-    NCache[{-Cos[Rational[1, 18] Pi]^2, -Cos[Rational[1, 18] Pi] 
-      Sin[Rational[1, 18] Pi], Sin[
-      Rational[1, 18] Pi]}, {-0.9698463103929541, -0.17101007166283433`, 
-     0.17364817766693033`}]], 
-   Point3DBox[
-    NCache[{Rational[-1, 2] 3^Rational[1, 2] Cos[Rational[1, 18] Pi], 
-      Rational[-1, 2] 3^Rational[1, 2] Sin[Rational[1, 18] Pi], Rational[
-      1, 2]}, {-0.8528685319524432, -0.15038373318043527`, 0.5}]], 
-   Point3DBox[
-    NCache[{-Cos[Rational[1, 18] Pi] Sin[Rational[2, 9] Pi], -
-      Sin[Rational[1, 18] Pi] Sin[Rational[2, 9] Pi], Cos[
-      Rational[2, 9] Pi]}, {-0.633022221559489, -0.11161889704894963`, 
-     0.766044443118978}]], 
-   Point3DBox[
-    NCache[{-Cos[Rational[1, 18] Pi] Sin[Rational[1, 9] Pi], -
-      Sin[Rational[1, 18] Pi] Sin[Rational[1, 9] Pi], Cos[
-      Rational[1, 9] Pi]}, {-0.33682408883346515`, -0.0593911746138847, 
-     0.9396926207859084}]], Point3DBox[{0, 0, 1}], 
-   Point3DBox[
-    NCache[{Cos[Rational[1, 18] Pi] Sin[Rational[1, 9] Pi], 
-      Sin[Rational[1, 18] Pi] Sin[Rational[1, 9] Pi], Cos[
-      Rational[1, 9] Pi]}, {0.33682408883346515`, 0.0593911746138847, 
-     0.9396926207859084}]], 
-   Point3DBox[
-    NCache[{Cos[Rational[1, 18] Pi] Sin[Rational[2, 9] Pi], 
-      Sin[Rational[1, 18] Pi] Sin[Rational[2, 9] Pi], Cos[
-      Rational[2, 9] Pi]}, {0.633022221559489, 0.11161889704894963`, 
-     0.766044443118978}]], 
-   Point3DBox[
-    NCache[{Rational[1, 2] 3^Rational[1, 2] Cos[Rational[1, 18] Pi], 
-      Rational[1, 2] 3^Rational[1, 2] Sin[Rational[1, 18] Pi], Rational[
-      1, 2]}, {0.8528685319524432, 0.15038373318043527`, 0.5}]], 
-   Point3DBox[
-    NCache[{Cos[Rational[1, 18] Pi]^2, Cos[Rational[1, 18] Pi] 
-      Sin[Rational[1, 18] Pi], Sin[Rational[1, 18] Pi]}, {0.9698463103929541, 
-     0.17101007166283433`, 0.17364817766693033`}]], 
-   Point3DBox[
-    NCache[{Cos[Rational[1, 18] Pi]^2, Cos[Rational[1, 18] Pi] 
-      Sin[Rational[1, 18] Pi], -Sin[Rational[1, 18] Pi]}, {0.9698463103929541,
-      0.17101007166283433`, -0.17364817766693033`}]], 
-   Point3DBox[
-    NCache[{Rational[1, 2] 3^Rational[1, 2] Cos[Rational[1, 18] Pi], 
-      Rational[1, 2] 3^Rational[1, 2] Sin[Rational[1, 18] Pi], 
-      Rational[-1, 2]}, {0.8528685319524432, 0.15038373318043527`, -0.5}]], 
-   Point3DBox[
-    NCache[{Cos[Rational[1, 18] Pi] Sin[Rational[2, 9] Pi], 
-      Sin[Rational[1, 18] Pi] Sin[Rational[2, 9] Pi], -
-      Cos[Rational[2, 9] Pi]}, {0.633022221559489, 
-     0.11161889704894963`, -0.766044443118978}]], 
-   Point3DBox[
-    NCache[{Cos[Rational[1, 18] Pi] Sin[Rational[1, 9] Pi], 
-      Sin[Rational[1, 18] Pi] Sin[Rational[1, 9] Pi], -
-      Cos[Rational[1, 9] Pi]}, {0.33682408883346515`, 
-     0.0593911746138847, -0.9396926207859084}]], Point3DBox[{0, 0, -1}], 
+    NCache[{Rational[1, 2], 0, Rational[-1, 2] 3^Rational[1, 2]}, {
+     0.5, 0, -0.8660254037844386}]], Point3DBox[{0, 0, -1}], 
    Point3DBox[{0, 0, -1}], 
    Point3DBox[
-    NCache[{Rational[-1, 2] 3^Rational[1, 2] Sin[Rational[1, 9] Pi], 
-      Rational[-1, 2] Sin[Rational[1, 9] Pi], -
-      Cos[Rational[1, 9] 
-        Pi]}, {-0.2961981327260238, -0.17101007166283436`, \
--0.9396926207859084}]], 
-   Point3DBox[
-    NCache[{Rational[-1, 2] 3^Rational[1, 2] Sin[Rational[2, 9] Pi], 
-      Rational[-1, 2] Sin[Rational[2, 9] Pi], -
-      Cos[Rational[2, 9] 
-        Pi]}, {-0.5566703992264193, -0.3213938048432696, \
--0.766044443118978}]], 
+    NCache[{Rational[-1, 4] 3^Rational[1, 2], Rational[-1, 4], 
+      Rational[-1, 2] 
+      3^Rational[1, 2]}, {-0.4330127018922193, -0.25, -0.8660254037844386}]], 
    Point3DBox[
     NCache[{Rational[-3, 4], Rational[-1, 4] 3^Rational[1, 2], 
       Rational[-1, 2]}, {-0.75, -0.4330127018922193, -0.5}]], 
    Point3DBox[
-    NCache[{Rational[-1, 2] 3^Rational[1, 2] Cos[Rational[1, 18] Pi], 
-      Rational[-1, 2] Cos[Rational[1, 18] Pi], -
-      Sin[Rational[1, 18] 
-        Pi]}, {-0.8528685319524432, -0.492403876506104, \
--0.17364817766693033`}]], 
-   Point3DBox[
-    NCache[{Rational[-1, 2] 3^Rational[1, 2] Cos[Rational[1, 18] Pi], 
-      Rational[-1, 2] Cos[Rational[1, 18] Pi], Sin[
-      Rational[1, 18] Pi]}, {-0.8528685319524432, -0.492403876506104, 
-     0.17364817766693033`}]], 
+    NCache[{Rational[-1, 2] 3^Rational[1, 2], Rational[-1, 2], 
+      0}, {-0.8660254037844386, -0.5, 0}]], 
    Point3DBox[
     NCache[{Rational[-3, 4], Rational[-1, 4] 3^Rational[1, 2], Rational[
       1, 2]}, {-0.75, -0.4330127018922193, 0.5}]], 
    Point3DBox[
-    NCache[{Rational[-1, 2] 3^Rational[1, 2] Sin[Rational[2, 9] Pi], 
-      Rational[-1, 2] Sin[Rational[2, 9] Pi], Cos[
-      Rational[2, 9] Pi]}, {-0.5566703992264193, -0.3213938048432696, 
-     0.766044443118978}]], 
+    NCache[{Rational[-1, 4] 3^Rational[1, 2], Rational[-1, 4], Rational[1, 2] 
+      3^Rational[1, 2]}, {-0.4330127018922193, -0.25, 0.8660254037844386}]], 
+   Point3DBox[{0, 0, 1}], 
    Point3DBox[
-    NCache[{Rational[-1, 2] 3^Rational[1, 2] Sin[Rational[1, 9] Pi], 
-      Rational[-1, 2] Sin[Rational[1, 9] Pi], Cos[
-      Rational[1, 9] Pi]}, {-0.2961981327260238, -0.17101007166283436`, 
-     0.9396926207859084}]], Point3DBox[{0, 0, 1}], 
-   Point3DBox[
-    NCache[{Rational[1, 2] 3^Rational[1, 2] Sin[Rational[1, 9] Pi], 
-      Rational[1, 2] Sin[Rational[1, 9] Pi], Cos[Rational[1, 9] Pi]}, {
-     0.2961981327260238, 0.17101007166283436`, 0.9396926207859084}]], 
-   Point3DBox[
-    NCache[{Rational[1, 2] 3^Rational[1, 2] Sin[Rational[2, 9] Pi], 
-      Rational[1, 2] Sin[Rational[2, 9] Pi], Cos[Rational[2, 9] Pi]}, {
-     0.5566703992264193, 0.3213938048432696, 0.766044443118978}]], 
+    NCache[{Rational[1, 4] 3^Rational[1, 2], Rational[1, 4], Rational[1, 2] 
+      3^Rational[1, 2]}, {0.4330127018922193, 0.25, 0.8660254037844386}]], 
    Point3DBox[
     NCache[{Rational[3, 4], Rational[1, 4] 3^Rational[1, 2], Rational[
       1, 2]}, {0.75, 0.4330127018922193, 0.5}]], 
    Point3DBox[
-    NCache[{Rational[1, 2] 3^Rational[1, 2] Cos[Rational[1, 18] Pi], 
-      Rational[1, 2] Cos[Rational[1, 18] Pi], Sin[Rational[1, 18] Pi]}, {
-     0.8528685319524432, 0.492403876506104, 0.17364817766693033`}]], 
-   Point3DBox[
-    NCache[{Rational[1, 2] 3^Rational[1, 2] Cos[Rational[1, 18] Pi], 
-      Rational[1, 2] Cos[Rational[1, 18] Pi], -Sin[Rational[1, 18] Pi]}, {
-     0.8528685319524432, 0.492403876506104, -0.17364817766693033`}]], 
+    NCache[{Rational[1, 2] 3^Rational[1, 2], Rational[1, 2], 0}, {
+     0.8660254037844386, 0.5, 0}]], 
    Point3DBox[
     NCache[{Rational[3, 4], Rational[1, 4] 3^Rational[1, 2], 
       Rational[-1, 2]}, {0.75, 0.4330127018922193, -0.5}]], 
    Point3DBox[
-    NCache[{Rational[1, 2] 3^Rational[1, 2] Sin[Rational[2, 9] Pi], 
-      Rational[1, 2] Sin[Rational[2, 9] Pi], -Cos[Rational[2, 9] Pi]}, {
-     0.5566703992264193, 0.3213938048432696, -0.766044443118978}]], 
-   Point3DBox[
-    NCache[{Rational[1, 2] 3^Rational[1, 2] Sin[Rational[1, 9] Pi], 
-      Rational[1, 2] Sin[Rational[1, 9] Pi], -Cos[Rational[1, 9] Pi]}, {
-     0.2961981327260238, 0.17101007166283436`, -0.9396926207859084}]], 
+    NCache[{Rational[1, 4] 3^Rational[1, 2], Rational[1, 4], Rational[-1, 2] 
+      3^Rational[1, 2]}, {0.4330127018922193, 0.25, -0.8660254037844386}]], 
    Point3DBox[{0, 0, -1}], Point3DBox[{0, 0, -1}], 
    Point3DBox[
-    NCache[{-Sin[Rational[1, 9] Pi] Sin[Rational[2, 9] Pi], -
-      Cos[Rational[2, 9] Pi] Sin[Rational[1, 9] Pi], -
-      Cos[Rational[1, 9] 
-        Pi]}, {-0.21984631039295416`, -0.2620026302293849, \
--0.9396926207859084}]], 
+    NCache[{Rational[-1, 4], Rational[-1, 4] 3^Rational[1, 2], 
+      Rational[-1, 2] 
+      3^Rational[1, 2]}, {-0.25, -0.4330127018922193, -0.8660254037844386}]], 
    Point3DBox[
-    NCache[{-Sin[Rational[2, 9] Pi]^2, -Cos[Rational[2, 9] Pi] 
-      Sin[Rational[2, 9] Pi], -
-      Cos[Rational[2, 9] 
-        Pi]}, {-0.41317591116653474`, -0.49240387650610395`, \
--0.766044443118978}]], 
+    NCache[{Rational[-1, 4] 3^Rational[1, 2], Rational[-3, 4], 
+      Rational[-1, 2]}, {-0.4330127018922193, -0.75, -0.5}]], 
    Point3DBox[
-    NCache[{Rational[-1, 2] 3^Rational[1, 2] Sin[Rational[2, 9] Pi], 
-      Rational[-1, 2] 3^Rational[1, 2] Cos[Rational[2, 9] Pi], 
-      Rational[-1, 2]}, {-0.5566703992264193, -0.6634139481689384, -0.5}]], 
+    NCache[{Rational[-1, 2], Rational[-1, 2] 3^Rational[1, 2], 
+      0}, {-0.5, -0.8660254037844386, 0}]], 
    Point3DBox[
-    NCache[{-Cos[Rational[1, 18] Pi] Sin[Rational[2, 9] Pi], -
-      Cos[Rational[1, 18] Pi] Cos[Rational[2, 9] Pi], -
-      Sin[Rational[1, 18] 
-        Pi]}, {-0.633022221559489, -0.7544065067354889, \
--0.17364817766693033`}]], 
+    NCache[{Rational[-1, 4] 3^Rational[1, 2], Rational[-3, 4], Rational[
+      1, 2]}, {-0.4330127018922193, -0.75, 0.5}]], 
    Point3DBox[
-    NCache[{-Cos[Rational[1, 18] Pi] Sin[Rational[2, 9] Pi], -
-      Cos[Rational[1, 18] Pi] Cos[Rational[2, 9] Pi], Sin[
-      Rational[1, 18] Pi]}, {-0.633022221559489, -0.7544065067354889, 
-     0.17364817766693033`}]], 
+    NCache[{Rational[-1, 4], Rational[-1, 4] 3^Rational[1, 2], Rational[1, 2] 
+      3^Rational[1, 2]}, {-0.25, -0.4330127018922193, 0.8660254037844386}]], 
+   Point3DBox[{0, 0, 1}], 
    Point3DBox[
-    NCache[{Rational[-1, 2] 3^Rational[1, 2] Sin[Rational[2, 9] Pi], 
-      Rational[-1, 2] 3^Rational[1, 2] Cos[Rational[2, 9] Pi], Rational[
-      1, 2]}, {-0.5566703992264193, -0.6634139481689384, 0.5}]], 
+    NCache[{Rational[1, 4], Rational[1, 4] 3^Rational[1, 2], Rational[1, 2] 
+      3^Rational[1, 2]}, {0.25, 0.4330127018922193, 0.8660254037844386}]], 
    Point3DBox[
-    NCache[{-Sin[Rational[2, 9] Pi]^2, -Cos[Rational[2, 9] Pi] 
-      Sin[Rational[2, 9] Pi], Cos[
-      Rational[2, 9] Pi]}, {-0.41317591116653474`, -0.49240387650610395`, 
-     0.766044443118978}]], 
+    NCache[{Rational[1, 4] 3^Rational[1, 2], Rational[3, 4], Rational[
+      1, 2]}, {0.4330127018922193, 0.75, 0.5}]], 
    Point3DBox[
-    NCache[{-Sin[Rational[1, 9] Pi] Sin[Rational[2, 9] Pi], -
-      Cos[Rational[2, 9] Pi] Sin[Rational[1, 9] Pi], Cos[
-      Rational[1, 9] Pi]}, {-0.21984631039295416`, -0.2620026302293849, 
-     0.9396926207859084}]], Point3DBox[{0, 0, 1}], 
+    NCache[{Rational[1, 2], Rational[1, 2] 3^Rational[1, 2], 0}, {
+     0.5, 0.8660254037844386, 0}]], 
    Point3DBox[
-    NCache[{Sin[Rational[1, 9] Pi] Sin[Rational[2, 9] Pi], 
-      Cos[Rational[2, 9] Pi] Sin[Rational[1, 9] Pi], Cos[
-      Rational[1, 9] Pi]}, {0.21984631039295416`, 0.2620026302293849, 
-     0.9396926207859084}]], 
+    NCache[{Rational[1, 4] 3^Rational[1, 2], Rational[3, 4], 
+      Rational[-1, 2]}, {0.4330127018922193, 0.75, -0.5}]], 
    Point3DBox[
-    NCache[{Sin[Rational[2, 9] Pi]^2, Cos[Rational[2, 9] Pi] 
-      Sin[Rational[2, 9] Pi], Cos[Rational[2, 9] Pi]}, {0.41317591116653474`, 
-     0.49240387650610395`, 0.766044443118978}]], 
+    NCache[{Rational[1, 4], Rational[1, 4] 3^Rational[1, 2], Rational[-1, 2] 
+      3^Rational[1, 2]}, {0.25, 0.4330127018922193, -0.8660254037844386}]], 
+   Point3DBox[{0, 0, -1}], Point3DBox[{0, 0, -1}], 
    Point3DBox[
-    NCache[{Rational[1, 2] 3^Rational[1, 2] Sin[Rational[2, 9] Pi], 
-      Rational[1, 2] 3^Rational[1, 2] Cos[Rational[2, 9] Pi], Rational[
-      1, 2]}, {0.5566703992264193, 0.6634139481689384, 0.5}]], 
-   Point3DBox[
-    NCache[{Cos[Rational[1, 18] Pi] Sin[Rational[2, 9] Pi], 
-      Cos[Rational[1, 18] Pi] Cos[Rational[2, 9] Pi], Sin[
-      Rational[1, 18] Pi]}, {0.633022221559489, 0.7544065067354889, 
-     0.17364817766693033`}]], 
-   Point3DBox[
-    NCache[{Cos[Rational[1, 18] Pi] Sin[Rational[2, 9] Pi], 
-      Cos[Rational[1, 18] Pi] Cos[Rational[2, 9] Pi], -
-      Sin[Rational[1, 18] Pi]}, {0.633022221559489, 
-     0.7544065067354889, -0.17364817766693033`}]], 
-   Point3DBox[
-    NCache[{Rational[1, 2] 3^Rational[1, 2] Sin[Rational[2, 9] Pi], 
-      Rational[1, 2] 3^Rational[1, 2] Cos[Rational[2, 9] Pi], 
-      Rational[-1, 2]}, {0.5566703992264193, 0.6634139481689384, -0.5}]], 
-   Point3DBox[
-    NCache[{Sin[Rational[2, 9] Pi]^2, Cos[Rational[2, 9] Pi] 
-      Sin[Rational[2, 9] Pi], -Cos[Rational[2, 9] Pi]}, {0.41317591116653474`,
-      0.49240387650610395`, -0.766044443118978}]], 
-   Point3DBox[
-    NCache[{Sin[Rational[1, 9] Pi] Sin[Rational[2, 9] Pi], 
-      Cos[Rational[2, 9] Pi] Sin[Rational[1, 9] Pi], -
-      Cos[Rational[1, 9] Pi]}, {0.21984631039295416`, 
-     0.2620026302293849, -0.9396926207859084}]], Point3DBox[{0, 0, -1}], 
-   Point3DBox[{0, 0, -1}], 
-   Point3DBox[
-    NCache[{-Sin[Rational[1, 9] Pi]^2, -Cos[Rational[1, 9] Pi] 
-      Sin[Rational[1, 9] Pi], -
-      Cos[Rational[1, 9] 
-        Pi]}, {-0.11697777844051097`, -0.3213938048432697, \
--0.9396926207859084}]], 
-   Point3DBox[
-    NCache[{-Sin[Rational[1, 9] Pi] Sin[Rational[2, 9] Pi], -
-      Cos[Rational[1, 9] Pi] Sin[Rational[2, 9] Pi], -
-      Cos[Rational[2, 9] 
-        Pi]}, {-0.21984631039295416`, -0.6040227735550536, \
--0.766044443118978}]], 
-   Point3DBox[
-    NCache[{Rational[-1, 2] 3^Rational[1, 2] Sin[Rational[1, 9] Pi], 
-      Rational[-1, 2] 3^Rational[1, 2] Cos[Rational[1, 9] Pi], 
-      Rational[-1, 2]}, {-0.2961981327260238, -0.8137976813493737, -0.5}]], 
-   Point3DBox[
-    NCache[{-Cos[Rational[1, 18] Pi] Sin[Rational[1, 9] Pi], -
-      Cos[Rational[1, 18] Pi] Cos[Rational[1, 9] Pi], -
-      Sin[Rational[1, 18] 
-        Pi]}, {-0.33682408883346515`, -0.9254165783983234, \
--0.17364817766693033`}]], 
-   Point3DBox[
-    NCache[{-Cos[Rational[1, 18] Pi] Sin[Rational[1, 9] Pi], -
-      Cos[Rational[1, 18] Pi] Cos[Rational[1, 9] Pi], Sin[
-      Rational[1, 18] Pi]}, {-0.33682408883346515`, -0.9254165783983234, 
-     0.17364817766693033`}]], 
-   Point3DBox[
-    NCache[{Rational[-1, 2] 3^Rational[1, 2] Sin[Rational[1, 9] Pi], 
-      Rational[-1, 2] 3^Rational[1, 2] Cos[Rational[1, 9] Pi], Rational[
-      1, 2]}, {-0.2961981327260238, -0.8137976813493737, 0.5}]], 
-   Point3DBox[
-    NCache[{-Sin[Rational[1, 9] Pi] Sin[Rational[2, 9] Pi], -
-      Cos[Rational[1, 9] Pi] Sin[Rational[2, 9] Pi], Cos[
-      Rational[2, 9] Pi]}, {-0.21984631039295416`, -0.6040227735550536, 
-     0.766044443118978}]], 
-   Point3DBox[
-    NCache[{-Sin[Rational[1, 9] Pi]^2, -Cos[Rational[1, 9] Pi] 
-      Sin[Rational[1, 9] Pi], Cos[
-      Rational[1, 9] Pi]}, {-0.11697777844051097`, -0.3213938048432697, 
-     0.9396926207859084}]], Point3DBox[{0, 0, 1}], 
-   Point3DBox[
-    NCache[{Sin[Rational[1, 9] Pi]^2, Cos[Rational[1, 9] Pi] 
-      Sin[Rational[1, 9] Pi], Cos[Rational[1, 9] Pi]}, {0.11697777844051097`, 
-     0.3213938048432697, 0.9396926207859084}]], 
-   Point3DBox[
-    NCache[{Sin[Rational[1, 9] Pi] Sin[Rational[2, 9] Pi], 
-      Cos[Rational[1, 9] Pi] Sin[Rational[2, 9] Pi], Cos[
-      Rational[2, 9] Pi]}, {0.21984631039295416`, 0.6040227735550536, 
-     0.766044443118978}]], 
-   Point3DBox[
-    NCache[{Rational[1, 2] 3^Rational[1, 2] Sin[Rational[1, 9] Pi], 
-      Rational[1, 2] 3^Rational[1, 2] Cos[Rational[1, 9] Pi], Rational[
-      1, 2]}, {0.2961981327260238, 0.8137976813493737, 0.5}]], 
-   Point3DBox[
-    NCache[{Cos[Rational[1, 18] Pi] Sin[Rational[1, 9] Pi], 
-      Cos[Rational[1, 18] Pi] Cos[Rational[1, 9] Pi], Sin[
-      Rational[1, 18] Pi]}, {0.33682408883346515`, 0.9254165783983234, 
-     0.17364817766693033`}]], 
-   Point3DBox[
-    NCache[{Cos[Rational[1, 18] Pi] Sin[Rational[1, 9] Pi], 
-      Cos[Rational[1, 18] Pi] Cos[Rational[1, 9] Pi], -
-      Sin[Rational[1, 18] Pi]}, {0.33682408883346515`, 
-     0.9254165783983234, -0.17364817766693033`}]], 
-   Point3DBox[
-    NCache[{Rational[1, 2] 3^Rational[1, 2] Sin[Rational[1, 9] Pi], 
-      Rational[1, 2] 3^Rational[1, 2] Cos[Rational[1, 9] Pi], 
-      Rational[-1, 2]}, {0.2961981327260238, 0.8137976813493737, -0.5}]], 
-   Point3DBox[
-    NCache[{Sin[Rational[1, 9] Pi] Sin[Rational[2, 9] Pi], 
-      Cos[Rational[1, 9] Pi] Sin[Rational[2, 9] Pi], -
-      Cos[Rational[2, 9] Pi]}, {0.21984631039295416`, 
-     0.6040227735550536, -0.766044443118978}]], 
-   Point3DBox[
-    NCache[{Sin[Rational[1, 9] Pi]^2, Cos[Rational[1, 9] Pi] 
-      Sin[Rational[1, 9] Pi], -Cos[Rational[1, 9] Pi]}, {0.11697777844051097`,
-      0.3213938048432697, -0.9396926207859084}]], Point3DBox[{0, 0, -1}], 
-   Point3DBox[{0, 0, -1}], 
-   Point3DBox[
-    NCache[{0, -Sin[Rational[1, 9] Pi], -Cos[Rational[1, 9] Pi]}, {
-     0, -0.3420201433256687, -0.9396926207859084}]], 
-   Point3DBox[
-    NCache[{0, -Sin[Rational[2, 9] Pi], -Cos[Rational[2, 9] Pi]}, {
-     0, -0.6427876096865393, -0.766044443118978}]], 
+    NCache[{0, Rational[-1, 2], Rational[-1, 2] 3^Rational[1, 2]}, {
+     0, -0.5, -0.8660254037844386}]], 
    Point3DBox[
     NCache[{0, Rational[-1, 2] 3^Rational[1, 2], Rational[-1, 2]}, {
-     0, -0.8660254037844386, -0.5}]], 
-   Point3DBox[
-    NCache[{0, -Cos[Rational[1, 18] Pi], -Sin[Rational[1, 18] Pi]}, {
-     0, -0.984807753012208, -0.17364817766693033`}]], 
-   Point3DBox[
-    NCache[{0, -Cos[Rational[1, 18] Pi], Sin[Rational[1, 18] Pi]}, {
-     0, -0.984807753012208, 0.17364817766693033`}]], 
+     0, -0.8660254037844386, -0.5}]], Point3DBox[{0, -1, 0}], 
    Point3DBox[
     NCache[{0, Rational[-1, 2] 3^Rational[1, 2], Rational[1, 2]}, {
      0, -0.8660254037844386, 0.5}]], 
    Point3DBox[
-    NCache[{0, -Sin[Rational[2, 9] Pi], Cos[Rational[2, 9] Pi]}, {
-     0, -0.6427876096865393, 0.766044443118978}]], 
+    NCache[{0, Rational[-1, 2], Rational[1, 2] 3^Rational[1, 2]}, {
+     0, -0.5, 0.8660254037844386}]], Point3DBox[{0, 0, 1}], 
    Point3DBox[
-    NCache[{0, -Sin[Rational[1, 9] Pi], Cos[Rational[1, 9] Pi]}, {
-     0, -0.3420201433256687, 0.9396926207859084}]], Point3DBox[{0, 0, 1}], 
-   Point3DBox[
-    NCache[{0, Sin[Rational[1, 9] Pi], Cos[Rational[1, 9] Pi]}, {
-     0, 0.3420201433256687, 0.9396926207859084}]], 
-   Point3DBox[
-    NCache[{0, Sin[Rational[2, 9] Pi], Cos[Rational[2, 9] Pi]}, {
-     0, 0.6427876096865393, 0.766044443118978}]], 
+    NCache[{0, Rational[1, 2], Rational[1, 2] 3^Rational[1, 2]}, {
+     0, 0.5, 0.8660254037844386}]], 
    Point3DBox[
     NCache[{0, Rational[1, 2] 3^Rational[1, 2], Rational[1, 2]}, {
-     0, 0.8660254037844386, 0.5}]], 
-   Point3DBox[
-    NCache[{0, Cos[Rational[1, 18] Pi], Sin[Rational[1, 18] Pi]}, {
-     0, 0.984807753012208, 0.17364817766693033`}]], 
-   Point3DBox[
-    NCache[{0, Cos[Rational[1, 18] Pi], -Sin[Rational[1, 18] Pi]}, {
-     0, 0.984807753012208, -0.17364817766693033`}]], 
+     0, 0.8660254037844386, 0.5}]], Point3DBox[{0, 1, 0}], 
    Point3DBox[
     NCache[{0, Rational[1, 2] 3^Rational[1, 2], Rational[-1, 2]}, {
      0, 0.8660254037844386, -0.5}]], 
    Point3DBox[
-    NCache[{0, Sin[Rational[2, 9] Pi], -Cos[Rational[2, 9] Pi]}, {
-     0, 0.6427876096865393, -0.766044443118978}]], 
-   Point3DBox[
-    NCache[{0, Sin[Rational[1, 9] Pi], -Cos[Rational[1, 9] Pi]}, {
-     0, 0.3420201433256687, -0.9396926207859084}]], Point3DBox[{0, 0, -1}], 
+    NCache[{0, Rational[1, 2], Rational[-1, 2] 3^Rational[1, 2]}, {
+     0, 0.5, -0.8660254037844386}]], Point3DBox[{0, 0, -1}], 
    SphereBox[{0, 0, 0}, 0.95]},
   AutomaticImageSize->True,
-  ImageSize->{338.2824030246857, 364.7218983503657},
-  ViewPoint->{1.326510513245566, -0.2669164920170656, 3.1014714966509533`},
-  ViewVertical->{-0.4971415914003688, 0.14904399608418753`, 
-   0.8637049250302874}]], "Output",
- CellChangeTimes->{
-  3.6382838032585444`*^9, 3.6382838782116933`*^9, {3.6382839200666018`*^9, 
-   3.638283945033495*^9}, 3.63828403969985*^9, 3.6382842140196447`*^9, 
-   3.6382842623326235`*^9, 3.638284327266037*^9, 3.6382845026768456`*^9, {
-   3.638284591713587*^9, 3.6382846000268154`*^9}}]
+  ImageSize->{286.20768782448147`, 311.581645538997},
+  ViewPoint->{0.016667757480157263`, 3.1998049455424065`, 1.100441046282326},
+  ViewVertical->{-0.06593548489277265, 0.2978678305165764, 
+   0.9523272900506964}]], "Output",
+ CellChangeTimes->{{3.6382858326063175`*^9, 3.6382858642622433`*^9}, {
+   3.6382858985729666`*^9, 3.6382859095048056`*^9}, 3.638285943932135*^9, 
+   3.6382860157359886`*^9}]
 }, Open  ]]
 },
 WindowSize->{901, 1013},
@@ -819,10 +337,10 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[558, 20, 1353, 36, 112, "Input"],
+Cell[558, 20, 1368, 36, 112, "Input"],
 Cell[CellGroupData[{
-Cell[1936, 60, 1556, 38, 132, "Input"],
-Cell[3495, 100, 34235, 702, 413, "Output"]
+Cell[1951, 60, 1727, 43, 172, "Input"],
+Cell[3681, 105, 10028, 215, 360, "Output"]
 }, Open  ]]
 }
 ]
