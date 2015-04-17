@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     14085,        340]
-NotebookOptionsPosition[     13725,        323]
-NotebookOutlinePosition[     14070,        338]
-CellTagsIndexPosition[     14027,        335]
+NotebookDataLength[     16456,        414]
+NotebookOptionsPosition[     15980,        393]
+NotebookOutlinePosition[     16326,        408]
+CellTagsIndexPosition[     16283,        405]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -89,19 +89,22 @@ Cell[BoxData[{
    RowBox[{"Point", "/@", "cartesianCoordinates"}]}], 
   ";"}], "\[IndentingNewLine]", 
  RowBox[{"Graphics3D", "[", 
-  RowBox[{"Append", "[", 
-   RowBox[{"points", ",", " ", 
-    RowBox[{"Sphere", "[", 
-     RowBox[{
-      RowBox[{"{", 
-       RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", " ", "0.95"}], "]"}]}], 
-   "]"}], "]"}]}], "Input",
+  RowBox[{
+   RowBox[{"Append", "[", 
+    RowBox[{"points", ",", " ", 
+     RowBox[{"Sphere", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0", ",", "0"}], "}"}], ",", " ", "0.95"}], "]"}]}],
+     "]"}], ",", " ", 
+   RowBox[{"Axes", "\[Rule]", "True"}]}], "]"}]}], "Input",
  CellChangeTimes->{{3.638284935403596*^9, 3.638285103845874*^9}, {
   3.638285139124601*^9, 3.638285188678771*^9}, {3.6382852258449335`*^9, 
   3.638285234018762*^9}, {3.638285464646158*^9, 3.6382854754601803`*^9}, {
   3.6382856034321327`*^9, 3.6382856225937943`*^9}, {3.638285676097785*^9, 
   3.63828586351264*^9}, {3.6382858976859636`*^9, 3.638285943620135*^9}, {
-  3.638286011862776*^9, 3.6382860152117863`*^9}}],
+  3.638286011862776*^9, 3.6382860152117863`*^9}, {3.6382923364166408`*^9, 
+  3.638292365731498*^9}}],
 
 Cell[BoxData[
  Graphics3DBox[{Point3DBox[{0, 0, -1}], 
@@ -312,17 +315,84 @@ Cell[BoxData[
      0, 0.5, -0.8660254037844386}]], Point3DBox[{0, 0, -1}], 
    SphereBox[{0, 0, 0}, 0.95]},
   AutomaticImageSize->True,
-  ImageSize->{286.20768782448147`, 311.581645538997},
-  ViewPoint->{0.016667757480157263`, 3.1998049455424065`, 1.100441046282326},
-  ViewVertical->{-0.06593548489277265, 0.2978678305165764, 
-   0.9523272900506964}]], "Output",
+  Axes->True,
+  ImageSize->{454.48442910579735`, 422.23125393079005`},
+  ViewPoint->{-1.1789012374505439`, -3.1632519200502722`, \
+-0.23244174030465814`},
+  ViewVertical->{0.0620110469600029, -0.707129126556933, 
+   0.7043600133665692}]], "Output",
  CellChangeTimes->{{3.6382858326063175`*^9, 3.6382858642622433`*^9}, {
    3.6382858985729666`*^9, 3.6382859095048056`*^9}, 3.638285943932135*^9, 
-   3.6382860157359886`*^9}]
+   3.6382860157359886`*^9, {3.6382923469744625`*^9, 3.638292375082117*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(", GridBox[{
+     {
+      RowBox[{
+       RowBox[{"Sin", "[", "\[Theta]", "]"}], 
+       RowBox[{"Cos", "[", "\[Phi]", "]"}]}], 
+      RowBox[{
+       RowBox[{"Cos", "[", "\[Phi]", "]"}], 
+       RowBox[{"Cos", "[", "\[Theta]", "]"}]}], 
+      RowBox[{"-", 
+       RowBox[{"Sin", "[", "\[Phi]", "]"}]}]},
+     {
+      RowBox[{
+       RowBox[{"Sin", "[", "\[Theta]", "]"}], 
+       RowBox[{"Sin", "[", "\[Phi]", "]"}]}], 
+      RowBox[{
+       RowBox[{"Sin", "[", "\[Phi]", "]"}], 
+       RowBox[{"Cos", "[", "\[Theta]", "]"}]}], 
+      RowBox[{"Cos", "[", "\[Phi]", "]"}]},
+     {
+      RowBox[{"Cos", "[", "\[Theta]", "]"}], 
+      RowBox[{"-", 
+       RowBox[{"Sin", "[", "\[Theta]", "]"}]}], "0"}
+    }], ")"}], ".", 
+  RowBox[{"(", GridBox[{
+     {"1"},
+     {"0.1"},
+     {"0"}
+    }], ")"}]}]], "Input",
+ CellChangeTimes->{{3.6382923994017925`*^9, 3.638292512816423*^9}, {
+  3.6382925453314877`*^9, 3.638292662354062*^9}, {3.6382944870629654`*^9, 
+  3.638294491204374*^9}, {3.63829678331645*^9, 3.6382967962409325`*^9}, {
+  3.6382976768832493`*^9, 3.6382976842846727`*^9}, {3.6382978186133556`*^9, 
+  3.6382978187723646`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"0.1`", " ", 
+      RowBox[{"Cos", "[", "\[Theta]", "]"}], " ", 
+      RowBox[{"Cos", "[", "\[Phi]", "]"}]}], "+", 
+     RowBox[{
+      RowBox[{"Cos", "[", "\[Phi]", "]"}], " ", 
+      RowBox[{"Sin", "[", "\[Theta]", "]"}]}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"0.1`", " ", 
+      RowBox[{"Cos", "[", "\[Theta]", "]"}], " ", 
+      RowBox[{"Sin", "[", "\[Phi]", "]"}]}], "+", 
+     RowBox[{
+      RowBox[{"Sin", "[", "\[Theta]", "]"}], " ", 
+      RowBox[{"Sin", "[", "\[Phi]", "]"}]}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"Cos", "[", "\[Theta]", "]"}], "-", 
+     RowBox[{"0.1`", " ", 
+      RowBox[{"Sin", "[", "\[Theta]", "]"}]}]}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{3.6382976881398935`*^9, 3.638297819407401*^9}]
 }, Open  ]]
 },
 WindowSize->{901, 1013},
-WindowMargins->{{Automatic, -1}, {Automatic, 0}},
+WindowMargins->{{Automatic, 347}, {Automatic, 3}},
 FrontEndVersion->"10.0 for Microsoft Windows (64-bit) (December 4, 2014)",
 StyleDefinitions->"Default.nb"
 ]
@@ -339,8 +409,12 @@ CellTagsIndex->{}
 Notebook[{
 Cell[558, 20, 1368, 36, 112, "Input"],
 Cell[CellGroupData[{
-Cell[1951, 60, 1727, 43, 172, "Input"],
-Cell[3681, 105, 10028, 215, 360, "Output"]
+Cell[1951, 60, 1849, 46, 172, "Input"],
+Cell[3803, 108, 10097, 217, 437, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[13937, 330, 1168, 34, 57, "Input"],
+Cell[15108, 366, 856, 24, 88, "Output"]
 }, Open  ]]
 }
 ]
