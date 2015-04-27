@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    162457,       3149]
-NotebookOptionsPosition[    161933,       3127]
-NotebookOutlinePosition[    162280,       3142]
-CellTagsIndexPosition[    162237,       3139]
+NotebookDataLength[    162496,       3149]
+NotebookOptionsPosition[    161972,       3127]
+NotebookOutlinePosition[    162319,       3142]
+CellTagsIndexPosition[    162276,       3139]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -21,10 +21,10 @@ Notebook[{
 Cell[BoxData[
  RowBox[{
   RowBox[{
-   RowBox[{"SphericalToCartesian", "[", " ", 
+   RowBox[{"SphericalToCartesian", "[", 
     RowBox[{"{", 
      RowBox[{"r_", ",", " ", "\[Theta]_", ",", " ", "\[Phi]_"}], "}"}], "]"}],
-    ":=", " ", 
+    ":=", 
    RowBox[{"{", "\[IndentingNewLine]", 
     RowBox[{
      RowBox[{"r", " ", "*", " ", 
@@ -46,7 +46,7 @@ Cell[BoxData[
    3.6388087240702715`*^9, 3.6388087269024334`*^9}, {3.6388139095828657`*^9, 
    3.6388140549571805`*^9}, {3.6388141113024035`*^9, 3.638814206613855*^9}, {
    3.638814329253869*^9, 3.638814373901423*^9}, {3.6391573072795353`*^9, 
-   3.639157417839859*^9}}],
+   3.639157417839859*^9}, {3.639159050096219*^9, 3.639159059783773*^9}}],
 
 Cell[BoxData[
  RowBox[{
@@ -2997,9 +2997,9 @@ Cell[BoxData[
   ImageSize->{532., 572.},
   RotationAction->"Clip",
   ViewAngle->0.47030072394368955`,
-  ViewPoint->{-3.225638593913132, 0.2628431231051236, -0.9880127297228877},
-  ViewVertical->{-0.7995905460043558, 0.0469500306145058, 
-   0.5987074856436599}]], "Output",
+  ViewPoint->{-2.65719732942767, -1.6384410815722175`, 1.3056849446550802`},
+  ViewVertical->{-0.2424859393426376, -0.05555841399607451, 
+   0.9685627660897148}]], "Output",
  CellChangeTimes->{
   3.638987071097653*^9, {3.6389872055193415`*^9, 3.6389872173240166`*^9}, 
    3.6389875283218045`*^9, 3.6389876394981637`*^9, 3.6389878490181475`*^9, 
@@ -3141,15 +3141,15 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[558, 20, 1391, 28, 112, "Input"],
-Cell[1952, 50, 887, 22, 112, "Input"],
+Cell[558, 20, 1427, 28, 112, "Input"],
+Cell[1988, 50, 887, 22, 112, "Input"],
 Cell[CellGroupData[{
-Cell[2864, 76, 5581, 122, 332, "Input"],
-Cell[8448, 200, 147477, 2805, 587, "Output"]
+Cell[2900, 76, 5581, 122, 332, "Input"],
+Cell[8484, 200, 147480, 2805, 587, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[155962, 3010, 959, 23, 52, "Input"],
-Cell[156924, 3035, 4993, 89, 305, "Output"]
+Cell[156001, 3010, 959, 23, 52, "Input"],
+Cell[156963, 3035, 4993, 89, 305, "Output"]
 }, Open  ]]
 }
 ]
