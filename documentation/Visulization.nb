@@ -10,47 +10,33 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    163339,       3171]
-NotebookOptionsPosition[    162816,       3149]
-NotebookOutlinePosition[    163162,       3164]
-CellTagsIndexPosition[    163119,       3161]
+NotebookDataLength[    162457,       3149]
+NotebookOptionsPosition[    161933,       3127]
+NotebookOutlinePosition[    162280,       3142]
+CellTagsIndexPosition[    162237,       3139]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
 Notebook[{
 Cell[BoxData[
  RowBox[{
-  RowBox[{"SphericalToCartesian", " ", "=", " ", 
-   RowBox[{
-    RowBox[{"(", 
-     RowBox[{"{", "\[IndentingNewLine]", 
-      RowBox[{
-       RowBox[{
-        RowBox[{"#", "[", 
-         RowBox[{"[", "1", "]"}], "]"}], " ", "*", " ", 
-        RowBox[{"Sin", "[", 
-         RowBox[{"#", "[", 
-          RowBox[{"[", "2", "]"}], "]"}], "]"}], " ", "*", " ", 
-        RowBox[{"Cos", "[", 
-         RowBox[{"#", "[", 
-          RowBox[{"[", "3", "]"}], "]"}], "]"}]}], ",", "\[IndentingNewLine]", 
-       RowBox[{
-        RowBox[{"#", "[", 
-         RowBox[{"[", "1", "]"}], "]"}], " ", "*", " ", 
-        RowBox[{"Sin", "[", 
-         RowBox[{"#", "[", 
-          RowBox[{"[", "2", "]"}], "]"}], "]"}], " ", "*", " ", 
-        RowBox[{"Sin", "[", 
-         RowBox[{"#", "[", 
-          RowBox[{"[", "3", "]"}], "]"}], "]"}]}], ",", " ", 
-       "\[IndentingNewLine]", 
-       RowBox[{
-        RowBox[{"#", "[", 
-         RowBox[{"[", "1", "]"}], "]"}], " ", "*", " ", 
-        RowBox[{"Cos", "[", 
-         RowBox[{"#", "[", 
-          RowBox[{"[", "2", "]"}], "]"}], "]"}]}]}], "\[IndentingNewLine]", 
-      "}"}], ")"}], "&"}]}], ";"}]], "Input",
+  RowBox[{
+   RowBox[{"SphericalToCartesian", "[", " ", 
+    RowBox[{"{", 
+     RowBox[{"r_", ",", " ", "\[Theta]_", ",", " ", "\[Phi]_"}], "}"}], "]"}],
+    ":=", " ", 
+   RowBox[{"{", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"r", " ", "*", " ", 
+      RowBox[{"Sin", "[", "\[Theta]", "]"}], " ", "*", " ", 
+      RowBox[{"Cos", "[", "\[Phi]", "]"}]}], ",", "\[IndentingNewLine]", 
+     RowBox[{"r", " ", "*", " ", 
+      RowBox[{"Sin", "[", "\[Theta]", "]"}], " ", "*", " ", 
+      RowBox[{"Sin", "[", "\[Phi]", "]"}]}], ",", " ", "\[IndentingNewLine]", 
+     
+     RowBox[{"r", " ", "*", " ", 
+      RowBox[{"Cos", "[", "\[Theta]", "]"}]}]}], "\[IndentingNewLine]", 
+    "}"}]}], ";"}]], "Input",
  CellChangeTimes->{
   3.6382841923331575`*^9, {3.638284234358718*^9, 3.638284240204935*^9}, {
    3.6382842919655247`*^9, 3.6382842971687436`*^9}, 3.638284701721616*^9, 
@@ -59,7 +45,8 @@ Cell[BoxData[
    3.6388085495342884`*^9}, {3.638808619782306*^9, 3.6388086527901945`*^9}, {
    3.6388087240702715`*^9, 3.6388087269024334`*^9}, {3.6388139095828657`*^9, 
    3.6388140549571805`*^9}, {3.6388141113024035`*^9, 3.638814206613855*^9}, {
-   3.638814329253869*^9, 3.638814373901423*^9}}],
+   3.638814329253869*^9, 3.638814373901423*^9}, {3.6391573072795353`*^9, 
+   3.639157417839859*^9}}],
 
 Cell[BoxData[
  RowBox[{
@@ -3010,13 +2997,13 @@ Cell[BoxData[
   ImageSize->{532., 572.},
   RotationAction->"Clip",
   ViewAngle->0.47030072394368955`,
-  ViewPoint->{-3.147650288123778, -0.90751167168121, -0.8477736899884837},
-  ViewVertical->{-0.7574769339944635, -0.1663267220369656, 
-   0.6313193455001876}]], "Output",
+  ViewPoint->{-3.225638593913132, 0.2628431231051236, -0.9880127297228877},
+  ViewVertical->{-0.7995905460043558, 0.0469500306145058, 
+   0.5987074856436599}]], "Output",
  CellChangeTimes->{
   3.638987071097653*^9, {3.6389872055193415`*^9, 3.6389872173240166`*^9}, 
    3.6389875283218045`*^9, 3.6389876394981637`*^9, 3.6389878490181475`*^9, 
-   3.6389881172664905`*^9}]
+   3.6389881172664905`*^9, 3.6391574450564156`*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -3123,12 +3110,10 @@ TzoW82rI80n3Yr4N+T9xhXk49AuIK8zPob/QI1eYz0P+TM9jng95NXGF+T/k
 AXGF/RfoL/SaK239IG39I239Jm39KW39LG39L239Mm39NW39OG39O239Pm1c
 /XM/8e3+4z/3K9/ub2rrh2rrn2rrt2rrz2rr52rr/2rrF2vj53+Ee4XE
     "]]},
-  AutomaticImageSize->True,
   Axes->True,
   AxesLabel->{None, None, None},
   BoxRatios->{1, 1, 0.4},
   FaceGridsStyle->Automatic,
-  ImageSize->{401.4153429000992, 249.60250407907984`},
   PlotRange->{{0., 3.0543261909900767`}, {-3.094269380752489, 
     3.141592653589793}, Automatic},
   PlotRangePadding->{{
@@ -3136,19 +3121,12 @@ AXGF/RfoL/SaK239IG39I239Jm39KW39LG39L239Mm39NW39OG39O239Pm1c
      Scaled[0.02]}, {
      Scaled[0.02], 
      Scaled[0.02]}, {Automatic, Automatic}},
-  Ticks->{Automatic, Automatic, Automatic},
-  ViewPoint->{1.580259392635801, -2.7045017247358083`, 1.2800197939435884`},
-  ViewVertical->{0.11545926608309046`, -0.21283592376750807`, 
-   2.4256056298242115`}]], "Output",
- CellChangeTimes->{3.6388979188984385`*^9, 3.6388979591977434`*^9, 
-  3.6389846447868757`*^9, 3.638984727584612*^9, 3.638984966313266*^9, 
-  3.6389865592903795`*^9, 3.6389872515029716`*^9, 3.638987389704876*^9, 
-  3.6389875375923347`*^9, 3.6389876522778945`*^9, 3.6389878573916264`*^9, 
-  3.6389881267450323`*^9}]
+  Ticks->{Automatic, Automatic, Automatic}]], "Output",
+ CellChangeTimes->{3.639157465541588*^9}]
 }, Open  ]]
 },
-WindowSize->{896, 1013},
-WindowMargins->{{Automatic, 182}, {Automatic, 9}},
+WindowSize->{1139, 1013},
+WindowMargins->{{Automatic, 40}, {Automatic, 10}},
 FrontEndVersion->"10.0 for Microsoft Windows (64-bit) (December 4, 2014)",
 StyleDefinitions->"Default.nb"
 ]
@@ -3163,15 +3141,15 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[558, 20, 1778, 41, 112, "Input"],
-Cell[2339, 63, 887, 22, 112, "Input"],
+Cell[558, 20, 1391, 28, 112, "Input"],
+Cell[1952, 50, 887, 22, 112, "Input"],
 Cell[CellGroupData[{
-Cell[3251, 89, 5581, 122, 352, "Input"],
-Cell[8835, 213, 147453, 2805, 587, "Output"]
+Cell[2864, 76, 5581, 122, 332, "Input"],
+Cell[8448, 200, 147477, 2805, 587, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[156325, 3023, 959, 23, 72, "Input"],
-Cell[157287, 3048, 5513, 98, 265, "Output"]
+Cell[155962, 3010, 959, 23, 52, "Input"],
+Cell[156924, 3035, 4993, 89, 305, "Output"]
 }, Open  ]]
 }
 ]
