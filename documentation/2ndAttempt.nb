@@ -1,0 +1,1651 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     76544,       1642]
+NotebookOptionsPosition[     76059,       1621]
+NotebookOutlinePosition[     76404,       1636]
+CellTagsIndexPosition[     76361,       1633]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"SphericalToCartesian", "[", 
+    RowBox[{"{", 
+     RowBox[{"r_", ",", " ", "\[Theta]_", ",", " ", "\[Phi]_"}], "}"}], "]"}],
+    ":=", 
+   RowBox[{"{", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"r", " ", "*", " ", 
+      RowBox[{"Sin", "[", "\[Theta]", "]"}], " ", "*", " ", 
+      RowBox[{"Cos", "[", "\[Phi]", "]"}]}], ",", "\[IndentingNewLine]", 
+     RowBox[{"r", " ", "*", " ", 
+      RowBox[{"Sin", "[", "\[Theta]", "]"}], " ", "*", " ", 
+      RowBox[{"Sin", "[", "\[Phi]", "]"}]}], ",", " ", "\[IndentingNewLine]", 
+     RowBox[{"r", " ", "*", " ", 
+      RowBox[{"Cos", "[", "\[Theta]", "]"}]}]}], "\[IndentingNewLine]", 
+    "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"CartesianToSpherical", "=", 
+   RowBox[{"Function", "[", 
+    RowBox[{"xyz", ",", "\[IndentingNewLine]", 
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{"xyz", "[", 
+          RowBox[{"[", "1", "]"}], "]"}], "\[Equal]", "0"}], "&&", 
+        RowBox[{
+         RowBox[{"xyz", "[", 
+          RowBox[{"[", "2", "]"}], "]"}], "\[Equal]", "0"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Abs", "[", 
+          RowBox[{"xyz", "[", 
+           RowBox[{"[", "3", "]"}], "]"}], "]"}], ",", "0", ",", 
+         RowBox[{"If", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"xyz", "[", 
+             RowBox[{"[", "3", "]"}], "]"}], "\[GreaterEqual]", "0"}], ",", 
+           "0", ",", "Pi"}], "]"}]}], "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"CoordinateTransform", "[", 
+        RowBox[{
+         RowBox[{"\"\<Cartesian\>\"", "->", "\"\<Spherical\>\""}], ",", 
+         "xyz"}], "]"}]}], "\[IndentingNewLine]", "]"}]}], 
+    "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"sphereInSphericalCoordinates", " ", "=", " ", 
+   RowBox[{"Flatten", "[", 
+    RowBox[{
+     RowBox[{"Table", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"1", ",", 
+         RowBox[{"x", "*", 
+          RowBox[{"Pi", "/", "180"}]}], ",", 
+         RowBox[{"y", "*", 
+          RowBox[{"Pi", "/", "180"}]}]}], "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"{", 
+        RowBox[{"y", ",", 
+         RowBox[{"-", "90"}], ",", "90", ",", "15"}], "}"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"{", 
+        RowBox[{"x", ",", 
+         RowBox[{"-", "180"}], ",", "180", ",", "15"}], "}"}]}], 
+      "\[IndentingNewLine]", "]"}], ",", " ", "1"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"sphereInCartesianCoordinates", " ", "=", " ", 
+   RowBox[{"SphericalToCartesian", "/@", "sphereInSphericalCoordinates"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"M", " ", "=", " ", 
+   RowBox[{"RotationTransform", "[", 
+    RowBox[{
+     RowBox[{"90", "*", 
+      RowBox[{"Pi", "/", "180"}]}], ",", " ", 
+     RowBox[{"{", 
+      RowBox[{"1", ",", "0", ",", "0"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"sphereInCartesianCoordinates", " ", "=", " ", 
+   RowBox[{"M", "/@", "sphereInCartesianCoordinates"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"points", " ", "=", " ", 
+   RowBox[{"Point", "/@", "sphereInCartesianCoordinates"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"display", " ", "=", " ", 
+   RowBox[{"Flatten", "[", 
+    RowBox[{
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"Sphere", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"0", ",", " ", "0", ",", " ", "0"}], "}"}], ",", " ", 
+         "0.0"}], "]"}], ",", "\[IndentingNewLine]", "Blue", ",", 
+       RowBox[{"Line", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"-", "1.5"}], ",", "0", ",", "0"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"1.5", ",", "0", ",", "0"}], "}"}]}], "}"}], "]"}], ",", 
+       "\[IndentingNewLine]", "Green", ",", 
+       RowBox[{"Line", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"0", ",", 
+            RowBox[{"-", "1.5"}], ",", "0"}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "1.5", ",", "0"}], "}"}]}], "}"}], "]"}], ",", 
+       "\[IndentingNewLine]", "Red", ",", 
+       RowBox[{"Line", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", 
+            RowBox[{"-", "1.5"}]}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "0", ",", "1.5"}], "}"}]}], "}"}], "]"}], ",", 
+       "\[IndentingNewLine]", "Black", ",", "points"}], "\[IndentingNewLine]",
+       "}"}], ",", " ", "1"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Graphics3D", "[", 
+  RowBox[{"display", ",", " ", 
+   RowBox[{"Axes", "\[Rule]", "True"}], ",", 
+   RowBox[{"AxesStyle", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"Blue", ",", "Green", ",", "Red"}], "}"}]}], ",", " ", 
+   RowBox[{"RotationAction", "\[Rule]", "\"\<Clip\>\""}], ",", " ", 
+   RowBox[{"Boxed", "\[Rule]", "False"}]}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"rotatedSphereInPolarCoordinates", " ", "=", " ", 
+   RowBox[{"CartesianToSpherical", "/@", "sphereInCartesianCoordinates"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"rotatedSphereInPolarCoordinates", " ", "=", " ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"Cos", "[", 
+         RowBox[{
+          RowBox[{"#", "[", 
+           RowBox[{"[", "2", "]"}], "]"}], "/", "2"}], "]"}], ",", 
+        RowBox[{"#", "[", 
+         RowBox[{"[", "2", "]"}], "]"}], ",", 
+        RowBox[{"#", "[", 
+         RowBox[{"[", "3", "]"}], "]"}]}], "}"}], ")"}], "&"}], "/@", 
+    "rotatedSphereInPolarCoordinates"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"rotatedSphereInCartesianCoordinates", " ", "=", " ", 
+   RowBox[{
+   "SphericalToCartesian", "/@", "rotatedSphereInPolarCoordinates"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"rotatedSphereInCartesianCoordinates", " ", "=", " ", 
+   RowBox[{
+    RowBox[{"RotationTransform", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"-", "90"}], "*", 
+       RowBox[{"Pi", "/", "180"}]}], ",", " ", 
+      RowBox[{"{", 
+       RowBox[{"1", ",", "0", ",", "0"}], "}"}]}], "]"}], "/@", 
+    "rotatedSphereInCartesianCoordinates"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"rotatedSphereInPolarCoordinates", " ", "=", " ", 
+   RowBox[{
+   "CartesianToSpherical", "/@", "rotatedSphereInCartesianCoordinates"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"ListPointPlot3D", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"#", "[", 
+        RowBox[{"[", "3", "]"}], "]"}], ",", 
+       RowBox[{"#", "[", 
+        RowBox[{"[", "2", "]"}], "]"}], ",", 
+       RowBox[{"#", "[", 
+        RowBox[{"[", "1", "]"}], "]"}]}], "}"}], ")"}], "&"}], "/@", 
+   "rotatedSphereInPolarCoordinates"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.63965809403087*^9, 3.6396580947909136`*^9}, 
+   3.6396587556037097`*^9, {3.639658868983195*^9, 3.6396589446675234`*^9}, {
+   3.6396589819446554`*^9, 3.6396590329785748`*^9}, {3.6396595769916906`*^9, 
+   3.6396596635896435`*^9}, {3.6396597288253746`*^9, 3.639659749609564*^9}, {
+   3.6396597980193324`*^9, 3.639659809178971*^9}, {3.639659843503934*^9, 
+   3.6396599065585403`*^9}, {3.6396602701623373`*^9, 
+   3.6396602727684865`*^9}, {3.6396608048749213`*^9, 
+   3.6396608824623594`*^9}, {3.639660928880014*^9, 3.6396609706804047`*^9}, {
+   3.6396610186261473`*^9, 3.6396610228443885`*^9}, {3.6396610595604887`*^9, 
+   3.6396611763471684`*^9}, {3.6396612162704515`*^9, 3.639661251290455*^9}, {
+   3.639661287845546*^9, 3.639661327592819*^9}, {3.6396613916944857`*^9, 
+   3.6396613967447743`*^9}, {3.639661449249778*^9, 3.639661456073168*^9}}],
+
+Cell[BoxData[
+ Graphics3DBox[{SphereBox[{0, 0, 0}, 0.], 
+   {RGBColor[0, 0, 1], Line3DBox[{{-1.5, 0, 0}, {1.5, 0, 0}}]}, 
+   {RGBColor[0, 1, 0], Line3DBox[{{0, -1.5, 0}, {0, 1.5, 0}}]}, 
+   {RGBColor[1, 0, 0], Line3DBox[{{0, 0, -1.5}, {0, 0, 1.5}}]}, 
+   {GrayLevel[0], Point3DBox[{0, 1, 0}], 
+    Point3DBox[
+     NCache[{0, Rational[1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2])}, {
+      0, 0.9659258262890682, 0.2588190451025207}]], 
+    Point3DBox[
+     NCache[{0, Rational[1, 2] 3^Rational[1, 2], Rational[1, 2]}, {
+      0, 0.8660254037844386, 0.5}]], 
+    Point3DBox[
+     NCache[{0, 2^Rational[-1, 2], 2^Rational[-1, 2]}, {
+      0, 0.7071067811865475, 0.7071067811865475}]], 
+    Point3DBox[
+     NCache[{0, Rational[1, 2], Rational[1, 2] 3^Rational[1, 2]}, {
+      0, 0.5, 0.8660254037844386}]], 
+    Point3DBox[
+     NCache[{0, Rational[1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2])}, {
+      0, 0.2588190451025207, 0.9659258262890682}]], Point3DBox[{0, 0, 1}], 
+    Point3DBox[
+     NCache[{0, Rational[-1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2])}, {
+      0, -0.2588190451025207, 0.9659258262890682}]], 
+    Point3DBox[
+     NCache[{0, Rational[-1, 2], Rational[1, 2] 3^Rational[1, 2]}, {
+      0, -0.5, 0.8660254037844386}]], 
+    Point3DBox[
+     NCache[{0, -2^Rational[-1, 2], 2^Rational[-1, 2]}, {
+      0, -0.7071067811865475, 0.7071067811865475}]], 
+    Point3DBox[
+     NCache[{0, Rational[-1, 2] 3^Rational[1, 2], Rational[1, 2]}, {
+      0, -0.8660254037844386, 0.5}]], 
+    Point3DBox[
+     NCache[{0, Rational[-1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2])}, {
+      0, -0.9659258262890682, 0.2588190451025207}]], Point3DBox[{0, -1, 0}], 
+    Point3DBox[
+     NCache[{0, Rational[-1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[-1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2])}, {
+      0, -0.9659258262890682, -0.2588190451025207}]], 
+    Point3DBox[
+     NCache[{0, Rational[-1, 2] 3^Rational[1, 2], Rational[-1, 2]}, {
+      0, -0.8660254037844386, -0.5}]], 
+    Point3DBox[
+     NCache[{0, -2^Rational[-1, 2], -2^Rational[-1, 2]}, {
+      0, -0.7071067811865475, -0.7071067811865475}]], 
+    Point3DBox[
+     NCache[{0, Rational[-1, 2], Rational[-1, 2] 3^Rational[1, 2]}, {
+      0, -0.5, -0.8660254037844386}]], 
+    Point3DBox[
+     NCache[{0, Rational[-1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[-1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2])}, {
+      0, -0.2588190451025207, -0.9659258262890682}]], Point3DBox[{0, 0, -1}], 
+    Point3DBox[
+     NCache[{0, Rational[1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[-1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2])}, {
+      0, 0.2588190451025207, -0.9659258262890682}]], 
+    Point3DBox[
+     NCache[{0, Rational[1, 2], Rational[-1, 2] 3^Rational[1, 2]}, {
+      0, 0.5, -0.8660254037844386}]], 
+    Point3DBox[
+     NCache[{0, 2^Rational[-1, 2], -2^Rational[-1, 2]}, {
+      0, 0.7071067811865475, -0.7071067811865475}]], 
+    Point3DBox[
+     NCache[{0, Rational[1, 2] 3^Rational[1, 2], Rational[-1, 2]}, {
+      0, 0.8660254037844386, -0.5}]], 
+    Point3DBox[
+     NCache[{0, Rational[1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[-1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2])}, {
+      0, 0.9659258262890682, -0.2588190451025207}]], Point3DBox[{0, 1, 0}], 
+    Point3DBox[{0, 1, 0}], 
+    Point3DBox[
+     NCache[{Rational[-1, 8] (-1 + 3^Rational[1, 2])^2, Rational[1, 2] 
+       2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[1, 8] (-1 + 3^Rational[1, 2]) (1 + 
+        3^Rational[1, 2])}, {-0.06698729810778066, 0.9659258262890682, 
+      0.24999999999999994`}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 4] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[1, 2] 3^Rational[1, 2], Rational[1, 4] 
+       2^Rational[-1, 2] (1 + 3^Rational[1, 2])}, {-0.12940952255126034`, 
+      0.8660254037844386, 0.4829629131445341}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] (1 - 3^Rational[1, 2]), 2^Rational[-1, 2], 
+       Rational[1, 4] (1 + 3^Rational[1, 2])}, {-0.1830127018922193, 
+      0.7071067811865475, 0.6830127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 4] 
+       Rational[3, 2]^Rational[1, 2] (-1 + 3^Rational[1, 2]), Rational[1, 2], 
+       Rational[1, 4] 
+       Rational[3, 2]^Rational[1, 2] (1 + 
+        3^Rational[1, 2])}, {-0.22414386804201333`, 0.5, 
+      0.8365163037378078}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 8] (-1 + 3^Rational[1, 2]) (1 + 3^Rational[1, 2]), 
+       Rational[1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[1, 8] (1 + 3^Rational[1, 2])^2}, {-0.24999999999999994`, 
+      0.2588190451025207, 0.9330127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 0, 
+       Rational[1, 2] 
+       2^Rational[-1, 2] (1 + 3^Rational[1, 2])}, {-0.2588190451025207, 0, 
+       0.9659258262890682}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 8] (-1 + 3^Rational[1, 2]) (1 + 3^Rational[1, 2]), 
+       Rational[-1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[
+        1, 8] (1 + 
+         3^Rational[1, 2])^2}, {-0.24999999999999994`, -0.2588190451025207, 
+      0.9330127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 4] 
+       Rational[3, 2]^Rational[1, 2] (-1 + 3^Rational[1, 2]), Rational[-1, 2],
+        Rational[1, 4] 
+       Rational[3, 2]^Rational[1, 2] (1 + 
+        3^Rational[1, 2])}, {-0.22414386804201333`, -0.5, 
+      0.8365163037378078}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] (1 - 3^Rational[1, 2]), -2^Rational[-1, 2], 
+       Rational[1, 4] (1 + 
+        3^Rational[1, 2])}, {-0.1830127018922193, -0.7071067811865475, 
+      0.6830127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 4] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[-1, 2] 3^Rational[1, 2], Rational[1, 4] 
+       2^Rational[-1, 2] (1 + 
+        3^Rational[1, 2])}, {-0.12940952255126034`, -0.8660254037844386, 
+      0.4829629131445341}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 8] (-1 + 3^Rational[1, 2])^2, Rational[-1, 2] 
+       2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[1, 8] (-1 + 3^Rational[1, 2]) (1 + 
+        3^Rational[1, 2])}, {-0.06698729810778066, -0.9659258262890682, 
+      0.24999999999999994`}]], Point3DBox[{0, -1, 0}], 
+    Point3DBox[
+     NCache[{Rational[1, 8] (-1 + 3^Rational[1, 2])^2, Rational[-1, 2] 
+       2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[-1, 8] (-1 + 3^Rational[1, 2]) (1 + 3^Rational[1, 2])}, {
+      0.06698729810778066, -0.9659258262890682, -0.24999999999999994`}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[-1, 2] 3^Rational[1, 2], Rational[-1, 4] 
+       2^Rational[-1, 2] (1 + 3^Rational[1, 2])}, {
+      0.12940952255126034`, -0.8660254037844386, -0.4829629131445341}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] (-1 + 3^Rational[1, 2]), -2^Rational[-1, 2], 
+       Rational[1, 4] (-1 - 3^Rational[1, 2])}, {
+      0.1830127018922193, -0.7071067811865475, -0.6830127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] 
+       Rational[3, 2]^Rational[1, 2] (-1 + 3^Rational[1, 2]), Rational[-1, 2],
+        Rational[-1, 4] 
+       Rational[3, 2]^Rational[1, 2] (1 + 3^Rational[1, 2])}, {
+      0.22414386804201333`, -0.5, -0.8365163037378078}]], 
+    Point3DBox[
+     NCache[{Rational[1, 8] (-1 + 3^Rational[1, 2]) (1 + 3^Rational[1, 2]), 
+       Rational[-1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[-1, 8] (1 + 3^Rational[1, 2])^2}, {
+      0.24999999999999994`, -0.2588190451025207, -0.9330127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 0, 
+       Rational[-1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2])}, {
+      0.2588190451025207, 0, -0.9659258262890682}]], 
+    Point3DBox[
+     NCache[{Rational[1, 8] (-1 + 3^Rational[1, 2]) (1 + 3^Rational[1, 2]), 
+       Rational[1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[-1, 8] (1 + 3^Rational[1, 2])^2}, {0.24999999999999994`, 
+      0.2588190451025207, -0.9330127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] 
+       Rational[3, 2]^Rational[1, 2] (-1 + 3^Rational[1, 2]), Rational[1, 2], 
+       Rational[-1, 4] 
+       Rational[3, 2]^Rational[1, 2] (1 + 3^Rational[1, 2])}, {
+      0.22414386804201333`, 0.5, -0.8365163037378078}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] (-1 + 3^Rational[1, 2]), 2^Rational[-1, 2], 
+       Rational[1, 4] (-1 - 3^Rational[1, 2])}, {0.1830127018922193, 
+      0.7071067811865475, -0.6830127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[1, 2] 3^Rational[1, 2], Rational[-1, 4] 
+       2^Rational[-1, 2] (1 + 3^Rational[1, 2])}, {0.12940952255126034`, 
+      0.8660254037844386, -0.4829629131445341}]], 
+    Point3DBox[
+     NCache[{Rational[1, 8] (-1 + 3^Rational[1, 2])^2, Rational[1, 2] 
+       2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[-1, 8] (-1 + 3^Rational[1, 2]) (1 + 3^Rational[1, 2])}, {
+      0.06698729810778066, 0.9659258262890682, -0.24999999999999994`}]], 
+    Point3DBox[{0, 1, 0}], Point3DBox[{0, 1, 0}], 
+    Point3DBox[
+     NCache[{Rational[-1, 4] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[1, 4] 
+       Rational[3, 2]^Rational[1, 2] (-1 + 
+        3^Rational[1, 2])}, {-0.12940952255126034`, 0.9659258262890682, 
+      0.22414386804201333`}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 4], Rational[1, 2] 3^Rational[1, 2], Rational[1, 4] 
+       3^Rational[1, 2]}, {-0.25, 0.8660254037844386, 0.4330127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 2] 2^Rational[-1, 2], 2^Rational[-1, 2], 
+       Rational[1, 2] Rational[3, 2]^Rational[1, 2]}, {-0.35355339059327373`, 
+      0.7071067811865475, 0.6123724356957945}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 4] 3^Rational[1, 2], Rational[1, 2], Rational[
+       3, 4]}, {-0.4330127018922193, 0.5, 0.75}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 4] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[1, 4] 
+       Rational[3, 2]^Rational[1, 2] (1 + 
+        3^Rational[1, 2])}, {-0.4829629131445341, 0.2588190451025207, 
+      0.8365163037378078}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 2], 0, Rational[1, 2] 3^Rational[1, 2]}, {-0.5, 0, 
+       0.8660254037844386}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 4] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[-1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[1, 4] 
+       Rational[3, 2]^Rational[1, 2] (1 + 
+        3^Rational[1, 2])}, {-0.4829629131445341, -0.2588190451025207, 
+      0.8365163037378078}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 4] 3^Rational[1, 2], Rational[-1, 2], Rational[
+       3, 4]}, {-0.4330127018922193, -0.5, 0.75}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 2] 2^Rational[-1, 2], -2^Rational[-1, 2], 
+       Rational[1, 2] 
+       Rational[3, 2]^
+        Rational[1, 2]}, {-0.35355339059327373`, -0.7071067811865475, 
+      0.6123724356957945}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 4], Rational[-1, 2] 3^Rational[1, 2], 
+       Rational[1, 4] 3^Rational[1, 2]}, {-0.25, -0.8660254037844386, 
+      0.4330127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 4] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[-1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[1, 4] 
+       Rational[3, 2]^Rational[1, 2] (-1 + 
+        3^Rational[1, 2])}, {-0.12940952255126034`, -0.9659258262890682, 
+      0.22414386804201333`}]], Point3DBox[{0, -1, 0}], 
+    Point3DBox[
+     NCache[{Rational[1, 4] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[-1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[-1, 4] 
+       Rational[3, 2]^Rational[1, 2] (-1 + 3^Rational[1, 2])}, {
+      0.12940952255126034`, -0.9659258262890682, -0.22414386804201333`}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4], Rational[-1, 2] 3^Rational[1, 2], 
+       Rational[-1, 4] 3^Rational[1, 2]}, {
+      0.25, -0.8660254037844386, -0.4330127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[1, 2] 2^Rational[-1, 2], -2^Rational[-1, 2], 
+       Rational[-1, 2] Rational[3, 2]^Rational[1, 2]}, {
+      0.35355339059327373`, -0.7071067811865475, -0.6123724356957945}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] 3^Rational[1, 2], Rational[-1, 2], 
+       Rational[-3, 4]}, {0.4330127018922193, -0.5, -0.75}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[-1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[-1, 4] Rational[3, 2]^Rational[1, 2] (1 + 3^Rational[1, 2])},
+       {0.4829629131445341, -0.2588190451025207, -0.8365163037378078}]], 
+    Point3DBox[
+     NCache[{Rational[1, 2], 0, Rational[-1, 2] 3^Rational[1, 2]}, {
+      0.5, 0, -0.8660254037844386}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[-1, 4] 
+       Rational[3, 2]^Rational[1, 2] (1 + 3^Rational[1, 2])}, {
+      0.4829629131445341, 0.2588190451025207, -0.8365163037378078}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] 3^Rational[1, 2], Rational[1, 2], 
+       Rational[-3, 4]}, {0.4330127018922193, 0.5, -0.75}]], 
+    Point3DBox[
+     NCache[{Rational[1, 2] 2^Rational[-1, 2], 2^Rational[-1, 2], 
+       Rational[-1, 2] Rational[3, 2]^Rational[1, 2]}, {0.35355339059327373`, 
+      0.7071067811865475, -0.6123724356957945}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4], Rational[1, 2] 3^Rational[1, 2], Rational[-1, 4] 
+       3^Rational[1, 2]}, {0.25, 0.8660254037844386, -0.4330127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[-1, 4] 
+       Rational[3, 2]^Rational[1, 2] (-1 + 3^Rational[1, 2])}, {
+      0.12940952255126034`, 0.9659258262890682, -0.22414386804201333`}]], 
+    Point3DBox[{0, 1, 0}], Point3DBox[{0, 1, 0}], 
+    Point3DBox[
+     NCache[{Rational[1, 4] (1 - 3^Rational[1, 2]), Rational[1, 2] 
+       2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[1, 4] (-1 + 3^Rational[1, 2])}, {-0.1830127018922193, 
+      0.9659258262890682, 0.1830127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 2] 2^Rational[-1, 2], Rational[1, 2] 
+       3^Rational[1, 2], Rational[1, 2] 
+       2^Rational[-1, 2]}, {-0.35355339059327373`, 0.8660254037844386, 
+      0.35355339059327373`}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 2], 2^Rational[-1, 2], Rational[1, 2]}, {-0.5, 
+      0.7071067811865475, 0.5}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 2] Rational[3, 2]^Rational[1, 2], Rational[1, 2], 
+       Rational[1, 2] Rational[3, 2]^Rational[1, 2]}, {-0.6123724356957945, 
+      0.5, 0.6123724356957945}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] (-1 - 3^Rational[1, 2]), Rational[1, 2] 
+       2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[1, 4] (1 + 3^Rational[1, 2])}, {-0.6830127018922193, 
+      0.2588190451025207, 0.6830127018922193}]], 
+    Point3DBox[
+     NCache[{-2^Rational[-1, 2], 0, 2^Rational[-1, 2]}, {-0.7071067811865475, 
+       0, 0.7071067811865475}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] (-1 - 3^Rational[1, 2]), Rational[-1, 2] 
+       2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[1, 4] (1 + 
+        3^Rational[1, 2])}, {-0.6830127018922193, -0.2588190451025207, 
+      0.6830127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 2] Rational[3, 2]^Rational[1, 2], Rational[-1, 2], 
+       Rational[1, 2] 
+       Rational[3, 2]^Rational[1, 2]}, {-0.6123724356957945, -0.5, 
+      0.6123724356957945}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 2], -2^Rational[-1, 2], Rational[
+       1, 2]}, {-0.5, -0.7071067811865475, 0.5}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 2] 2^Rational[-1, 2], Rational[-1, 2] 
+       3^Rational[1, 2], Rational[1, 2] 
+       2^Rational[-1, 2]}, {-0.35355339059327373`, -0.8660254037844386, 
+      0.35355339059327373`}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] (1 - 3^Rational[1, 2]), Rational[-1, 2] 
+       2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[1, 4] (-1 + 
+        3^Rational[1, 2])}, {-0.1830127018922193, -0.9659258262890682, 
+      0.1830127018922193}]], Point3DBox[{0, -1, 0}], 
+    Point3DBox[
+     NCache[{Rational[1, 4] (-1 + 3^Rational[1, 2]), Rational[-1, 2] 
+       2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[1, 4] (1 - 3^Rational[1, 2])}, {
+      0.1830127018922193, -0.9659258262890682, -0.1830127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[1, 2] 2^Rational[-1, 2], Rational[-1, 2] 
+       3^Rational[1, 2], Rational[-1, 2] 2^Rational[-1, 2]}, {
+      0.35355339059327373`, -0.8660254037844386, -0.35355339059327373`}]], 
+    Point3DBox[
+     NCache[{Rational[1, 2], -2^Rational[-1, 2], Rational[-1, 2]}, {
+      0.5, -0.7071067811865475, -0.5}]], 
+    Point3DBox[
+     NCache[{
+      Rational[1, 2] Rational[3, 2]^Rational[1, 2], Rational[-1, 2], 
+       Rational[-1, 2] Rational[3, 2]^Rational[1, 2]}, {
+      0.6123724356957945, -0.5, -0.6123724356957945}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] (1 + 3^Rational[1, 2]), Rational[-1, 2] 
+       2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[1, 4] (-1 - 3^Rational[1, 2])}, {
+      0.6830127018922193, -0.2588190451025207, -0.6830127018922193}]], 
+    Point3DBox[
+     NCache[{2^Rational[-1, 2], 0, -2^Rational[-1, 2]}, {
+      0.7071067811865475, 0, -0.7071067811865475}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] (1 + 3^Rational[1, 2]), Rational[1, 2] 
+       2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[1, 4] (-1 - 3^Rational[1, 2])}, {0.6830127018922193, 
+      0.2588190451025207, -0.6830127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[1, 2] Rational[3, 2]^Rational[1, 2], Rational[1, 2], 
+       Rational[-1, 2] Rational[3, 2]^Rational[1, 2]}, {0.6123724356957945, 
+      0.5, -0.6123724356957945}]], 
+    Point3DBox[
+     NCache[{Rational[1, 2], 2^Rational[-1, 2], Rational[-1, 2]}, {0.5, 
+      0.7071067811865475, -0.5}]], 
+    Point3DBox[
+     NCache[{Rational[1, 2] 2^Rational[-1, 2], Rational[1, 2] 
+       3^Rational[1, 2], Rational[-1, 2] 2^Rational[-1, 2]}, {
+      0.35355339059327373`, 0.8660254037844386, -0.35355339059327373`}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] (-1 + 3^Rational[1, 2]), Rational[1, 2] 
+       2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[1, 4] (1 - 3^Rational[1, 2])}, {0.1830127018922193, 
+      0.9659258262890682, -0.1830127018922193}]], Point3DBox[{0, 1, 0}], 
+    Point3DBox[{0, 1, 0}], 
+    Point3DBox[
+     NCache[{Rational[-1, 4] 
+       Rational[3, 2]^Rational[1, 2] (-1 + 3^Rational[1, 2]), Rational[1, 2] 
+       2^Rational[-1, 2] (1 + 3^Rational[1, 2]), Rational[1, 4] 
+       2^Rational[-1, 2] (-1 + 3^Rational[1, 2])}, {-0.22414386804201333`, 
+      0.9659258262890682, 0.12940952255126034`}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 4] 3^Rational[1, 2], Rational[1, 2] 
+       3^Rational[1, 2], Rational[1, 4]}, {-0.4330127018922193, 
+      0.8660254037844386, 0.25}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 2] Rational[3, 2]^Rational[1, 2], 2^Rational[-1, 2],
+        Rational[1, 2] 2^Rational[-1, 2]}, {-0.6123724356957945, 
+      0.7071067811865475, 0.35355339059327373`}]], 
+    Point3DBox[
+     NCache[{Rational[-3, 4], Rational[1, 2], Rational[1, 4] 
+       3^Rational[1, 2]}, {-0.75, 0.5, 0.4330127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 4] 
+       Rational[3, 2]^Rational[1, 2] (1 + 3^Rational[1, 2]), Rational[1, 2] 
+       2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), Rational[1, 4] 
+       2^Rational[-1, 2] (1 + 3^Rational[1, 2])}, {-0.8365163037378078, 
+      0.2588190451025207, 0.4829629131445341}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 2] 3^Rational[1, 2], 0, Rational[
+       1, 2]}, {-0.8660254037844386, 0, 0.5}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 4] 
+       Rational[3, 2]^Rational[1, 2] (1 + 3^Rational[1, 2]), Rational[-1, 2] 
+       2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), Rational[1, 4] 
+       2^Rational[-1, 2] (1 + 
+        3^Rational[1, 2])}, {-0.8365163037378078, -0.2588190451025207, 
+      0.4829629131445341}]], 
+    Point3DBox[
+     NCache[{Rational[-3, 4], Rational[-1, 2], Rational[1, 4] 
+       3^Rational[1, 2]}, {-0.75, -0.5, 0.4330127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 2] 
+       Rational[3, 2]^Rational[1, 2], -2^Rational[-1, 2], Rational[1, 2] 
+       2^Rational[-1, 2]}, {-0.6123724356957945, -0.7071067811865475, 
+      0.35355339059327373`}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 4] 3^Rational[1, 2], Rational[-1, 2] 
+       3^Rational[1, 2], Rational[
+       1, 4]}, {-0.4330127018922193, -0.8660254037844386, 0.25}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 4] 
+       Rational[3, 2]^Rational[1, 2] (-1 + 3^Rational[1, 2]), Rational[-1, 2] 
+       2^Rational[-1, 2] (1 + 3^Rational[1, 2]), Rational[1, 4] 
+       2^Rational[-1, 2] (-1 + 
+        3^Rational[1, 2])}, {-0.22414386804201333`, -0.9659258262890682, 
+      0.12940952255126034`}]], Point3DBox[{0, -1, 0}], 
+    Point3DBox[
+     NCache[{Rational[1, 4] 
+       Rational[3, 2]^Rational[1, 2] (-1 + 3^Rational[1, 2]), Rational[-1, 2] 
+       2^Rational[-1, 2] (1 + 3^Rational[1, 2]), Rational[-1, 4] 
+       2^Rational[-1, 2] (-1 + 3^Rational[1, 2])}, {
+      0.22414386804201333`, -0.9659258262890682, -0.12940952255126034`}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] 3^Rational[1, 2], Rational[-1, 2] 
+       3^Rational[1, 2], Rational[-1, 4]}, {
+      0.4330127018922193, -0.8660254037844386, -0.25}]], 
+    Point3DBox[
+     NCache[{Rational[1, 2] Rational[3, 2]^Rational[1, 2], -2^Rational[-1, 2],
+        Rational[-1, 2] 2^Rational[-1, 2]}, {
+      0.6123724356957945, -0.7071067811865475, -0.35355339059327373`}]], 
+    Point3DBox[
+     NCache[{Rational[3, 4], Rational[-1, 2], Rational[-1, 4] 
+       3^Rational[1, 2]}, {0.75, -0.5, -0.4330127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] 
+       Rational[3, 2]^Rational[1, 2] (1 + 3^Rational[1, 2]), Rational[-1, 2] 
+       2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), Rational[-1, 4] 
+       2^Rational[-1, 2] (1 + 3^Rational[1, 2])}, {
+      0.8365163037378078, -0.2588190451025207, -0.4829629131445341}]], 
+    Point3DBox[
+     NCache[{Rational[1, 2] 3^Rational[1, 2], 0, Rational[-1, 2]}, {
+      0.8660254037844386, 0, -0.5}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] 
+       Rational[3, 2]^Rational[1, 2] (1 + 3^Rational[1, 2]), Rational[1, 2] 
+       2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), Rational[-1, 4] 
+       2^Rational[-1, 2] (1 + 3^Rational[1, 2])}, {0.8365163037378078, 
+      0.2588190451025207, -0.4829629131445341}]], 
+    Point3DBox[
+     NCache[{Rational[3, 4], Rational[1, 2], Rational[-1, 4] 
+       3^Rational[1, 2]}, {0.75, 0.5, -0.4330127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[1, 2] Rational[3, 2]^Rational[1, 2], 2^Rational[-1, 2], 
+       Rational[-1, 2] 2^Rational[-1, 2]}, {0.6123724356957945, 
+      0.7071067811865475, -0.35355339059327373`}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] 3^Rational[1, 2], Rational[1, 2] 3^Rational[1, 2],
+        Rational[-1, 4]}, {0.4330127018922193, 0.8660254037844386, -0.25}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] 
+       Rational[3, 2]^Rational[1, 2] (-1 + 3^Rational[1, 2]), Rational[1, 2] 
+       2^Rational[-1, 2] (1 + 3^Rational[1, 2]), Rational[-1, 4] 
+       2^Rational[-1, 2] (-1 + 3^Rational[1, 2])}, {0.22414386804201333`, 
+      0.9659258262890682, -0.12940952255126034`}]], Point3DBox[{0, 1, 0}], 
+    Point3DBox[{0, 1, 0}], 
+    Point3DBox[
+     NCache[{Rational[-1, 8] (-1 + 3^Rational[1, 2]) (1 + 3^Rational[1, 2]), 
+       Rational[1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[1, 8] (-1 + 3^Rational[1, 2])^2}, {-0.24999999999999994`, 
+      0.9659258262890682, 0.06698729810778066}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 4] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[1, 2] 3^Rational[1, 2], Rational[1, 4] 
+       2^Rational[-1, 2] (-1 + 3^Rational[1, 2])}, {-0.4829629131445341, 
+      0.8660254037844386, 0.12940952255126034`}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] (-1 - 3^Rational[1, 2]), 2^Rational[-1, 2], 
+       Rational[1, 4] (-1 + 3^Rational[1, 2])}, {-0.6830127018922193, 
+      0.7071067811865475, 0.1830127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 4] 
+       Rational[3, 2]^Rational[1, 2] (1 + 3^Rational[1, 2]), Rational[1, 2], 
+       Rational[1, 4] 
+       Rational[3, 2]^Rational[1, 2] (-1 + 
+        3^Rational[1, 2])}, {-0.8365163037378078, 0.5, 
+      0.22414386804201333`}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 8] (1 + 3^Rational[1, 2])^2, Rational[1, 2] 
+       2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[1, 8] (-1 + 3^Rational[1, 2]) (1 + 
+        3^Rational[1, 2])}, {-0.9330127018922193, 0.2588190451025207, 
+      0.24999999999999994`}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 0, 
+       Rational[1, 2] 
+       2^Rational[-1, 2] (-1 + 3^Rational[1, 2])}, {-0.9659258262890682, 0, 
+       0.2588190451025207}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 8] (1 + 3^Rational[1, 2])^2, Rational[-1, 2] 
+       2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[1, 8] (-1 + 3^Rational[1, 2]) (1 + 
+        3^Rational[1, 2])}, {-0.9330127018922193, -0.2588190451025207, 
+      0.24999999999999994`}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 4] 
+       Rational[3, 2]^Rational[1, 2] (1 + 3^Rational[1, 2]), Rational[-1, 2], 
+       Rational[1, 4] 
+       Rational[3, 2]^Rational[1, 2] (-1 + 
+        3^Rational[1, 2])}, {-0.8365163037378078, -0.5, 
+      0.22414386804201333`}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] (-1 - 3^Rational[1, 2]), -2^Rational[-1, 2], 
+       Rational[1, 4] (-1 + 
+        3^Rational[1, 2])}, {-0.6830127018922193, -0.7071067811865475, 
+      0.1830127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 4] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[-1, 2] 3^Rational[1, 2], Rational[1, 4] 
+       2^Rational[-1, 2] (-1 + 
+        3^Rational[1, 2])}, {-0.4829629131445341, -0.8660254037844386, 
+      0.12940952255126034`}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 8] (-1 + 3^Rational[1, 2]) (1 + 3^Rational[1, 2]), 
+       Rational[-1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[
+        1, 8] (-1 + 
+         3^Rational[1, 2])^2}, {-0.24999999999999994`, -0.9659258262890682, 
+      0.06698729810778066}]], Point3DBox[{0, -1, 0}], 
+    Point3DBox[
+     NCache[{Rational[1, 8] (-1 + 3^Rational[1, 2]) (1 + 3^Rational[1, 2]), 
+       Rational[-1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[-1, 8] (-1 + 3^Rational[1, 2])^2}, {
+      0.24999999999999994`, -0.9659258262890682, -0.06698729810778066}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[-1, 2] 3^Rational[1, 2], Rational[-1, 4] 
+       2^Rational[-1, 2] (-1 + 3^Rational[1, 2])}, {
+      0.4829629131445341, -0.8660254037844386, -0.12940952255126034`}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] (1 + 3^Rational[1, 2]), -2^Rational[-1, 2], 
+       Rational[1, 4] (1 - 3^Rational[1, 2])}, {
+      0.6830127018922193, -0.7071067811865475, -0.1830127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] 
+       Rational[3, 2]^Rational[1, 2] (1 + 3^Rational[1, 2]), Rational[-1, 2], 
+       Rational[-1, 4] 
+       Rational[3, 2]^Rational[1, 2] (-1 + 3^Rational[1, 2])}, {
+      0.8365163037378078, -0.5, -0.22414386804201333`}]], 
+    Point3DBox[
+     NCache[{Rational[1, 8] (1 + 3^Rational[1, 2])^2, Rational[-1, 2] 
+       2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[-1, 8] (-1 + 3^Rational[1, 2]) (1 + 3^Rational[1, 2])}, {
+      0.9330127018922193, -0.2588190451025207, -0.24999999999999994`}]], 
+    Point3DBox[
+     NCache[{Rational[1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 0, 
+       Rational[-1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2])}, {
+      0.9659258262890682, 0, -0.2588190451025207}]], 
+    Point3DBox[
+     NCache[{Rational[1, 8] (1 + 3^Rational[1, 2])^2, Rational[1, 2] 
+       2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[-1, 8] (-1 + 3^Rational[1, 2]) (1 + 3^Rational[1, 2])}, {
+      0.9330127018922193, 0.2588190451025207, -0.24999999999999994`}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] 
+       Rational[3, 2]^Rational[1, 2] (1 + 3^Rational[1, 2]), Rational[1, 2], 
+       Rational[-1, 4] 
+       Rational[3, 2]^Rational[1, 2] (-1 + 3^Rational[1, 2])}, {
+      0.8365163037378078, 0.5, -0.22414386804201333`}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] (1 + 3^Rational[1, 2]), 2^Rational[-1, 2], 
+       Rational[1, 4] (1 - 3^Rational[1, 2])}, {0.6830127018922193, 
+      0.7071067811865475, -0.1830127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[1, 2] 3^Rational[1, 2], Rational[-1, 4] 
+       2^Rational[-1, 2] (-1 + 3^Rational[1, 2])}, {0.4829629131445341, 
+      0.8660254037844386, -0.12940952255126034`}]], 
+    Point3DBox[
+     NCache[{Rational[1, 8] (-1 + 3^Rational[1, 2]) (1 + 3^Rational[1, 2]), 
+       Rational[1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[-1, 8] (-1 + 3^Rational[1, 2])^2}, {0.24999999999999994`, 
+      0.9659258262890682, -0.06698729810778066}]], Point3DBox[{0, 1, 0}], 
+    Point3DBox[{0, 1, 0}], 
+    Point3DBox[
+     NCache[{Rational[-1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       0}, {-0.2588190451025207, 0.9659258262890682, 0}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 2], Rational[1, 2] 3^Rational[1, 2], 0}, {-0.5, 
+       0.8660254037844386, 0}]], 
+    Point3DBox[
+     NCache[{-2^Rational[-1, 2], 2^Rational[-1, 2], 0}, {-0.7071067811865475, 
+       0.7071067811865475, 0}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 2] 3^Rational[1, 2], Rational[1, 2], 
+       0}, {-0.8660254037844386, 0.5, 0}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       0}, {-0.9659258262890682, 0.2588190451025207, 0}]], 
+    Point3DBox[{-1, 0, 0}], 
+    Point3DBox[
+     NCache[{Rational[-1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[-1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       0}, {-0.9659258262890682, -0.2588190451025207, 0}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 2] 3^Rational[1, 2], Rational[-1, 2], 
+       0}, {-0.8660254037844386, -0.5, 0}]], 
+    Point3DBox[
+     NCache[{-2^Rational[-1, 2], -2^Rational[-1, 2], 
+       0}, {-0.7071067811865475, -0.7071067811865475, 0}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 2], Rational[-1, 2] 3^Rational[1, 2], 
+       0}, {-0.5, -0.8660254037844386, 0}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[-1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       0}, {-0.2588190451025207, -0.9659258262890682, 0}]], 
+    Point3DBox[{0, -1, 0}], 
+    Point3DBox[
+     NCache[{Rational[1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[-1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 0}, {
+      0.2588190451025207, -0.9659258262890682, 0}]], 
+    Point3DBox[
+     NCache[{Rational[1, 2], Rational[-1, 2] 3^Rational[1, 2], 0}, {
+      0.5, -0.8660254037844386, 0}]], 
+    Point3DBox[
+     NCache[{2^Rational[-1, 2], -2^Rational[-1, 2], 0}, {
+      0.7071067811865475, -0.7071067811865475, 0}]], 
+    Point3DBox[
+     NCache[{Rational[1, 2] 3^Rational[1, 2], Rational[-1, 2], 0}, {
+      0.8660254037844386, -0.5, 0}]], 
+    Point3DBox[
+     NCache[{Rational[1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[-1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 0}, {
+      0.9659258262890682, -0.2588190451025207, 0}]], Point3DBox[{1, 0, 0}], 
+    Point3DBox[
+     NCache[{Rational[1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 0}, {
+      0.9659258262890682, 0.2588190451025207, 0}]], 
+    Point3DBox[
+     NCache[{Rational[1, 2] 3^Rational[1, 2], Rational[1, 2], 0}, {
+      0.8660254037844386, 0.5, 0}]], 
+    Point3DBox[
+     NCache[{2^Rational[-1, 2], 2^Rational[-1, 2], 0}, {
+      0.7071067811865475, 0.7071067811865475, 0}]], 
+    Point3DBox[
+     NCache[{Rational[1, 2], Rational[1, 2] 3^Rational[1, 2], 0}, {
+      0.5, 0.8660254037844386, 0}]], 
+    Point3DBox[
+     NCache[{Rational[1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 0}, {
+      0.2588190451025207, 0.9659258262890682, 0}]], Point3DBox[{0, 1, 0}], 
+    Point3DBox[{0, 1, 0}], 
+    Point3DBox[
+     NCache[{Rational[-1, 8] (-1 + 3^Rational[1, 2]) (1 + 3^Rational[1, 2]), 
+       Rational[1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[-1, 8] (-1 + 3^Rational[1, 2])^2}, {-0.24999999999999994`, 
+      0.9659258262890682, -0.06698729810778066}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 4] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[1, 2] 3^Rational[1, 2], Rational[-1, 4] 
+       2^Rational[-1, 2] (-1 + 3^Rational[1, 2])}, {-0.4829629131445341, 
+      0.8660254037844386, -0.12940952255126034`}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] (-1 - 3^Rational[1, 2]), 2^Rational[-1, 2], 
+       Rational[1, 4] (1 - 3^Rational[1, 2])}, {-0.6830127018922193, 
+      0.7071067811865475, -0.1830127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 4] 
+       Rational[3, 2]^Rational[1, 2] (1 + 3^Rational[1, 2]), Rational[1, 2], 
+       Rational[-1, 4] 
+       Rational[3, 2]^Rational[1, 2] (-1 + 
+        3^Rational[1, 2])}, {-0.8365163037378078, 
+      0.5, -0.22414386804201333`}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 8] (1 + 3^Rational[1, 2])^2, Rational[1, 2] 
+       2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[-1, 8] (-1 + 3^Rational[1, 2]) (1 + 
+        3^Rational[1, 2])}, {-0.9330127018922193, 
+      0.2588190451025207, -0.24999999999999994`}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 0, 
+       Rational[-1, 2] 
+       2^Rational[-1, 2] (-1 + 3^Rational[1, 2])}, {-0.9659258262890682, 
+       0, -0.2588190451025207}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 8] (1 + 3^Rational[1, 2])^2, Rational[-1, 2] 
+       2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[-1, 8] (-1 + 3^Rational[1, 2]) (1 + 
+        3^Rational[
+          1, 2])}, {-0.9330127018922193, -0.2588190451025207, \
+-0.24999999999999994`}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 4] 
+       Rational[3, 2]^Rational[1, 2] (1 + 3^Rational[1, 2]), Rational[-1, 2], 
+       Rational[-1, 4] 
+       Rational[3, 2]^Rational[1, 2] (-1 + 
+        3^Rational[
+          1, 2])}, {-0.8365163037378078, -0.5, -0.22414386804201333`}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] (-1 - 3^Rational[1, 2]), -2^Rational[-1, 2], 
+       Rational[1, 4] (1 - 3^
+        Rational[
+         1, 2])}, {-0.6830127018922193, -0.7071067811865475, \
+-0.1830127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 4] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[-1, 2] 3^Rational[1, 2], Rational[-1, 4] 
+       2^Rational[-1, 2] (-1 + 
+        3^Rational[
+          1, 2])}, {-0.4829629131445341, -0.8660254037844386, \
+-0.12940952255126034`}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 8] (-1 + 3^Rational[1, 2]) (1 + 3^Rational[1, 2]), 
+       Rational[-1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[-1, 8] (-1 + 
+         3^Rational[
+           1, 2])^2}, {-0.24999999999999994`, -0.9659258262890682, \
+-0.06698729810778066}]], Point3DBox[{0, -1, 0}], 
+    Point3DBox[
+     NCache[{Rational[1, 8] (-1 + 3^Rational[1, 2]) (1 + 3^Rational[1, 2]), 
+       Rational[-1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[1, 8] (-1 + 3^Rational[1, 2])^2}, {
+      0.24999999999999994`, -0.9659258262890682, 0.06698729810778066}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[-1, 2] 3^Rational[1, 2], Rational[1, 4] 
+       2^Rational[-1, 2] (-1 + 3^Rational[1, 2])}, {
+      0.4829629131445341, -0.8660254037844386, 0.12940952255126034`}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] (1 + 3^Rational[1, 2]), -2^Rational[-1, 2], 
+       Rational[1, 4] (-1 + 3^Rational[1, 2])}, {
+      0.6830127018922193, -0.7071067811865475, 0.1830127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] 
+       Rational[3, 2]^Rational[1, 2] (1 + 3^Rational[1, 2]), Rational[-1, 2], 
+       Rational[1, 4] 
+       Rational[3, 2]^Rational[1, 2] (-1 + 3^Rational[1, 2])}, {
+      0.8365163037378078, -0.5, 0.22414386804201333`}]], 
+    Point3DBox[
+     NCache[{Rational[1, 8] (1 + 3^Rational[1, 2])^2, Rational[-1, 2] 
+       2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[1, 8] (-1 + 3^Rational[1, 2]) (1 + 3^Rational[1, 2])}, {
+      0.9330127018922193, -0.2588190451025207, 0.24999999999999994`}]], 
+    Point3DBox[
+     NCache[{Rational[1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 0, 
+       Rational[1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2])}, {
+      0.9659258262890682, 0, 0.2588190451025207}]], 
+    Point3DBox[
+     NCache[{Rational[1, 8] (1 + 3^Rational[1, 2])^2, Rational[1, 2] 
+       2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[1, 8] (-1 + 3^Rational[1, 2]) (1 + 3^Rational[1, 2])}, {
+      0.9330127018922193, 0.2588190451025207, 0.24999999999999994`}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] 
+       Rational[3, 2]^Rational[1, 2] (1 + 3^Rational[1, 2]), Rational[1, 2], 
+       Rational[1, 4] 
+       Rational[3, 2]^Rational[1, 2] (-1 + 3^Rational[1, 2])}, {
+      0.8365163037378078, 0.5, 0.22414386804201333`}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] (1 + 3^Rational[1, 2]), 2^Rational[-1, 2], 
+       Rational[1, 4] (-1 + 3^Rational[1, 2])}, {0.6830127018922193, 
+      0.7071067811865475, 0.1830127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[1, 2] 3^Rational[1, 2], Rational[1, 4] 
+       2^Rational[-1, 2] (-1 + 3^Rational[1, 2])}, {0.4829629131445341, 
+      0.8660254037844386, 0.12940952255126034`}]], 
+    Point3DBox[
+     NCache[{Rational[1, 8] (-1 + 3^Rational[1, 2]) (1 + 3^Rational[1, 2]), 
+       Rational[1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[1, 8] (-1 + 3^Rational[1, 2])^2}, {0.24999999999999994`, 
+      0.9659258262890682, 0.06698729810778066}]], Point3DBox[{0, 1, 0}], 
+    Point3DBox[{0, 1, 0}], 
+    Point3DBox[
+     NCache[{Rational[-1, 4] 
+       Rational[3, 2]^Rational[1, 2] (-1 + 3^Rational[1, 2]), Rational[1, 2] 
+       2^Rational[-1, 2] (1 + 3^Rational[1, 2]), Rational[-1, 4] 
+       2^Rational[-1, 2] (-1 + 3^Rational[1, 2])}, {-0.22414386804201333`, 
+      0.9659258262890682, -0.12940952255126034`}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 4] 3^Rational[1, 2], Rational[1, 2] 
+       3^Rational[1, 2], Rational[-1, 4]}, {-0.4330127018922193, 
+      0.8660254037844386, -0.25}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 2] Rational[3, 2]^Rational[1, 2], 2^Rational[-1, 2],
+        Rational[-1, 2] 2^Rational[-1, 2]}, {-0.6123724356957945, 
+      0.7071067811865475, -0.35355339059327373`}]], 
+    Point3DBox[
+     NCache[{Rational[-3, 4], Rational[1, 2], Rational[-1, 4] 
+       3^Rational[1, 2]}, {-0.75, 0.5, -0.4330127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 4] 
+       Rational[3, 2]^Rational[1, 2] (1 + 3^Rational[1, 2]), Rational[1, 2] 
+       2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), Rational[-1, 4] 
+       2^Rational[-1, 2] (1 + 3^Rational[1, 2])}, {-0.8365163037378078, 
+      0.2588190451025207, -0.4829629131445341}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 2] 3^Rational[1, 2], 0, 
+       Rational[-1, 2]}, {-0.8660254037844386, 0, -0.5}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 4] 
+       Rational[3, 2]^Rational[1, 2] (1 + 3^Rational[1, 2]), Rational[-1, 2] 
+       2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), Rational[-1, 4] 
+       2^Rational[-1, 2] (1 + 
+        3^Rational[
+          1, 2])}, {-0.8365163037378078, -0.2588190451025207, \
+-0.4829629131445341}]], 
+    Point3DBox[
+     NCache[{Rational[-3, 4], Rational[-1, 2], Rational[-1, 4] 
+       3^Rational[1, 2]}, {-0.75, -0.5, -0.4330127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 2] 
+       Rational[3, 2]^Rational[1, 2], -2^Rational[-1, 2], Rational[-1, 2] 
+       2^Rational[-1, 
+          2]}, {-0.6123724356957945, -0.7071067811865475, \
+-0.35355339059327373`}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 4] 3^Rational[1, 2], Rational[-1, 2] 
+       3^Rational[1, 2], 
+       Rational[-1, 4]}, {-0.4330127018922193, -0.8660254037844386, -0.25}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 4] 
+       Rational[3, 2]^Rational[1, 2] (-1 + 3^Rational[1, 2]), Rational[-1, 2] 
+       2^Rational[-1, 2] (1 + 3^Rational[1, 2]), Rational[-1, 4] 
+       2^Rational[-1, 2] (-1 + 
+        3^Rational[
+          1, 2])}, {-0.22414386804201333`, -0.9659258262890682, \
+-0.12940952255126034`}]], Point3DBox[{0, -1, 0}], 
+    Point3DBox[
+     NCache[{Rational[1, 4] 
+       Rational[3, 2]^Rational[1, 2] (-1 + 3^Rational[1, 2]), Rational[-1, 2] 
+       2^Rational[-1, 2] (1 + 3^Rational[1, 2]), Rational[1, 4] 
+       2^Rational[-1, 2] (-1 + 3^Rational[1, 2])}, {
+      0.22414386804201333`, -0.9659258262890682, 0.12940952255126034`}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] 3^Rational[1, 2], Rational[-1, 2] 
+       3^Rational[1, 2], Rational[1, 4]}, {
+      0.4330127018922193, -0.8660254037844386, 0.25}]], 
+    Point3DBox[
+     NCache[{Rational[1, 2] Rational[3, 2]^Rational[1, 2], -2^Rational[-1, 2],
+        Rational[1, 2] 2^Rational[-1, 2]}, {
+      0.6123724356957945, -0.7071067811865475, 0.35355339059327373`}]], 
+    Point3DBox[
+     NCache[{Rational[3, 4], Rational[-1, 2], Rational[1, 4] 
+       3^Rational[1, 2]}, {0.75, -0.5, 0.4330127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] 
+       Rational[3, 2]^Rational[1, 2] (1 + 3^Rational[1, 2]), Rational[-1, 2] 
+       2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), Rational[1, 4] 
+       2^Rational[-1, 2] (1 + 3^Rational[1, 2])}, {
+      0.8365163037378078, -0.2588190451025207, 0.4829629131445341}]], 
+    Point3DBox[
+     NCache[{Rational[1, 2] 3^Rational[1, 2], 0, Rational[1, 2]}, {
+      0.8660254037844386, 0, 0.5}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] 
+       Rational[3, 2]^Rational[1, 2] (1 + 3^Rational[1, 2]), Rational[1, 2] 
+       2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), Rational[1, 4] 
+       2^Rational[-1, 2] (1 + 3^Rational[1, 2])}, {0.8365163037378078, 
+      0.2588190451025207, 0.4829629131445341}]], 
+    Point3DBox[
+     NCache[{Rational[3, 4], Rational[1, 2], Rational[1, 4] 
+       3^Rational[1, 2]}, {0.75, 0.5, 0.4330127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[1, 2] Rational[3, 2]^Rational[1, 2], 2^Rational[-1, 2], 
+       Rational[1, 2] 2^Rational[-1, 2]}, {0.6123724356957945, 
+      0.7071067811865475, 0.35355339059327373`}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] 3^Rational[1, 2], Rational[1, 2] 3^Rational[1, 2],
+        Rational[1, 4]}, {0.4330127018922193, 0.8660254037844386, 0.25}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] 
+       Rational[3, 2]^Rational[1, 2] (-1 + 3^Rational[1, 2]), Rational[1, 2] 
+       2^Rational[-1, 2] (1 + 3^Rational[1, 2]), Rational[1, 4] 
+       2^Rational[-1, 2] (-1 + 3^Rational[1, 2])}, {0.22414386804201333`, 
+      0.9659258262890682, 0.12940952255126034`}]], Point3DBox[{0, 1, 0}], 
+    Point3DBox[{0, 1, 0}], 
+    Point3DBox[
+     NCache[{Rational[1, 4] (1 - 3^Rational[1, 2]), Rational[1, 2] 
+       2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[1, 4] (1 - 3^Rational[1, 2])}, {-0.1830127018922193, 
+      0.9659258262890682, -0.1830127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 2] 2^Rational[-1, 2], Rational[1, 2] 
+       3^Rational[1, 2], Rational[-1, 2] 
+       2^Rational[-1, 2]}, {-0.35355339059327373`, 
+      0.8660254037844386, -0.35355339059327373`}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 2], 2^Rational[-1, 2], Rational[-1, 2]}, {-0.5, 
+      0.7071067811865475, -0.5}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 2] Rational[3, 2]^Rational[1, 2], Rational[1, 2], 
+       Rational[-1, 2] Rational[3, 2]^Rational[1, 2]}, {-0.6123724356957945, 
+      0.5, -0.6123724356957945}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] (-1 - 3^Rational[1, 2]), Rational[1, 2] 
+       2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[1, 4] (-1 - 3^Rational[1, 2])}, {-0.6830127018922193, 
+      0.2588190451025207, -0.6830127018922193}]], 
+    Point3DBox[
+     NCache[{-2^Rational[-1, 2], 0, -2^Rational[-1, 2]}, {-0.7071067811865475,
+        0, -0.7071067811865475}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] (-1 - 3^Rational[1, 2]), Rational[-1, 2] 
+       2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[1, 4] (-1 - 3^
+        Rational[
+         1, 2])}, {-0.6830127018922193, -0.2588190451025207, \
+-0.6830127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 2] Rational[3, 2]^Rational[1, 2], Rational[-1, 2], 
+       Rational[-1, 2] 
+       Rational[3, 2]^
+        Rational[1, 2]}, {-0.6123724356957945, -0.5, -0.6123724356957945}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 2], -2^Rational[-1, 2], 
+       Rational[-1, 2]}, {-0.5, -0.7071067811865475, -0.5}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 2] 2^Rational[-1, 2], Rational[-1, 2] 
+       3^Rational[1, 2], Rational[-1, 2] 
+       2^Rational[-1, 
+          2]}, {-0.35355339059327373`, -0.8660254037844386, \
+-0.35355339059327373`}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] (1 - 3^Rational[1, 2]), Rational[-1, 2] 
+       2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[1, 4] (1 - 3^
+        Rational[
+         1, 2])}, {-0.1830127018922193, -0.9659258262890682, \
+-0.1830127018922193}]], Point3DBox[{0, -1, 0}], 
+    Point3DBox[
+     NCache[{Rational[1, 4] (-1 + 3^Rational[1, 2]), Rational[-1, 2] 
+       2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[1, 4] (-1 + 3^Rational[1, 2])}, {
+      0.1830127018922193, -0.9659258262890682, 0.1830127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[1, 2] 2^Rational[-1, 2], Rational[-1, 2] 
+       3^Rational[1, 2], Rational[1, 2] 2^Rational[-1, 2]}, {
+      0.35355339059327373`, -0.8660254037844386, 0.35355339059327373`}]], 
+    Point3DBox[
+     NCache[{Rational[1, 2], -2^Rational[-1, 2], Rational[1, 2]}, {
+      0.5, -0.7071067811865475, 0.5}]], 
+    Point3DBox[
+     NCache[{Rational[1, 2] Rational[3, 2]^Rational[1, 2], Rational[-1, 2], 
+       Rational[1, 2] Rational[3, 2]^Rational[1, 2]}, {
+      0.6123724356957945, -0.5, 0.6123724356957945}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] (1 + 3^Rational[1, 2]), Rational[-1, 2] 
+       2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[1, 4] (1 + 3^Rational[1, 2])}, {
+      0.6830127018922193, -0.2588190451025207, 0.6830127018922193}]], 
+    Point3DBox[
+     NCache[{2^Rational[-1, 2], 0, 2^Rational[-1, 2]}, {
+      0.7071067811865475, 0, 0.7071067811865475}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] (1 + 3^Rational[1, 2]), Rational[1, 2] 
+       2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[1, 4] (1 + 3^Rational[1, 2])}, {0.6830127018922193, 
+      0.2588190451025207, 0.6830127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[1, 2] Rational[3, 2]^Rational[1, 2], Rational[1, 2], 
+       Rational[1, 2] Rational[3, 2]^Rational[1, 2]}, {0.6123724356957945, 
+      0.5, 0.6123724356957945}]], 
+    Point3DBox[
+     NCache[{Rational[1, 2], 2^Rational[-1, 2], Rational[1, 2]}, {0.5, 
+      0.7071067811865475, 0.5}]], 
+    Point3DBox[
+     NCache[{Rational[1, 2] 2^Rational[-1, 2], Rational[1, 2] 
+       3^Rational[1, 2], Rational[1, 2] 2^Rational[-1, 2]}, {
+      0.35355339059327373`, 0.8660254037844386, 0.35355339059327373`}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] (-1 + 3^Rational[1, 2]), Rational[1, 2] 
+       2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[1, 4] (-1 + 3^Rational[1, 2])}, {0.1830127018922193, 
+      0.9659258262890682, 0.1830127018922193}]], Point3DBox[{0, 1, 0}], 
+    Point3DBox[{0, 1, 0}], 
+    Point3DBox[
+     NCache[{Rational[-1, 4] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[-1, 4] 
+       Rational[3, 2]^Rational[1, 2] (-1 + 
+        3^Rational[1, 2])}, {-0.12940952255126034`, 
+      0.9659258262890682, -0.22414386804201333`}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 4], Rational[1, 2] 3^Rational[1, 2], 
+       Rational[-1, 4] 3^Rational[1, 2]}, {-0.25, 
+      0.8660254037844386, -0.4330127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 2] 2^Rational[-1, 2], 2^Rational[-1, 2], 
+       Rational[-1, 2] Rational[3, 2]^Rational[1, 2]}, {-0.35355339059327373`,
+       0.7071067811865475, -0.6123724356957945}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 4] 3^Rational[1, 2], Rational[1, 2], 
+       Rational[-3, 4]}, {-0.4330127018922193, 0.5, -0.75}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 4] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[-1, 4] 
+       Rational[3, 2]^Rational[1, 2] (1 + 
+        3^Rational[1, 2])}, {-0.4829629131445341, 
+      0.2588190451025207, -0.8365163037378078}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 2], 0, Rational[-1, 2] 3^Rational[1, 2]}, {-0.5, 
+       0, -0.8660254037844386}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 4] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[-1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[-1, 4] 
+       Rational[3, 2]^Rational[1, 2] (1 + 
+        3^Rational[
+          1, 2])}, {-0.4829629131445341, -0.2588190451025207, \
+-0.8365163037378078}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 4] 3^Rational[1, 2], Rational[-1, 2], 
+       Rational[-3, 4]}, {-0.4330127018922193, -0.5, -0.75}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 2] 2^Rational[-1, 2], -2^Rational[-1, 2], 
+       Rational[-1, 2] 
+       Rational[3, 2]^
+        Rational[
+         1, 2]}, {-0.35355339059327373`, -0.7071067811865475, \
+-0.6123724356957945}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 4], Rational[-1, 2] 3^Rational[1, 2], 
+       Rational[-1, 4] 
+       3^Rational[1, 2]}, {-0.25, -0.8660254037844386, -0.4330127018922193}]],
+     Point3DBox[
+     NCache[{Rational[-1, 4] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[-1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[-1, 4] 
+       Rational[3, 2]^Rational[1, 2] (-1 + 
+        3^Rational[
+          1, 2])}, {-0.12940952255126034`, -0.9659258262890682, \
+-0.22414386804201333`}]], Point3DBox[{0, -1, 0}], 
+    Point3DBox[
+     NCache[{Rational[1, 4] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[-1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[1, 4] 
+       Rational[3, 2]^Rational[1, 2] (-1 + 3^Rational[1, 2])}, {
+      0.12940952255126034`, -0.9659258262890682, 0.22414386804201333`}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4], Rational[-1, 2] 3^Rational[1, 2], Rational[1, 4] 
+       3^Rational[1, 2]}, {0.25, -0.8660254037844386, 0.4330127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[1, 2] 2^Rational[-1, 2], -2^Rational[-1, 2], 
+       Rational[1, 2] Rational[3, 2]^Rational[1, 2]}, {
+      0.35355339059327373`, -0.7071067811865475, 0.6123724356957945}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] 3^Rational[1, 2], Rational[-1, 2], Rational[
+       3, 4]}, {0.4330127018922193, -0.5, 0.75}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[-1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[1, 4] Rational[3, 2]^Rational[1, 2] (1 + 3^Rational[1, 2])}, {
+      0.4829629131445341, -0.2588190451025207, 0.8365163037378078}]], 
+    Point3DBox[
+     NCache[{Rational[1, 2], 0, Rational[1, 2] 3^Rational[1, 2]}, {
+      0.5, 0, 0.8660254037844386}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[1, 4] Rational[3, 2]^Rational[1, 2] (1 + 3^Rational[1, 2])}, {
+      0.4829629131445341, 0.2588190451025207, 0.8365163037378078}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] 3^Rational[1, 2], Rational[1, 2], Rational[
+       3, 4]}, {0.4330127018922193, 0.5, 0.75}]], 
+    Point3DBox[
+     NCache[{Rational[1, 2] 2^Rational[-1, 2], 2^Rational[-1, 2], 
+       Rational[1, 2] Rational[3, 2]^Rational[1, 2]}, {0.35355339059327373`, 
+      0.7071067811865475, 0.6123724356957945}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4], Rational[1, 2] 3^Rational[1, 2], Rational[1, 4] 
+       3^Rational[1, 2]}, {0.25, 0.8660254037844386, 0.4330127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[1, 4] 
+       Rational[3, 2]^Rational[1, 2] (-1 + 3^Rational[1, 2])}, {
+      0.12940952255126034`, 0.9659258262890682, 0.22414386804201333`}]], 
+    Point3DBox[{0, 1, 0}], Point3DBox[{0, 1, 0}], 
+    Point3DBox[
+     NCache[{Rational[-1, 8] (-1 + 3^Rational[1, 2])^2, Rational[1, 2] 
+       2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[-1, 8] (-1 + 3^Rational[1, 2]) (1 + 
+        3^Rational[1, 2])}, {-0.06698729810778066, 
+      0.9659258262890682, -0.24999999999999994`}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 4] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[1, 2] 3^Rational[1, 2], Rational[-1, 4] 
+       2^Rational[-1, 2] (1 + 3^Rational[1, 2])}, {-0.12940952255126034`, 
+      0.8660254037844386, -0.4829629131445341}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] (1 - 3^Rational[1, 2]), 2^Rational[-1, 2], 
+       Rational[1, 4] (-1 - 3^Rational[1, 2])}, {-0.1830127018922193, 
+      0.7071067811865475, -0.6830127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 4] 
+       Rational[3, 2]^Rational[1, 2] (-1 + 3^Rational[1, 2]), Rational[1, 2], 
+       Rational[-1, 4] 
+       Rational[3, 2]^Rational[1, 2] (1 + 
+        3^Rational[1, 2])}, {-0.22414386804201333`, 
+      0.5, -0.8365163037378078}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 8] (-1 + 3^Rational[1, 2]) (1 + 3^Rational[1, 2]), 
+       Rational[1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[-1, 8] (1 + 3^Rational[1, 2])^2}, {-0.24999999999999994`, 
+      0.2588190451025207, -0.9330127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 0, 
+       Rational[-1, 2] 
+       2^Rational[-1, 2] (1 + 3^Rational[1, 2])}, {-0.2588190451025207, 
+       0, -0.9659258262890682}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 8] (-1 + 3^Rational[1, 2]) (1 + 3^Rational[1, 2]), 
+       Rational[-1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[-1, 8] (1 + 
+         3^Rational[
+           1, 2])^2}, {-0.24999999999999994`, -0.2588190451025207, \
+-0.9330127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 4] 
+       Rational[3, 2]^Rational[1, 2] (-1 + 3^Rational[1, 2]), Rational[-1, 2],
+        Rational[-1, 4] 
+       Rational[3, 2]^Rational[1, 2] (1 + 
+        3^Rational[
+          1, 2])}, {-0.22414386804201333`, -0.5, -0.8365163037378078}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] (1 - 3^Rational[1, 2]), -2^Rational[-1, 2], 
+       Rational[1, 4] (-1 - 3^
+        Rational[
+         1, 2])}, {-0.1830127018922193, -0.7071067811865475, \
+-0.6830127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 4] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[-1, 2] 3^Rational[1, 2], Rational[-1, 4] 
+       2^Rational[-1, 2] (1 + 
+        3^Rational[
+          1, 2])}, {-0.12940952255126034`, -0.8660254037844386, \
+-0.4829629131445341}]], 
+    Point3DBox[
+     NCache[{Rational[-1, 8] (-1 + 3^Rational[1, 2])^2, Rational[-1, 2] 
+       2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[-1, 8] (-1 + 3^Rational[1, 2]) (1 + 
+        3^Rational[
+          1, 2])}, {-0.06698729810778066, -0.9659258262890682, \
+-0.24999999999999994`}]], Point3DBox[{0, -1, 0}], 
+    Point3DBox[
+     NCache[{Rational[1, 8] (-1 + 3^Rational[1, 2])^2, Rational[-1, 2] 
+       2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[1, 8] (-1 + 3^Rational[1, 2]) (1 + 3^Rational[1, 2])}, {
+      0.06698729810778066, -0.9659258262890682, 0.24999999999999994`}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[-1, 2] 3^Rational[1, 2], Rational[1, 4] 
+       2^Rational[-1, 2] (1 + 3^Rational[1, 2])}, {
+      0.12940952255126034`, -0.8660254037844386, 0.4829629131445341}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] (-1 + 3^Rational[1, 2]), -2^Rational[-1, 2], 
+       Rational[1, 4] (1 + 3^Rational[1, 2])}, {
+      0.1830127018922193, -0.7071067811865475, 0.6830127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] 
+       Rational[3, 2]^Rational[1, 2] (-1 + 3^Rational[1, 2]), Rational[-1, 2],
+        Rational[1, 4] 
+       Rational[3, 2]^Rational[1, 2] (1 + 3^Rational[1, 2])}, {
+      0.22414386804201333`, -0.5, 0.8365163037378078}]], 
+    Point3DBox[
+     NCache[{Rational[1, 8] (-1 + 3^Rational[1, 2]) (1 + 3^Rational[1, 2]), 
+       Rational[-1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[1, 8] (1 + 3^Rational[1, 2])^2}, {
+      0.24999999999999994`, -0.2588190451025207, 0.9330127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 0, 
+       Rational[1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2])}, {
+      0.2588190451025207, 0, 0.9659258262890682}]], 
+    Point3DBox[
+     NCache[{Rational[1, 8] (-1 + 3^Rational[1, 2]) (1 + 3^Rational[1, 2]), 
+       Rational[1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[1, 8] (1 + 3^Rational[1, 2])^2}, {0.24999999999999994`, 
+      0.2588190451025207, 0.9330127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] 
+       Rational[3, 2]^Rational[1, 2] (-1 + 3^Rational[1, 2]), Rational[1, 2], 
+       Rational[1, 4] Rational[3, 2]^Rational[1, 2] (1 + 3^Rational[1, 2])}, {
+      0.22414386804201333`, 0.5, 0.8365163037378078}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] (-1 + 3^Rational[1, 2]), 2^Rational[-1, 2], 
+       Rational[1, 4] (1 + 3^Rational[1, 2])}, {0.1830127018922193, 
+      0.7071067811865475, 0.6830127018922193}]], 
+    Point3DBox[
+     NCache[{Rational[1, 4] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[1, 2] 3^Rational[1, 2], Rational[1, 4] 
+       2^Rational[-1, 2] (1 + 3^Rational[1, 2])}, {0.12940952255126034`, 
+      0.8660254037844386, 0.4829629131445341}]], 
+    Point3DBox[
+     NCache[{Rational[1, 8] (-1 + 3^Rational[1, 2])^2, Rational[1, 2] 
+       2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[1, 8] (-1 + 3^Rational[1, 2]) (1 + 3^Rational[1, 2])}, {
+      0.06698729810778066, 0.9659258262890682, 0.24999999999999994`}]], 
+    Point3DBox[{0, 1, 0}], Point3DBox[{0, 1, 0}], 
+    Point3DBox[
+     NCache[{0, Rational[1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[-1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2])}, {
+      0, 0.9659258262890682, -0.2588190451025207}]], 
+    Point3DBox[
+     NCache[{0, Rational[1, 2] 3^Rational[1, 2], Rational[-1, 2]}, {
+      0, 0.8660254037844386, -0.5}]], 
+    Point3DBox[
+     NCache[{0, 2^Rational[-1, 2], -2^Rational[-1, 2]}, {
+      0, 0.7071067811865475, -0.7071067811865475}]], 
+    Point3DBox[
+     NCache[{0, Rational[1, 2], Rational[-1, 2] 3^Rational[1, 2]}, {
+      0, 0.5, -0.8660254037844386}]], 
+    Point3DBox[
+     NCache[{0, Rational[1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[-1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2])}, {
+      0, 0.2588190451025207, -0.9659258262890682}]], Point3DBox[{0, 0, -1}], 
+    Point3DBox[
+     NCache[{0, Rational[-1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[-1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2])}, {
+      0, -0.2588190451025207, -0.9659258262890682}]], 
+    Point3DBox[
+     NCache[{0, Rational[-1, 2], Rational[-1, 2] 3^Rational[1, 2]}, {
+      0, -0.5, -0.8660254037844386}]], 
+    Point3DBox[
+     NCache[{0, -2^Rational[-1, 2], -2^Rational[-1, 2]}, {
+      0, -0.7071067811865475, -0.7071067811865475}]], 
+    Point3DBox[
+     NCache[{0, Rational[-1, 2] 3^Rational[1, 2], Rational[-1, 2]}, {
+      0, -0.8660254037844386, -0.5}]], 
+    Point3DBox[
+     NCache[{0, Rational[-1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[-1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2])}, {
+      0, -0.9659258262890682, -0.2588190451025207}]], Point3DBox[{0, -1, 0}], 
+    Point3DBox[
+     NCache[{0, Rational[-1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2])}, {
+      0, -0.9659258262890682, 0.2588190451025207}]], 
+    Point3DBox[
+     NCache[{0, Rational[-1, 2] 3^Rational[1, 2], Rational[1, 2]}, {
+      0, -0.8660254037844386, 0.5}]], 
+    Point3DBox[
+     NCache[{0, -2^Rational[-1, 2], 2^Rational[-1, 2]}, {
+      0, -0.7071067811865475, 0.7071067811865475}]], 
+    Point3DBox[
+     NCache[{0, Rational[-1, 2], Rational[1, 2] 3^Rational[1, 2]}, {
+      0, -0.5, 0.8660254037844386}]], 
+    Point3DBox[
+     NCache[{0, Rational[-1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2])}, {
+      0, -0.2588190451025207, 0.9659258262890682}]], Point3DBox[{0, 0, 1}], 
+    Point3DBox[
+     NCache[{0, Rational[1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2]), 
+       Rational[1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2])}, {
+      0, 0.2588190451025207, 0.9659258262890682}]], 
+    Point3DBox[
+     NCache[{0, Rational[1, 2], Rational[1, 2] 3^Rational[1, 2]}, {
+      0, 0.5, 0.8660254037844386}]], 
+    Point3DBox[
+     NCache[{0, 2^Rational[-1, 2], 2^Rational[-1, 2]}, {
+      0, 0.7071067811865475, 0.7071067811865475}]], 
+    Point3DBox[
+     NCache[{0, Rational[1, 2] 3^Rational[1, 2], Rational[1, 2]}, {
+      0, 0.8660254037844386, 0.5}]], 
+    Point3DBox[
+     NCache[{0, Rational[1, 2] 2^Rational[-1, 2] (1 + 3^Rational[1, 2]), 
+       Rational[1, 2] 2^Rational[-1, 2] (-1 + 3^Rational[1, 2])}, {
+      0, 0.9659258262890682, 0.2588190451025207}]], Point3DBox[{0, 1, 0}]}},
+  Axes->True,
+  AxesStyle->{
+    RGBColor[0, 0, 1], 
+    RGBColor[0, 1, 0], 
+    RGBColor[1, 0, 0]},
+  Boxed->False,
+  ImageSize->{360., 389.12678246347605`},
+  RotationAction->"Clip",
+  ViewAngle->0.47030072394368955`,
+  ViewPoint->{3.3095849619697835`, -0.20391464157342565`, -0.6745859459368022},
+  ViewVertical->{0.7384923924225073, -0.047214439720733054`, 
+   0.6726067075311832}]], "Output",
+ CellChangeTimes->{{3.639659022253961*^9, 3.6396590338686256`*^9}, {
+   3.639659658023325*^9, 3.639659664192678*^9}, 3.639659909730722*^9, 
+   3.639660273507529*^9, 3.6396609748996463`*^9, 3.6396612830852737`*^9, 
+   3.6396613291369076`*^9, 3.6396613981168528`*^9, 3.639661459592369*^9}],
+
+Cell[BoxData[
+ Graphics3DBox[
+  {RGBColor[0.3315753, 0.4561011, 0.6388182], Point3DBox[CompressedData["
+1:eJydmW1oVmUYx09OkpEhYkpEXwYhSK63fZGizlNsy0gStiSzosg02RYRNoKR
+GfYpIhOjN4yICMFRsT4kRNCmH/KDZo9SovZ2mml7NjdPcfrwoEHB9rturv85
+57FtX26eP9eu+3r5n/u67+tqefLZrk3zoijquCKKmv5br21tf/BiS3Mlmvn7
+9o7tmz/48Fw8jdfjT1666+pjzQsqu2946LXlG2uGx9VV3+z9c35lcM36sYH9
+E4Yfb2nb/uKpeZXO12/7rnfXpOGbt7au6joQVZYOr77357Epw/96de3o2q5/
+4j1bzu8e//KC4azTVqWyb5aTn9afxqp/eq3FxfYksdo/jVdj/I3kT+IzjPz4
+krfi+sAZwZOZ/08Mx56N+z7bO7rtpMin8a4r3zywbVfVcPw99tEzi5Z+MXK5
++AwTT5EfJv6qn3ypPeRX7YcP3t8y/uRx7ENP9yOnb1+/pmY4+15a8HDnkp0T
+hmPnjZ8P3nx8w6Th+HXdkad7Fg5OGc66v/PXysf9F+w3cYM/ft8sJ09eVD95
+LLYnidV+eIK/ZbyascN4dVNL8zU73z0jeBIv6z7Y3NaRGI49X1/qeeDTgVMi
+n8ZDJ1850rHmuOH4u+69oerffYdET934A44fKk/8VT/5UnvIr9oPH/B3trzC
+DvRsGGrrbWquGc6+j61+6vzdyyYMx86j1dOtfV+dN5z1vnjL4vGpScOJA3wA
+J26cP37fLCdPXlQ/eSy2J4nVfniCv2W8mtnPeHW0taf//qkzgifx4f6XVxxs
+/s1w7Nn3Q3tvuvInkU/jaf0nDMdf+OD11O18AyeeKo9/qp98qT3kV+2HD/g7
+W16xH3p+OXFxcd/7Y4azb9OOe9rbu8cNZ6W+8Bu/yC84ceA8ASdu1C+/b5aT
+Jy+qnzwW25PEaj88wd/GdbAW6uCmoS2Ht/4ueBI/2v3OLU/cOmo49vj6UjNe
+kV9w/OU88XrqUk9rxiuVJ/6qH7/VHvKr9lsddP7+f16hFz0731j0woKFY4az
+Ui/4jZ3kCxy/OB/AiQP1CJy4wQe/b5aTJy+qnzwW25PEaj88wd/G51VivFrx
+9p6rvr/+rOCJ1Udw7CFfXj6V8y0xXlGPvJ668ROceKo88Vf95EvtIR5qP3zA
+39nyiv9nPTex47ltj/9hOPsSf3Ds5HsHxy/qCzhxIL/gxI37s983y8mTF9VP
+HovtSWK1H57gb2NeVY1X65avfP7OH88KngjfqsYrvncvn0o9rRqvfH6rxivu
+z+DEU+WtXoh+8qX2kF+1nzjh72x5BY4exdlXcexU3Nf3gBMHxYlb8b5ZDvf3
+E9VTK5FPSvCq4WW84neZvOoHV3u8fJrD1V+vp57DNZ5ef4g/uObL7zs/h5fx
+YZbn1YjyE1z5DK78B9fvBVy/L3D9Hv2+WU5ev3evJ5wPXj6cJx4P589lzqtY
+zzePh/MQXM9PLx/OW3A9n72ecJ6D6/nv9UcV1a/1xe8b6hG41q853q9GtJ6C
+a/0F13oNrvUdXO8D4Hp/8PtmOXm9n3g94T7j5ZNY7df7UmNeJRZvH3+710h+
+7V5s9z0vn8r71N73dp/0esL9E1zvq15/VFH9eh/2+4b7M7jet+f4HjRe8b2D
+63sBXN8X4PoeAdf3C7i+d/y+WU5e31NeT3h/efnwXvN4eN+V8Qq9+n70eHhv
+guv71MuH9yy4vn+9nrr0e0N/UeX1PQ6u73e/b3jvg2t/YI79K+OVv+9Fxiv/
+voiMV74fEhmvfP8kGinut0TGK9+fiYxXKl/c/4mMV8X2aH8pMl7hb+PzKjVe
++fqSGq/8+ZBafnw/LbXV999S45Xv14X5g+/vpXFxPzA1Xqn+4n5jarxS+7Wf
+Ocd+e66/Cq79WHDt34LjF3wA1/4wuPaT/b5ZTh6/Vb/2t7186Id7PPTPy3iF
+Hcj7fkVmvPL9kCzX//fyYV4ArvMFryfMI8B1fuH1h3kHuM5H/L5hngKu85e5
+vQfL5kHl86OyeRN+6XyqZJ5VOv8qmZcZr1R/43lcfn5ndXDG38Z1MD9P9Hh+
+/og9xfPK/HyzbB5aEp/SeSvxV/1l89yy+W/xvDjPn38Bjn7zTQ==
+    "]]},
+  Axes->True,
+  AxesLabel->{None, None, None},
+  BoxRatios->{1, 1, 0.4},
+  FaceGridsStyle->Automatic,
+  ImageSize->{360., 389.12678246347605`},
+  PlotRange->{{-2.879793265790644, 3.141592653589793}, {0., 
+    2.879793265790644}, Automatic},
+  PlotRangePadding->{{
+     Scaled[0.02], 
+     Scaled[0.02]}, {
+     Scaled[0.02], 
+     Scaled[0.02]}, {Automatic, Automatic}},
+  Ticks->{Automatic, Automatic, Automatic},
+  ViewAngle->0.47030072394368955`,
+  ViewPoint->{1.2871649664599067`, 2.1459009903598742`, 2.2777873668739974`},
+  ViewVertical->{0.2301575393491221, 0.1946440801511984, 
+   2.3837223899067648`}]], "Output",
+ CellChangeTimes->{{3.639659022253961*^9, 3.6396590338686256`*^9}, {
+   3.639659658023325*^9, 3.639659664192678*^9}, 3.639659909730722*^9, 
+   3.639660273507529*^9, 3.6396609748996463`*^9, 3.6396612830852737`*^9, 
+   3.6396613291369076`*^9, 3.6396613981168528`*^9, 3.639661471588055*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Generate Cardioid Table", "Subsection",
+ CellChangeTimes->{{3.6396587196456532`*^9, 3.639658729086193*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"Cos", "[", 
+    RowBox[{"x", "*", 
+     RowBox[{
+      RowBox[{"Pi", "/", "180"}], "/", "2"}]}], "]"}], ",", 
+   RowBox[{"x", "*", 
+    RowBox[{"Pi", "/", "180"}]}], ",", 
+   RowBox[{"y", "*", 
+    RowBox[{"Pi", "/", "180"}]}]}], "}"}]], "Input"]
+}, Open  ]]
+},
+WindowSize->{886, 720},
+WindowMargins->{{Automatic, -19}, {Automatic, 0}},
+FrontEndVersion->"10.0 for Microsoft Windows (64-bit) (December 4, 2014)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 7968, 202, 752, "Input"],
+Cell[8551, 226, 63885, 1313, 404, "Output"],
+Cell[72439, 1541, 3153, 59, 404, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[75629, 1605, 113, 1, 43, "Subsection"],
+Cell[75745, 1608, 298, 10, 31, "Input"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
