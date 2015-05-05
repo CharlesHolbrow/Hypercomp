@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     76544,       1642]
-NotebookOptionsPosition[     76059,       1621]
-NotebookOutlinePosition[     76404,       1636]
-CellTagsIndexPosition[     76361,       1633]
+NotebookDataLength[     85607,       1819]
+NotebookOptionsPosition[     85043,       1795]
+NotebookOutlinePosition[     85387,       1810]
+CellTagsIndexPosition[     85344,       1807]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -39,35 +39,40 @@ Cell[BoxData[{
       RowBox[{"Cos", "[", "\[Theta]", "]"}]}]}], "\[IndentingNewLine]", 
     "}"}]}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
-  RowBox[{"CartesianToSpherical", "=", 
-   RowBox[{"Function", "[", 
-    RowBox[{"xyz", ",", "\[IndentingNewLine]", 
-     RowBox[{"If", "[", 
-      RowBox[{
+  RowBox[{
+   RowBox[{"CartesianToSpherical", "=", 
+    RowBox[{"Function", "[", 
+     RowBox[{"xyz", ",", "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
        RowBox[{
         RowBox[{
-         RowBox[{"xyz", "[", 
-          RowBox[{"[", "1", "]"}], "]"}], "\[Equal]", "0"}], "&&", 
-        RowBox[{
-         RowBox[{"xyz", "[", 
-          RowBox[{"[", "2", "]"}], "]"}], "\[Equal]", "0"}]}], ",", 
-       "\[IndentingNewLine]", 
-       RowBox[{"{", 
-        RowBox[{
-         RowBox[{"Abs", "[", 
+         RowBox[{
           RowBox[{"xyz", "[", 
-           RowBox[{"[", "3", "]"}], "]"}], "]"}], ",", "0", ",", 
-         RowBox[{"If", "[", 
-          RowBox[{
+           RowBox[{"[", "1", "]"}], "]"}], "\[Equal]", "0"}], "&&", 
+         RowBox[{
+          RowBox[{"xyz", "[", 
+           RowBox[{"[", "2", "]"}], "]"}], "\[Equal]", "0"}]}], ",", 
+        "\[IndentingNewLine]", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"Abs", "[", 
+           RowBox[{"xyz", "[", 
+            RowBox[{"[", "3", "]"}], "]"}], "]"}], ",", "0", ",", 
+          RowBox[{"If", "[", 
            RowBox[{
-            RowBox[{"xyz", "[", 
-             RowBox[{"[", "3", "]"}], "]"}], "\[GreaterEqual]", "0"}], ",", 
-           "0", ",", "Pi"}], "]"}]}], "}"}], ",", "\[IndentingNewLine]", 
-       RowBox[{"CoordinateTransform", "[", 
-        RowBox[{
-         RowBox[{"\"\<Cartesian\>\"", "->", "\"\<Spherical\>\""}], ",", 
-         "xyz"}], "]"}]}], "\[IndentingNewLine]", "]"}]}], 
-    "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"xyz", "[", 
+              RowBox[{"[", "3", "]"}], "]"}], "\[GreaterEqual]", "0"}], ",", 
+            "0", ",", "Pi"}], "]"}]}], "}"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"CoordinateTransform", "[", 
+         RowBox[{
+          RowBox[{"\"\<Cartesian\>\"", "->", "\"\<Spherical\>\""}], ",", 
+          "xyz"}], "]"}]}], "\[IndentingNewLine]", "]"}]}], 
+     "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{"Create", " ", "a", " ", 
+    RowBox[{"sphere", ".", " ", "Convert"}], " ", "it", " ", "to", " ", 
+    "cartesian", " ", "coordinates"}], " ", "*)"}]}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"sphereInSphericalCoordinates", " ", "=", " ", 
    RowBox[{"Flatten", "[", 
@@ -90,9 +95,15 @@ Cell[BoxData[{
       "\[IndentingNewLine]", "]"}], ",", " ", "1"}], "]"}]}], 
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
-  RowBox[{"sphereInCartesianCoordinates", " ", "=", " ", 
-   RowBox[{"SphericalToCartesian", "/@", "sphereInSphericalCoordinates"}]}], 
-  ";"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"sphereInCartesianCoordinates", " ", "=", " ", 
+    RowBox[{"SphericalToCartesian", "/@", "sphereInSphericalCoordinates"}]}], 
+   ";"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "Rotate", " ", "the", " ", "sphere", " ", "around", " ", "the", " ", 
+    "cartesian", " ", "x", " ", "axis"}], " ", 
+   "*)"}]}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"M", " ", "=", " ", 
    RowBox[{"RotationTransform", "[", 
@@ -103,9 +114,11 @@ Cell[BoxData[{
       RowBox[{"1", ",", "0", ",", "0"}], "}"}]}], "]"}]}], 
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
-  RowBox[{"sphereInCartesianCoordinates", " ", "=", " ", 
-   RowBox[{"M", "/@", "sphereInCartesianCoordinates"}]}], 
-  ";"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"sphereInCartesianCoordinates", " ", "=", " ", 
+    RowBox[{"M", "/@", "sphereInCartesianCoordinates"}]}], ";"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", "Visualize", " ", "*)"}]}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"points", " ", "=", " ", 
    RowBox[{"Point", "/@", "sphereInCartesianCoordinates"}]}], 
@@ -149,55 +162,77 @@ Cell[BoxData[{
            RowBox[{"0", ",", "0", ",", "1.5"}], "}"}]}], "}"}], "]"}], ",", 
        "\[IndentingNewLine]", "Black", ",", "points"}], "\[IndentingNewLine]",
        "}"}], ",", " ", "1"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{"Graphics3D", "[", 
-  RowBox[{"display", ",", " ", 
-   RowBox[{"Axes", "\[Rule]", "True"}], ",", 
-   RowBox[{"AxesStyle", "\[Rule]", 
-    RowBox[{"{", 
-     RowBox[{"Blue", ",", "Green", ",", "Red"}], "}"}]}], ",", " ", 
-   RowBox[{"RotationAction", "\[Rule]", "\"\<Clip\>\""}], ",", " ", 
-   RowBox[{"Boxed", "\[Rule]", "False"}]}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Graphics3D", "[", 
+   RowBox[{"display", ",", " ", 
+    RowBox[{"Axes", "\[Rule]", "True"}], ",", 
+    RowBox[{"AxesStyle", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"Blue", ",", "Green", ",", "Red"}], "}"}]}], ",", " ", 
+    RowBox[{"RotationAction", "\[Rule]", "\"\<Clip\>\""}], ",", " ", 
+    RowBox[{"Boxed", "\[Rule]", "False"}]}], "]"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", "\[IndentingNewLine]", "  ", 
+   RowBox[{"Convert", " ", "back", " ", "to", " ", "spherical", " ", 
+    RowBox[{"coordinates", ".", "\[IndentingNewLine]", "Compute"}], " ", 
+    "the", " ", "Cardioid", " ", 
+    RowBox[{"Function", "."}]}], "\[IndentingNewLine]", 
+   "*)"}]}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"rotatedSphereInPolarCoordinates", " ", "=", " ", 
    RowBox[{"CartesianToSpherical", "/@", "sphereInCartesianCoordinates"}]}], 
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
-  RowBox[{"rotatedSphereInPolarCoordinates", " ", "=", " ", 
-   RowBox[{
+  RowBox[{
+   RowBox[{"rotatedCardioidInPolarCoordinates", " ", "=", " ", 
     RowBox[{
-     RowBox[{"(", 
-      RowBox[{"{", 
-       RowBox[{
-        RowBox[{"Cos", "[", 
-         RowBox[{
-          RowBox[{"#", "[", 
-           RowBox[{"[", "2", "]"}], "]"}], "/", "2"}], "]"}], ",", 
-        RowBox[{"#", "[", 
-         RowBox[{"[", "2", "]"}], "]"}], ",", 
-        RowBox[{"#", "[", 
-         RowBox[{"[", "3", "]"}], "]"}]}], "}"}], ")"}], "&"}], "/@", 
-    "rotatedSphereInPolarCoordinates"}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"rotatedSphereInCartesianCoordinates", " ", "=", " ", 
-   RowBox[{
-   "SphericalToCartesian", "/@", "rotatedSphereInPolarCoordinates"}]}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"rotatedSphereInCartesianCoordinates", " ", "=", " ", 
-   RowBox[{
-    RowBox[{"RotationTransform", "[", 
      RowBox[{
-      RowBox[{
-       RowBox[{"-", "90"}], "*", 
-       RowBox[{"Pi", "/", "180"}]}], ",", " ", 
-      RowBox[{"{", 
-       RowBox[{"1", ",", "0", ",", "0"}], "}"}]}], "]"}], "/@", 
-    "rotatedSphereInCartesianCoordinates"}]}], ";"}], "\[IndentingNewLine]", 
+      RowBox[{"(", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Cos", "[", 
+          RowBox[{
+           RowBox[{"#", "[", 
+            RowBox[{"[", "2", "]"}], "]"}], "/", "2"}], "]"}], ",", 
+         RowBox[{"#", "[", 
+          RowBox[{"[", "2", "]"}], "]"}], ",", 
+         RowBox[{"#", "[", 
+          RowBox[{"[", "3", "]"}], "]"}]}], "}"}], ")"}], "&"}], "/@", 
+     "rotatedSphereInPolarCoordinates"}]}], ";"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", "\[IndentingNewLine]", "  ", 
+   RowBox[{"Convert", " ", "back", " ", "to", " ", 
+    RowBox[{"cartesian", ".", "\[IndentingNewLine]", "Rotate"}], " ", "back", 
+    " ", "to", " ", "starting", " ", 
+    RowBox[{"position", "."}]}], "\[IndentingNewLine]", 
+   "*)"}]}], "\[IndentingNewLine]", 
  RowBox[{
-  RowBox[{"rotatedSphereInPolarCoordinates", " ", "=", " ", 
+  RowBox[{"rotatedCardioidInCartesianCoordinates", " ", "=", " ", 
    RowBox[{
-   "CartesianToSpherical", "/@", "rotatedSphereInCartesianCoordinates"}]}], 
+   "SphericalToCartesian", "/@", "rotatedCardioidInPolarCoordinates"}]}], 
   ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"cardioidInCartesianCoordinates", " ", "=", " ", 
+    RowBox[{
+     RowBox[{"RotationTransform", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"-", "90"}], "*", 
+        RowBox[{"Pi", "/", "180"}]}], ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"1", ",", "0", ",", "0"}], "}"}]}], "]"}], "/@", 
+     "rotatedCardioidInCartesianCoordinates"}]}], ";"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", "\[IndentingNewLine]", "  ", 
+   RowBox[{"Finally", ",", " ", 
+    RowBox[{"convert", " ", "back", " ", "to", " ", 
+     RowBox[{"polar", ".", "\[IndentingNewLine]", "Plot"}], " ", "\[Phi]"}], 
+    ",", " ", "\[Theta]", ",", " ", 
+    RowBox[{"r", " ", "as", " ", "x"}], ",", " ", "y", ",", " ", "z"}], 
+   "\[IndentingNewLine]", "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"cardioidInPolarCoordinates", " ", "=", " ", 
+   RowBox[{"CartesianToSpherical", "/@", "cardioidInCartesianCoordinates"}]}],
+   ";"}], "\[IndentingNewLine]", 
  RowBox[{"ListPointPlot3D", "[", 
   RowBox[{
    RowBox[{
@@ -210,7 +245,7 @@ Cell[BoxData[{
         RowBox[{"[", "2", "]"}], "]"}], ",", 
        RowBox[{"#", "[", 
         RowBox[{"[", "1", "]"}], "]"}]}], "}"}], ")"}], "&"}], "/@", 
-   "rotatedSphereInPolarCoordinates"}], "]"}]}], "Input",
+   "cardioidInPolarCoordinates"}], "]"}]}], "Input",
  CellChangeTimes->{{3.63965809403087*^9, 3.6396580947909136`*^9}, 
    3.6396587556037097`*^9, {3.639658868983195*^9, 3.6396589446675234`*^9}, {
    3.6396589819446554`*^9, 3.6396590329785748`*^9}, {3.6396595769916906`*^9, 
@@ -222,7 +257,13 @@ Cell[BoxData[{
    3.6396610186261473`*^9, 3.6396610228443885`*^9}, {3.6396610595604887`*^9, 
    3.6396611763471684`*^9}, {3.6396612162704515`*^9, 3.639661251290455*^9}, {
    3.639661287845546*^9, 3.639661327592819*^9}, {3.6396613916944857`*^9, 
-   3.6396613967447743`*^9}, {3.639661449249778*^9, 3.639661456073168*^9}}],
+   3.6396613967447743`*^9}, {3.639661449249778*^9, 3.639661456073168*^9}, {
+   3.6398364527597284`*^9, 3.639836524554835*^9}, {3.6398365799860053`*^9, 
+   3.639836673202337*^9}, {3.6398381661377277`*^9, 3.6398381662737355`*^9}, {
+   3.639838213500437*^9, 3.6398382137304497`*^9}, {3.639838283051415*^9, 
+   3.63983842982581*^9}, {3.6398385512017527`*^9, 3.6398386922258186`*^9}, {
+   3.639838737578412*^9, 3.6398388096975374`*^9}, {3.639839204642127*^9, 
+   3.639839204777135*^9}}],
 
 Cell[BoxData[
  Graphics3DBox[{SphereBox[{0, 0, 0}, 0.], 
@@ -1531,13 +1572,14 @@ Cell[BoxData[
   ImageSize->{360., 389.12678246347605`},
   RotationAction->"Clip",
   ViewAngle->0.47030072394368955`,
-  ViewPoint->{3.3095849619697835`, -0.20391464157342565`, -0.6745859459368022},
-  ViewVertical->{0.7384923924225073, -0.047214439720733054`, 
-   0.6726067075311832}]], "Output",
+  ViewPoint->{-0.7214190962825556, -3.005411494562473, -1.3773366458025507`},
+  ViewVertical->{-0.9140204033429052, -0.37337333639758613`, \
+-0.15861605826714978`}]], "Output",
  CellChangeTimes->{{3.639659022253961*^9, 3.6396590338686256`*^9}, {
    3.639659658023325*^9, 3.639659664192678*^9}, 3.639659909730722*^9, 
    3.639660273507529*^9, 3.6396609748996463`*^9, 3.6396612830852737`*^9, 
-   3.6396613291369076`*^9, 3.6396613981168528`*^9, 3.639661459592369*^9}],
+   3.6396613291369076`*^9, 3.6396613981168528`*^9, 3.639661459592369*^9, 
+   3.639838238923891*^9, 3.639838695834025*^9, 3.6398392793544006`*^9}],
 
 Cell[BoxData[
  Graphics3DBox[
@@ -1592,13 +1634,14 @@ vQfL5kHl86OyeRN+6XyqZJ5VOv8qmZcZr1R/43lcfn5ndXDG38Z1MD9P9Hh+
      Scaled[0.02]}, {Automatic, Automatic}},
   Ticks->{Automatic, Automatic, Automatic},
   ViewAngle->0.47030072394368955`,
-  ViewPoint->{1.2871649664599067`, 2.1459009903598742`, 2.2777873668739974`},
-  ViewVertical->{0.2301575393491221, 0.1946440801511984, 
-   2.3837223899067648`}]], "Output",
+  ViewPoint->{0.9474974906915214, -2.7958950352191, 1.6538498895517855`},
+  ViewVertical->{0.15992556928183366`, -0.4842554921268064, 
+   2.1504656917672884`}]], "Output",
  CellChangeTimes->{{3.639659022253961*^9, 3.6396590338686256`*^9}, {
    3.639659658023325*^9, 3.639659664192678*^9}, 3.639659909730722*^9, 
    3.639660273507529*^9, 3.6396609748996463`*^9, 3.6396612830852737`*^9, 
-   3.6396613291369076`*^9, 3.6396613981168528`*^9, 3.639661471588055*^9}]
+   3.6396613291369076`*^9, 3.6396613981168528`*^9, 3.639661459592369*^9, 
+   3.639838238923891*^9, 3.639838695834025*^9, 3.6398392915390973`*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1606,21 +1649,152 @@ Cell[CellGroupData[{
 Cell["Generate Cardioid Table", "Subsection",
  CellChangeTimes->{{3.6396587196456532`*^9, 3.639658729086193*^9}}],
 
+Cell[CellGroupData[{
+
 Cell[BoxData[
- RowBox[{"{", 
+ RowBox[{"ListDensityPlot", "[", 
   RowBox[{
-   RowBox[{"Cos", "[", 
-    RowBox[{"x", "*", 
-     RowBox[{
-      RowBox[{"Pi", "/", "180"}], "/", "2"}]}], "]"}], ",", 
-   RowBox[{"x", "*", 
-    RowBox[{"Pi", "/", "180"}]}], ",", 
-   RowBox[{"y", "*", 
-    RowBox[{"Pi", "/", "180"}]}]}], "}"}]], "Input"]
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"#", "[", 
+        RowBox[{"[", "3", "]"}], "]"}], ",", 
+       RowBox[{"#", "[", 
+        RowBox[{"[", "2", "]"}], "]"}], ",", 
+       RowBox[{"#", "[", 
+        RowBox[{"[", "1", "]"}], "]"}]}], "}"}], ")"}], "&"}], "/@", 
+   "cardioidInPolarCoordinates"}], "]"}]], "Input",
+ CellChangeTimes->{{3.6396616927687063`*^9, 3.63966171784114*^9}, 
+   3.639839314441407*^9}],
+
+Cell[BoxData[
+ GraphicsBox[GraphicsComplexBox[CompressedData["
+1:eJyVmL1uFTEQhU20EtqCnvY+QCqaVPgWoY50xRMgQUtBi6DmRah4Bw8NtaGj
+G9G5M4gmQkgI5c5czedY2WxjHXl2du3jMz/evXh9eHmWUnr2IKX/4+Pzy+d/
+dus+HZ8bfJ0/vXv66Ov6cG8414svH38ujr/tnrx/+/3M8as35xeHz8nxrw9X
+P64Of7Nhjjf+fuf4foddw7wC15zwHOeLzUfs7xf4L/h+4f9hLFhfwfoL9qdg
+/0rcX+7/Cdt3zN6w+TNs3zNs/2OYI3my9cb3O+wb5hV45OPo1/mIWB2b/zjf
+Hdv/RXs/RwXrcD4M2/5Ef4vjrXyYX7OP31kc2/cMcyRP1JGtN77XYd8wr8Aj
+H0c/zkfE6jj67yV+v5f4f71AxwXnqGAdJe5PL3H/+mY+zI/ZR54XxxzJE3XE
+OGfrxX/DvmFegWfxqiFeNcSrhnjVEK8a4lUrMV41xKuGeNUQrxriVdvMh71n
+9lFny8ALdcO4xrwD3WacG9g3zCvwTB8KfSj0odCHQh8KfSj0odCHQh8KfSj0
+oZv5MDuO5Ik6YpxjHmKdYOuN73fYN8wr8IyPCj4q+Kjgo4KPCj4q+Kjgo4KP
+Cj4q+Kib+TBM+3hu133U4+p8GI56XvdR7+s+xoPV+Yj2DfMKPPIBXnLE6tj8
+x/nu2P4v2l87tvXF95Pvo+1P9LcM536jPgT6EOhDoA+BPgT6EOhDoA+BPgT6
+EOhD7tBHvn10fWToI0MfGfoY6mzWeawzmOcYZ++ZPwRxSpA/BPnD+TCM/OF8
+RH+eP5yPaN8wr8DT/DHh4TQif4APBR/se1h3s+5j3cG8p5v5OPoR5AnnwzDq
+K+fDMOor5yP68/rK+Yj2DfMKPK2vJjo48cAR9RX61VNfyr6IdTnrQtYlzIsb
++w9BnpbIbxLUuRLPRxL0HxLPV5J4/pLE85kE6xScwzv00SdxSId9j/OnEf3H
+cI/APjauvw91POvIe/bnBXWS1weG0Wd4fWEY/bnXJ9Gf9+cF6yw4h14fRTzt
+zyd5QIdzz31HXz7c6/BegX0t+yrW9awrt9VXvF8Z7194PxP1OtzvDPc/WOdw
+f3T7/ZICT++vJnlYh7jDc899n/z/cA+E9Q99MPuwGR//AGS3C5w=
+   "], {
+    {GrayLevel[0.8], EdgeForm[None], 
+     GraphicsGroupBox[PolygonBox[CompressedData["
+1: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
+       "]]]}, {}, {}, {}, {}},
+   VertexColors->CompressedData["
+1:eJztWWtQlGUU3qJCLgkCJlFBViS5C1SgI2CcpEIkQrkVzVLiwiIIDGiNBhMY
+AwYqRjhcMklxAhLkEs4wmguoCIjcpIAFQ2F3WdhlYT8iIAsIwn7gDDPPMjDj
+v+/7882cOXPmec553nPey3pBlLfwcQ6H895jHI7W/P/b9K31CjOGqg1WlXxg
+pqDYrw/ZtRX8Tvs806efHmRIouC/af3MEN2/6FX+4ck+4j37d5dj+ijVygI+
+fqFGRY4JCq22Hilx/v/+oDyBcVG+1QiN+8vPbG7uX7AH/sIcTBeqKfP0XHW0
++eCCvaz8yxMqS4asWnbcWpesWLALQx58DM3OPfgUS/qj+IvxIPyIL8pPoJuN
+gYudmur9g4Nsu+RkvsE7/ZRuJ/EEkTZxukNUIQqf7U6Skcu5rpDaKTExlX4j
+eW4yMi6PclK9IqG29yN1M0Z6abik+4evPMSUeEkrwsy1hxxaXTPHf+qn4xGK
+6cKxGrI4Mux12byT3KSxJqXbpTA/yB/FR3gQfsQX5QfZM2585n64j6EG/ZOH
+Gp4cosCj37eUhvXRhH5aZc6RUXJ4V2xilK+i69tS3JovPeQr4J/b73t/mPyP
+r/arjnqoKwvv8cQ6rpqmHEI/Mro4sGDP0ClqNVWo6a9f4xM91yytH+SP4i/G
+g/Ajvig/V6tWx95wUtOm+EzmwIicHIX8b/yokywzd/H0kodopmOCOfOzjPKl
+ZdE+oWJ6W8C3fJXXT7urqoJ7P5eQf+61SlPpPdojm7F1C79D65ydDds/vUs7
+ojfnbKySUaw7HdQubSapThNPr72LdFJ8qzelYb0hfxQf4UH4Ed/l6soj6Kbt
+y80MrX2+317QqaS8vdqTBWO9pJ48seW1oFE6f6zdfcxTRdztww1zHvPrPXi/
+o8vdUZKYp94uixumtUm7lSG1soX6Bly5rpt9eIQi3uLaO0XJl9QD6j/If3F8
+hAfhR3xRfqbb3bP2+aqpsYJbYbJxgPpEOdE23Z2kfS37qFipoisxpi9Oztct
+WC6eCmjooMIYa+tPTg3QTFKu3HanlNZb/jtx+ake2hXuHGZ+WkLx/BZf9XN9
+lJr2BLfxgATqAfUf5I/iIzwIP+K7XF01zZ5dpSpmqD2X4+OTrCTvuuLQNa/3
+0mBCrcCUO0pZSr79zZohktVNzb5xVoLnyxJ6Q/0NzdPF/ig+woPwI74oPyZx
+JfYtsWpKCXhpm96xASp2bInh1ovJStxgFtcxQltFIZx3VP30j8CwQPvqb3C+
+oPqifoLmF/JH8REehB/xXa6u4ooKs4WJDBm2frclxUJJkckVRoU29+C8QPVC
+/QHNI6QH5I/iIzwIP+KL8nM+LFW498J837ywU5SqNUg9fDuDhPEuOC9QvVB/
+QPMI6QH5o/gID8KP+C5XV1ki98BbXgzd/oJbmvCjgqLHQkXG0z0w/2i9o/mC
+6ov2z8gfxUd4EH7EF+WnzKCRt0GmJv2mMOuI1EFy2hMv+9P1Dsw/Wu9ovqD6
+ov0z8kfxER6EH/Fdrq5YO2t/FHZ2PWpej2w/19zP2f3DyvYP7P5T8/6TPe+s
+7LzDnpc1n5fZ+5mV3c+w93ua7/fY++SV3Sez7xGa3yPY96+VvX+x76ea30//
+A8p3GeE=
+    "]],
+  AspectRatio->1,
+  DisplayFunction->Identity,
+  Frame->True,
+  FrameLabel->{None, None},
+  FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+  GridLinesStyle->Directive[
+    GrayLevel[0.5, 0.4]],
+  Method->{
+   "DefaultBoundaryStyle" -> Automatic, "DefaultColorFunction" -> 
+    "M10DefaultDensityGradient"},
+  PlotRange->{{-2.879793265790644, 3.141592653589793}, {0., 
+   2.879793265790644}},
+  PlotRangeClipping->True,
+  PlotRangePadding->{
+    Scaled[0.02], 
+    Scaled[0.02]},
+  Ticks->{Automatic, Automatic}]], "Output",
+ CellChangeTimes->{
+  3.6396617184741764`*^9, {3.6398393008846316`*^9, 3.639839316126504*^9}}]
+}, Open  ]]
 }, Open  ]]
 },
-WindowSize->{886, 720},
-WindowMargins->{{Automatic, -19}, {Automatic, 0}},
+WindowSize->{886, 946},
+WindowMargins->{{Automatic, 5}, {30, Automatic}},
 FrontEndVersion->"10.0 for Microsoft Windows (64-bit) (December 4, 2014)",
 StyleDefinitions->"Default.nb"
 ]
@@ -1636,13 +1810,16 @@ CellTagsIndex->{}
 (*NotebookFileOutline
 Notebook[{
 Cell[CellGroupData[{
-Cell[580, 22, 7968, 202, 752, "Input"],
-Cell[8551, 226, 63885, 1313, 404, "Output"],
-Cell[72439, 1541, 3153, 59, 404, "Output"]
+Cell[580, 22, 9976, 243, 1072, "Input"],
+Cell[10559, 267, 63956, 1314, 404, "Output"],
+Cell[74518, 1583, 3224, 60, 404, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[75629, 1605, 113, 1, 43, "Subsection"],
-Cell[75745, 1608, 298, 10, 31, "Input"]
+Cell[77779, 1648, 113, 1, 43, "Subsection"],
+Cell[CellGroupData[{
+Cell[77917, 1653, 507, 15, 31, "Input"],
+Cell[78427, 1670, 6588, 121, 373, "Output"]
+}, Open  ]]
 }, Open  ]]
 }
 ]
