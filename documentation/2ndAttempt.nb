@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    647055,      12639]
-NotebookOptionsPosition[    646354,      12611]
-NotebookOutlinePosition[    646699,      12626]
-CellTagsIndexPosition[    646656,      12623]
+NotebookDataLength[    648868,      12675]
+NotebookOptionsPosition[    648158,      12647]
+NotebookOutlinePosition[    648503,      12662]
+CellTagsIndexPosition[    648460,      12659]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -126,7 +126,7 @@ Cell[BoxData[{
           RowBox[{"AxesStyle", "\[Rule]", 
            RowBox[{"{", 
             RowBox[{"Red", ",", "Green", ",", "Blue"}], "}"}]}], ",", " ", 
-          RowBox[{"RotationAction", "\[Rule]", "\"\<Clip\>\""}], ",", " ", 
+          RowBox[{"SphericalRegion", "\[Rule]", "True"}], ",", " ", 
           RowBox[{"Boxed", "\[Rule]", "False"}]}], "]"}], "]"}], ";"}]}], 
      "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]", 
   "\[IndentingNewLine]", 
@@ -260,16 +260,23 @@ Cell[BoxData[{
  RowBox[{"ListPointPlot3D", "[", 
   RowBox[{
    RowBox[{
-    RowBox[{"(", 
-     RowBox[{"{", 
-      RowBox[{
-       RowBox[{"#", "[", 
-        RowBox[{"[", "3", "]"}], "]"}], ",", 
-       RowBox[{"#", "[", 
-        RowBox[{"[", "2", "]"}], "]"}], ",", 
-       RowBox[{"#", "[", 
-        RowBox[{"[", "1", "]"}], "]"}]}], "}"}], ")"}], "&"}], "/@", 
-   "cardioidInPolarCoordinates"}], "]"}]}], "Input",
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"#", "[", 
+         RowBox[{"[", "3", "]"}], "]"}], ",", 
+        RowBox[{"#", "[", 
+         RowBox[{"[", "2", "]"}], "]"}], ",", 
+        RowBox[{"#", "[", 
+         RowBox[{"[", "1", "]"}], "]"}]}], "}"}], ")"}], "&"}], "/@", 
+    "cardioidInPolarCoordinates"}], ",", " ", 
+   RowBox[{"SphericalRegion", "\[Rule]", "True"}], ",", 
+   RowBox[{"AspectRatio", "\[Rule]", "Automatic"}], ",", " ", 
+   RowBox[{"BoxRatios", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"2", ",", " ", "1", ",", " ", "0.6"}], "}"}]}]}], 
+  "]"}]}], "Input",
  CellChangeTimes->{{3.63965809403087*^9, 3.6396580947909136`*^9}, 
    3.6396587556037097`*^9, {3.639658868983195*^9, 3.6396589446675234`*^9}, {
    3.6396589819446554`*^9, 3.6396590329785748`*^9}, {3.6396595769916906`*^9, 
@@ -296,7 +303,11 @@ Cell[BoxData[{
    3.639842957076754*^9, 3.639842995073927*^9}, {3.63984308690818*^9, 
    3.6398431058522635`*^9}, {3.6398431621464834`*^9, 
    3.6398431887540054`*^9}, {3.639843238714863*^9, 3.6398432413870153`*^9}, {
-   3.639843438139269*^9, 3.6398434406024103`*^9}}],
+   3.639843438139269*^9, 3.6398434406024103`*^9}, {3.639844532257849*^9, 
+   3.6398445379701757`*^9}, {3.6398449157257824`*^9, 
+   3.6398449261003757`*^9}, {3.6398449668417063`*^9, 
+   3.6398449671857257`*^9}, {3.6398451143781443`*^9, 3.639845150154191*^9}, {
+   3.6398453341707163`*^9, 3.6398453343627267`*^9}}],
 
 Cell[CellGroupData[{
 
@@ -1605,15 +1616,17 @@ Cell[BoxData[
     RGBColor[0, 0, 1]},
   Boxed->False,
   ImageSize->{360., 389.12678246347605`},
-  RotationAction->"Clip",
+  SphericalRegion->True,
   ViewAngle->0.47030072394368955`,
-  ViewPoint->{-2.962085916605109, 1.1279632216463886`, 1.1847978702136464`},
-  ViewVertical->{-0.25984880921553455`, 0.07990498157800233, 
-   0.9623376695673342}]], "Print",
+  ViewPoint->{-1.974656410764245, -2.4326716644823407`, 1.2778265266664375`},
+  ViewVertical->{-0.10786972290076818`, -0.22604693160756498`, 
+   0.9681254606672198}]], "Print",
  CellChangeTimes->{
   3.6398427515199966`*^9, {3.6398427974406233`*^9, 3.639842822328047*^9}, 
    3.6398428565010014`*^9, 3.639843106634308*^9, 3.6398432421580596`*^9, 
-   3.639843441449458*^9}],
+   3.639843441449458*^9, 3.6398445397282763`*^9, 3.639844927977483*^9, 
+   3.639844968047775*^9, 3.639845119286425*^9, 3.6398451506472187`*^9, 
+   3.639845334955761*^9, 3.639845462885078*^9}],
 
 Cell[BoxData[
  Graphics3DBox[{SphereBox[{0, 0, 0}, 0.], 
@@ -7000,15 +7013,17 @@ Cell[BoxData[
     RGBColor[0, 0, 1]},
   Boxed->False,
   ImageSize->{360., 389.12678246347605`},
-  RotationAction->"Clip",
+  SphericalRegion->True,
   ViewAngle->0.47030072394368955`,
-  ViewPoint->{-2.8652655191943914`, 1.4040364385913153`, 1.126470232018375},
-  ViewVertical->{-0.27056180846478856`, 0.10449909055799633`, 
-   0.9570142359823154}]], "Print",
+  ViewPoint->{-1.974656410764245, -2.4326716644823407`, 1.2778265266664375`},
+  ViewVertical->{-0.10786972290076818`, -0.22604693160756498`, 
+   0.9681254606672198}]], "Print",
  CellChangeTimes->{
   3.6398427515199966`*^9, {3.6398427974406233`*^9, 3.639842822328047*^9}, 
    3.6398428565010014`*^9, 3.639843106634308*^9, 3.6398432421580596`*^9, 
-   3.6398434480548363`*^9}],
+   3.639843441449458*^9, 3.6398445397282763`*^9, 3.639844927977483*^9, 
+   3.639844968047775*^9, 3.639845119286425*^9, 3.6398451506472187`*^9, 
+   3.639845334955761*^9, 3.639845469533458*^9}],
 
 Cell[BoxData[
  Graphics3DBox[{SphereBox[{0, 0, 0}, 0.], 
@@ -12386,20 +12401,24 @@ Cell[BoxData[
     RGBColor[0, 0, 1]},
   Boxed->False,
   ImageSize->{360., 389.12678246347605`},
-  RotationAction->"Clip",
+  SphericalRegion->True,
   ViewAngle->0.47030072394368955`,
-  ViewPoint->{-2.7899181064642087`, 1.8892557936995928`, 0.3115597939332092},
-  ViewVertical->{-0.4305739754010409, 0.28135192342315657`, 
-   0.8575821516877752}]], "Print",
+  ViewPoint->{-1.974656410764245, -2.4326716644823407`, 1.2778265266664375`},
+  ViewVertical->{-0.10786972290076818`, -0.22604693160756498`, 
+   0.9681254606672198}]], "Print",
  CellChangeTimes->{
   3.6398427515199966`*^9, {3.6398427974406233`*^9, 3.639842822328047*^9}, 
    3.6398428565010014`*^9, 3.639843106634308*^9, 3.6398432421580596`*^9, 
-   3.6398434483938556`*^9}]
+   3.639843441449458*^9, 3.6398445397282763`*^9, 3.639844927977483*^9, 
+   3.639844968047775*^9, 3.639845119286425*^9, 3.6398451506472187`*^9, 
+   3.639845334955761*^9, 3.6398454698684773`*^9}]
+}, Open  ]]
 }, Open  ]],
 
 Cell[BoxData[
- Graphics3DBox[
-  {RGBColor[0.3315753, 0.4561011, 0.6388182], Point3DBox[CompressedData["
+ GraphicsBox[InsetBox[
+   Graphics3DBox[
+    {RGBColor[0.3315753, 0.4561011, 0.6388182], Point3DBox[CompressedData["
 1:eJydmW1oVmUYx09OkpEhYkpEXwYhSK63fZGizlNsy0gStiSzosg02RYRNoKR
 GfYpIhOjN4yICMFRsT4kRNCmH/KDZo9SovZ2mml7NjdPcfrwoEHB9rturv85
 57FtX26eP9eu+3r5n/u67+tqefLZrk3zoijquCKKmv5br21tf/BiS3Mlmvn7
@@ -12435,30 +12454,40 @@ Ocd+e66/Cq79WHDt34LjF3wA1/4wuPaT/b5ZTh6/Vb/2t7186Id7PPTPy3iF
 Hcj7fkVmvPL9kCzX//fyYV4ArvMFryfMI8B1fuH1h3kHuM5H/L5hngKu85e5
 vQfL5kHl86OyeRN+6XyqZJ5VOv8qmZcZr1R/43lcfn5ndXDG38Z1MD9P9Hh+
 /og9xfPK/HyzbB5aEp/SeSvxV/1l89yy+W/xvDjPn38Bjn7zTQ==
-    "]]},
-  Axes->True,
-  AxesLabel->{None, None, None},
-  BoxRatios->{1, 1, 0.4},
-  FaceGridsStyle->Automatic,
-  ImageSize->{360., 389.12678246347605`},
-  PlotRange->{{-2.879793265790644, 3.141592653589793}, {0., 
-    2.879793265790644}, Automatic},
-  PlotRangePadding->{{
-     Scaled[0.02], 
-     Scaled[0.02]}, {
-     Scaled[0.02], 
-     Scaled[0.02]}, {Automatic, Automatic}},
-  Ticks->{Automatic, Automatic, Automatic},
-  ViewAngle->0.47030072394368955`,
-  ViewPoint->{-1.7070311446359514`, 2.176003381485186, 1.9496291839752329`},
-  ViewVertical->{-0.20254976826594748`, 0.2848907999891963, 
-   2.3422889758963965`}]], "Output",
- CellChangeTimes->{
-  3.63984262062451*^9, 3.6398426873883286`*^9, {3.639842749291869*^9, 
-   3.6398427639247065`*^9}, {3.6398428099803405`*^9, 3.6398428345307446`*^9}, 
-   3.63984286941474*^9, 3.639843119398038*^9, 3.6398432551838045`*^9, 
-   3.6398434542421904`*^9}]
-}, Open  ]],
+      "]]},
+    AspectRatio->Automatic,
+    Axes->True,
+    AxesLabel->{None, None, None},
+    Background->None,
+    BoxRatios->{2, 1, 0.6},
+    FaceGridsStyle->Automatic,
+    ImageMargins->0.,
+    ImageSize->{604.7518182059988, 669.4189877637979},
+    PlotRange->{{-2.879793265790644, 3.141592653589793}, {0., 
+      2.879793265790644}, Automatic},
+    PlotRangePadding->{{
+       Scaled[0.02], 
+       Scaled[0.02]}, {
+       Scaled[0.02], 
+       Scaled[0.02]}, {Automatic, Automatic}},
+    SphericalRegion->True,
+    Ticks->{Automatic, Automatic, Automatic},
+    ViewAngle->0.45437344271629404`,
+    ViewCenter->{{0.5, 0.5, 0.5}, {0.5089521516341824, 0.5340748000404609}},
+    ViewPoint->{0.05047356804559898, -2.633094187513512, 2.1246805450729145`},
+    ViewVertical->{-0.01693087597783715, -0.3979108340576885, 
+     3.2662075995011266`}], {0., 14.5}, ImageScaled[{0., 0.}], {360., 389.},
+   ContentSelectable->True],
+  AspectRatio->0.5340136054421769,
+  Background->None,
+  ContentSelectable->True,
+  ImageMargins->0.,
+  ImagePadding->0.,
+  ImageSize->{588., 314.},
+  PlotRange->{{13.000000000000057`, 363.02788520413293`}, {99.56916823079916, 
+   282.03486196325537`}},
+  PlotRangePadding->None]], "Input",
+ CellChangeTimes->{3.63984550400843*^9}],
 
 Cell[CellGroupData[{
 
@@ -12471,18 +12500,22 @@ Cell[BoxData[
  RowBox[{"ListDensityPlot", "[", 
   RowBox[{
    RowBox[{
-    RowBox[{"(", 
-     RowBox[{"{", 
-      RowBox[{
-       RowBox[{"#", "[", 
-        RowBox[{"[", "3", "]"}], "]"}], ",", 
-       RowBox[{"#", "[", 
-        RowBox[{"[", "2", "]"}], "]"}], ",", 
-       RowBox[{"#", "[", 
-        RowBox[{"[", "1", "]"}], "]"}]}], "}"}], ")"}], "&"}], "/@", 
-   "cardioidInPolarCoordinates"}], "]"}]], "Input",
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"#", "[", 
+         RowBox[{"[", "3", "]"}], "]"}], ",", 
+        RowBox[{"#", "[", 
+         RowBox[{"[", "2", "]"}], "]"}], ",", 
+        RowBox[{"#", "[", 
+         RowBox[{"[", "1", "]"}], "]"}]}], "}"}], ")"}], "&"}], "/@", 
+    "cardioidInPolarCoordinates"}], ",", " ", 
+   RowBox[{"AspectRatio", "\[Rule]", "Automatic"}]}], "]"}]], "Input",
  CellChangeTimes->{{3.6396616927687063`*^9, 3.63966171784114*^9}, 
-   3.639839314441407*^9}],
+   3.639839314441407*^9, {3.6398443593209577`*^9, 3.639844411264929*^9}, {
+   3.6398444579926014`*^9, 3.639844459312677*^9}, {3.6398447036646533`*^9, 
+   3.63984471060605*^9}}],
 
 Cell[BoxData[
  GraphicsBox[GraphicsComplexBox[CompressedData["
@@ -12587,13 +12620,14 @@ ov0z8kfxER6EH/Fdrq5YO2t/FHZ2PWpej2w/19zP2f3DyvYP7P5T8/6TPe+s
 7LzDnpc1n5fZ+5mV3c+w93ua7/fY++SV3Sez7xGa3yPY96+VvX+x76ea30//
 A8p3GeE=
     "]],
-  AspectRatio->1,
   DisplayFunction->Identity,
   Frame->True,
   FrameLabel->{None, None},
   FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
   GridLinesStyle->Directive[
     GrayLevel[0.5, 0.4]],
+  ImageMargins->0.,
+  ImageSize->{539., 284.},
   Method->{
    "DefaultBoundaryStyle" -> Automatic, "DefaultColorFunction" -> 
     "M10DefaultDensityGradient"},
@@ -12605,7 +12639,9 @@ A8p3GeE=
     Scaled[0.02]},
   Ticks->{Automatic, Automatic}]], "Output",
  CellChangeTimes->{
-  3.6396617184741764`*^9, {3.6398393008846316`*^9, 3.639839316126504*^9}}]
+  3.6396617184741764`*^9, {3.6398393008846316`*^9, 3.639839316126504*^9}, 
+   3.6398435759621525`*^9, {3.639844375163864*^9, 3.6398443916608076`*^9}, 
+   3.6398444599327126`*^9, 3.639844711230086*^9}]
 }, Open  ]]
 }, Open  ]]
 },
@@ -12626,19 +12662,19 @@ CellTagsIndex->{}
 (*NotebookFileOutline
 Notebook[{
 Cell[CellGroupData[{
-Cell[580, 22, 11768, 276, 1192, "Input"],
+Cell[580, 22, 12297, 287, 1212, "Input"],
 Cell[CellGroupData[{
-Cell[12373, 302, 63788, 1313, 397, "Print"],
-Cell[76164, 1617, 279903, 5393, 397, "Print"],
-Cell[356070, 7012, 279832, 5384, 397, "Print"]
+Cell[12902, 313, 63956, 1315, 397, "Print"],
+Cell[76861, 1630, 280068, 5395, 397, "Print"],
+Cell[356932, 7027, 280000, 5386, 397, "Print"]
+}, Open  ]]
 }, Open  ]],
-Cell[635917, 12399, 3136, 60, 404, "Output"]
-}, Open  ]],
+Cell[636959, 12417, 3516, 72, 329, InheritFromParent],
 Cell[CellGroupData[{
-Cell[639090, 12464, 113, 1, 43, "Subsection"],
+Cell[640500, 12493, 113, 1, 43, "Subsection"],
 Cell[CellGroupData[{
-Cell[639228, 12469, 507, 15, 31, "Input"],
-Cell[639738, 12486, 6588, 121, 373, "Output"]
+Cell[640638, 12498, 746, 19, 52, "Input"],
+Cell[641387, 12519, 6743, 124, 299, "Output"]
 }, Open  ]]
 }, Open  ]]
 }
