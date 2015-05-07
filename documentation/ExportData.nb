@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     41358,        825]
-NotebookOptionsPosition[     40577,        793]
-NotebookOutlinePosition[     40920,        808]
-CellTagsIndexPosition[     40877,        805]
+NotebookDataLength[     41674,        829]
+NotebookOptionsPosition[     40893,        797]
+NotebookOutlinePosition[     41236,        812]
+CellTagsIndexPosition[     41193,        809]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -72,8 +72,8 @@ Cell[BoxData[{
     RowBox[{
      RowBox[{"Length", "[", 
       RowBox[{"Position", "[", 
-       RowBox[{"data", ",", " ", "peakValue"}], "]"}], "]"}], "\[Equal]", 
-     "2"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"data", ",", " ", "peakValue"}], "]"}], "]"}], ">=", "2"}], 
+    ",", "\[IndentingNewLine]", 
     RowBox[{
      RowBox[{"data", "[", 
       RowBox[{"[", 
@@ -120,7 +120,10 @@ Cell[BoxData[{
     "not", " ", "survive", " ", "the", " ", "trip", " ", "to", " ", 
     "cartesian", " ", "\[IndentingNewLine]", " ", "coordinates", " ", "and", 
     " ", 
-    RowBox[{"back", "."}]}], "\[IndentingNewLine]", 
+    RowBox[{"back", ".", " ", "We"}], " ", "get", " ", "the", " ", "location",
+     " ", "back", " ", "for", "\[IndentingNewLine]", " ", "Free", " ", "when",
+     " ", "we", " ", "partition", " ", "the", " ", "sorted", " ", 
+    RowBox[{"data", "."}]}], "\[IndentingNewLine]", 
    "*)"}]}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"matrixData", " ", "=", " ", 
@@ -152,7 +155,7 @@ Cell[BoxData[{
    3.6400295005724316`*^9}, {3.6400295385646048`*^9, 3.6400295472751026`*^9}, 
    3.6400295810280333`*^9, {3.640029775059131*^9, 3.640029775770172*^9}, {
    3.64002984077989*^9, 3.6400298903467255`*^9}, {3.6400302117471085`*^9, 
-   3.6400302533544884`*^9}}],
+   3.6400302533544884`*^9}, {3.640030470650917*^9, 3.6400305454511952`*^9}}],
 
 Cell[BoxData[
  GraphicsBox[RasterBox[CompressedData["
@@ -265,6 +268,7 @@ MP4afxvx+z+W3EHx
   FrameTicks->{{None, None}, {None, None}},
   GridLinesStyle->Directive[
     GrayLevel[0.5, 0.4]],
+  ImageSize->{416., Automatic},
   Method->{
    "AxisPadding" -> Scaled[0.02], "DefaultBoundaryStyle" -> Automatic, 
     "DefaultPlotStyle" -> Automatic, "DomainPadding" -> Scaled[0.02], 
@@ -273,7 +277,7 @@ MP4afxvx+z+W3EHx
    3.640026959914114*^9, {3.6400270135951843`*^9, 3.640027043492895*^9}, 
    3.6400272823905587`*^9, 3.6400273188616447`*^9, 3.6400273581778936`*^9, 
    3.6400275129477463`*^9, 3.640029548706185*^9, 3.6400295818730817`*^9, {
-   3.640029759533243*^9, 3.6400297810564747`*^9}}]
+   3.640029759533243*^9, 3.6400297810564747`*^9}, 3.6400305507845*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -488,15 +492,15 @@ l44n+KXjD37p+QK/9Pz+L2h4T6k=
   AxesLabel->{None, None, None},
   BoxRatios->{2, 1, 0.6},
   FaceGridsStyle->Automatic,
-  ImageSize->{364.17912823598317`, 241.43455993451067`},
+  ImageSize->{352.7094733961019, 243.5467258404522},
   PlotRange->{{-3.641592653589793, 3.641592653589793}, {-0.5, 
    3.641592653589793}, {-0.5, 1.5}},
   PlotRangePadding->{{Automatic, Automatic}, {Automatic, Automatic}, {
     Automatic, Automatic}},
   Ticks->{Automatic, Automatic, Automatic},
-  ViewPoint->{0.16492817832475715`, -2.396588876257138, 2.383098918256452},
-  ViewVertical->{0.15829802154415942`, 0.29446265553222495`, 
-   3.2545091326401496`}]], "Output",
+  ViewPoint->{-2.6196213217769366`, -2.13910880599471, -0.10861697200523021`},
+  ViewVertical->{-0.23951998461090113`, -1.3539644792834726`, 
+   2.319782614771509}]], "Output",
  CellChangeTimes->{{3.639847392039419*^9, 3.6398474864708204`*^9}, {
    3.639847516846558*^9, 3.639847522146861*^9}, 3.6398478123514595`*^9, {
    3.6398482047679048`*^9, 3.6398482193457384`*^9}, 3.639848258235963*^9, {
@@ -808,24 +812,24 @@ CellTagsIndex->{}
 (*NotebookFileOutline
 Notebook[{
 Cell[CellGroupData[{
-Cell[580, 22, 5500, 132, 412, "Input"],
-Cell[6083, 156, 7025, 119, 203, "Output"]
+Cell[580, 22, 5766, 135, 432, "Input"],
+Cell[6349, 159, 7077, 120, 232, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[13145, 280, 3109, 57, 52, "Input"],
-Cell[16257, 339, 11560, 190, 256, "Output"]
+Cell[13463, 284, 3109, 57, 52, "Input"],
+Cell[16575, 343, 11558, 190, 259, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[27854, 534, 447, 9, 31, "Input"],
-Cell[28304, 545, 269, 4, 31, "Output"]
+Cell[28170, 538, 447, 9, 31, "Input"],
+Cell[28620, 549, 269, 4, 31, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[28610, 554, 725, 18, 112, "Input"],
-Cell[29338, 574, 176, 4, 31, "Output"]
+Cell[28926, 558, 725, 18, 112, "Input"],
+Cell[29654, 578, 176, 4, 31, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[29551, 583, 1529, 43, 72, "Input"],
-Cell[31083, 628, 9478, 162, 321, "Output"]
+Cell[29867, 587, 1529, 43, 72, "Input"],
+Cell[31399, 632, 9478, 162, 321, "Output"]
 }, Open  ]]
 }
 ]
