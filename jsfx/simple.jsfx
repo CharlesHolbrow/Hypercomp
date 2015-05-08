@@ -17,8 +17,9 @@ display_threshold = slider1 * slider1;
 
 @init
 // Set analysis resolution.
-box_width = 440;
-box_height = 220;
+box_width = 288;
+box_height = 144;
+
 // For display only, draw a border around the visulization rectangle
 border = 2;
 
@@ -76,47 +77,6 @@ function buff_rms(buff)(
   buff[3];
 );
 
-////////////////////////////////////////////////////////////////
-//
-// We know the resolution at which we are calculating the sound
-// field, so we can cache most of the interpolation values.
-//
-////////////////////////////////////////////////////////////////
-
-// sin_azimuth is the half cycle of a sin wave over box_width
-sin_azimuth = malloc(box_width);
-index = 0; loop(box_width,
-  sin_azimuth[index] = sin(index * box_width_inverse * $pi);
-  index += 1;
-);
-
-// cos_elevation is the quarter cycle of cos wave over box_height
-cos_elevation = malloc(box_height);
-index = 0; loop(box_height,
-  cos_elevation[index] = cos(index * box_height_inverse * $pi * 0.5);
-  index += 1;
-);
-
-// cos_half_elevation is a quarter cycle of cos over half of box_height
-cos_half_elevation = malloc(box_height);
-index = 0; loop(box_height / 2,
-  cos_half_elevation[index] = cos(index * box_height_inverse * $pi);
-  index += 1;
-);
-
-// sin_half_elevation is a quarter cycle of a sine wave centered on the peak
-sin_half_elevation = malloc(box_height);
-index = 0; loop(box_height,
-  sin_half_elevation[index] = sin(index * box_height_inverse * $pi * 0.5 + ($pi * 0.25));
-  index += 1;
-);
-
-// linear_elevation is a linear ramp from 1 to 0 over box_height
-linear_elevation = malloc(box_height);
-index = 0; loop(box_height,
-  linear_elevation[index] = 1 - (index * box_height_inverse);
-  index += 1;
-);
 
 buff_front = create_buffer(buff_size_samples);
 buff_right = create_buffer(buff_size_samples);
@@ -124,23 +84,6 @@ buff_left = create_buffer(buff_size_samples);
 buff_rear = create_buffer(buff_size_samples);
 buff_top = create_buffer(buff_size_samples);
 buff_bottom = create_buffer(buff_size_samples);
-
-// For a given azimuth and elevation, calculate the level. The
-// units of both arguments are integers relative to box_height
-// and box_width.
-function calculate_level(azimuth elevation)(
-  this.elevation_mult = sin_half_elevation[elevation];
-  this.level = 0;
-  this.level += buff_rms(buff_front) * sin_azimuth[azimuth] * this.elevation_mult;
-  this.level += buff_rms(buff_left) * sin_azimuth[(azimuth + box_width * 0.25) % box_width] * this.elevation_mult;
-  this.level += buff_rms(buff_right) * sin_azimuth[(azimuth + box_width * 0.75) % box_width] * this.elevation_mult;
-  this.level += buff_rms(buff_rear) * sin_azimuth[(azimuth + box_width * 0.5) % box_width]   * this.elevation_mult;
-  // I don't quite understand why we need to scale the elevation axis, but adding this makes things work correctly
-  this.elevation_scale = sqrt2;
-  this.level += buff_rms(buff_top) * linear_elevation[elevation] * this.elevation_scale;
-  this.level += buff_rms(buff_bottom) * linear_elevation[box_height - elevation - 1] * this.elevation_scale;
-  this.level / this.elevation_scale;
-);
 
 
 @sample
@@ -157,6 +100,12 @@ buff_push(buff_right, half_w - a_y * 0.5);
 buff_push(buff_top, half_w + a_z * 0.5);
 buff_push(buff_bottom, half_w - a_z * 0.5);
 
+rms_front = buff_rms(buff_front);
+rms_rear = buff_rms(buff_rear);
+rms_top = buff_rms(buff_top);
+rms_bottom = buff_rms(buff_bottom);
+rms_left = buff_rms(buff_left);
+rms_right = buff_rms(buff_right);
 
 ////////////////////////////////////////////////////////////////
 //
@@ -189,30 +138,49 @@ gfx_rect(
 gfx_r = 0; gfx_g = 0; gfx_b = 0;
 gfx_rect(box_x, box_y, box_width, box_height);
 
-// keep track of these stats for each frame
-max_level_temp = 0;
-total = 0;
-
-// additive mode for the draw loop
+// additive mode for drawing images
 gfx_mode = 1;
 
 // setup our outer loop on the y axis
 gfx_y = box_y;
+gfx_x = box_x;
+
+// draw the six regions 
+gfx_a = buff_rms(buff_left);
+gfx_blit(0, 1, 0);
+gfx_a = buff_rms(buff_right);
+gfx_blit(1, 1, 0);
+gfx_a = buff_rms(buff_front);
+gfx_blit(2, 1, 0);
+gfx_a = buff_rms(buff_rear);
+gfx_blit(3, 1, 0);
+gfx_a = buff_rms(buff_top);
+gfx_blit(4, 1, 0);
+gfx_a = buff_rms(buff_bottom);
+gfx_blit(5, 1, 0);
+
+// absolute mode for painting scaled values
+gfx_mode = 0; gfx_a = 1;
+
+// keep track of these stats for each frame
+max_level_temp = 0;
+total = 0;
+
 y = 0;
 loop(box_height,
 
   // setup our inner loop on the x axis
-  gfx_x = box_x;
-  x = 0;
+  x = 0; gfx_x = box_x;
   loop(box_width,
 
-    level = calculate_level(x, y);
+    gfx_getpixel(level, none, none);
+
     // Track the highest pixel value in this frame
     level > max_level_temp ? max_level_temp = level;
     // Summation of all pixels in this frame
     total += level;
 
-    // condition for viewing
+    //condition for viewing
     level = pow(level, slider2);
     level -= display_threshold;
     level *= 1/(1 - display_threshold);
@@ -229,18 +197,3 @@ loop(box_height,
 
 max_level = max_level_temp;
 avg_level = max_level / (box_width * box_height);
-
-gfx_mode = 1; // Additive Mode
-gfx_x = 0; gfx_y = 0;
-gfx_a = buff_rms(buff_left);
-gfx_blit(0, 1, 0);
-gfx_a = buff_rms(buff_right);
-gfx_blit(1, 1, 0);
-gfx_a = buff_rms(buff_front);
-gfx_blit(2, 1, 0);
-gfx_a = buff_rms(buff_rear);
-gfx_blit(3, 1, 0);
-gfx_a = buff_rms(buff_top);
-gfx_blit(4, 1, 0);
-gfx_a = buff_rms(buff_bottom);
-gfx_blit(5, 1, 0);
