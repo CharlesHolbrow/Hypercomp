@@ -1,6 +1,14 @@
 desc: Ambisonic Compressor
 slider1:0.75<0, 1, 0.01>Display Threshold
 slider2:1<0, 2, 0.01>Scale Brightness
+slider3:0.5<0, 1, 0.1>Misc
+
+filename:0,left_x72.png
+filename:1,right_x72.png
+filename:2,front_x72.png
+filename:3,rear_x72.png
+filename:4,above_x72.png
+filename:5,below_x72.png
 
 
 @slider
@@ -169,7 +177,7 @@ half_height = gfx_h / 2;
 box_x = half_width - (box_width * 0.5);
 box_y = half_height - (box_height * 0.5);
 gfx_mode = 0;
-gfx_r = 0; gfx_g = 0; gfx_b = 1;
+gfx_r = 0; gfx_g = 0; gfx_b = 1; gfx_a = 1;
 // draw a large blue box
 gfx_rect(
   box_x - border,
@@ -221,3 +229,18 @@ loop(box_height,
 
 max_level = max_level_temp;
 avg_level = max_level / (box_width * box_height);
+
+gfx_mode = 1; // Additive Mode
+gfx_x = 0; gfx_y = 0;
+gfx_a = buff_rms(buff_left);
+gfx_blit(0, 1, 0);
+gfx_a = buff_rms(buff_right);
+gfx_blit(1, 1, 0);
+gfx_a = buff_rms(buff_front);
+gfx_blit(2, 1, 0);
+gfx_a = buff_rms(buff_rear);
+gfx_blit(3, 1, 0);
+gfx_a = buff_rms(buff_top);
+gfx_blit(4, 1, 0);
+gfx_a = buff_rms(buff_bottom);
+gfx_blit(5, 1, 0);
