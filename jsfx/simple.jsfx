@@ -158,9 +158,10 @@ gfx_a = buff_rms(buff_top);
 gfx_blit(4, 1, 0);
 gfx_a = buff_rms(buff_bottom);
 gfx_blit(5, 1, 0);
+gfx_a = 1; // reset alpha ch after displaying images
 
 // absolute mode for painting scaled values
-gfx_mode = 0; gfx_a = 1;
+gfx_mode = 0; 
 
 // keep track of these stats for each frame
 max_level_temp = 0;
