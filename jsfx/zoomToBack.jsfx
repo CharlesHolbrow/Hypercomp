@@ -48,13 +48,13 @@ function calculateMatrix()
 
   isInitialized == 0 ?
   (
-    i = 0; loop(16, matrixDSP[i] = matrixDSP[i];);
+    i = 0; loop(16, matrixDSP[i] = matrixNewDSP[i]; i+= 1;);
     isInitialized = 1;
   )
 );
 
 @slider
-transformAngle = slider0 * kDeg2Rad;
+transformAngle = slider1 * kDeg2Rad;
 calculateMatrix();
 
 /**********************************************************
