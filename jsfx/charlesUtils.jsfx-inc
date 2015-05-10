@@ -1,0 +1,46 @@
+// My very simple memory allocator. Our program code is
+// responsible for keeping track of how large each block of
+// memory is. 
+@init
+
+malloc_ptr = 0;
+function malloc(size)(
+  this.ptr = malloc_ptr;
+  this.i = 0;
+  loop(size,
+    malloc_ptr[this.i] = 0;
+    this.i += 1;
+  );
+  malloc_ptr += size;
+  this.ptr;
+);
+
+// Allocate an audio buffer
+// the first four memory locations store meta-data about the buffer
+// - buff[0] stores the number of audio samples this buffer can store
+// Assuming we use buff_push to add each sample to our buffer:
+// - buff[1] stores the position where we will place the next sample (relative to this.buff)
+// - buff[2] stores the sum of the square of each sample
+// - buff[3] stores the RMS of the buffer
+function create_buffer(size_in_samples)(
+  this.buff = malloc(size_in_samples + 4);
+  this.buff[0] = size_in_samples;
+  this.buff[1] = 4;
+  this.buff;
+);
+
+// Add a value to the buffer, keeping all meta-data up to date.
+function buff_push(buff, value)(
+  buff[2] -= pow(buff[buff[1]], 2);
+  buff[buff[1]] = value;
+  buff[2] += pow(value, 2);
+  buff[3] = sqrt(buff[2] / buff[0]);
+
+  buff[1] += 1;
+  buff[1] >= (buff[0] + 4) ? (buff[1] = 4;);
+);
+
+// Retrieve the RMS of buff
+function buff_rms(buff)(
+  buff[3];
+);
