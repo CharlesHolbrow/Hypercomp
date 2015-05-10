@@ -1,0 +1,27 @@
+desc: Adjust angle of rear-facing zoom transform. ATK for Reaper must be installed.
+
+// Import library with shared functions
+import atkConstantsAndMathsLibrary.jsfx-inc
+import atkMatrixLibrary.jsfx-inc
+import charlesUtils.jsfx-inc
+
+in_pin:W
+in_pin:X
+in_pin:Y
+in_pin:Z
+
+out_pin:W
+out_pin:X
+out_pin:Y
+out_pin:Z
+
+// The code in the @init section gets executed on effect load,
+// on samplerate changes, and on start of playback.
+@init
+
+initialized = 0;
+azimuth = 0;
+elevation = 0;
+
+a = malloc(4);
+b = malloc(8);
