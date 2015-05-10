@@ -15,7 +15,7 @@ out_pin:X
 out_pin:Y
 out_pin:Z
 
-slider0:0<0, 90, 1>Zoom Angle
+slider1:0<0, 90, 1>Zoom Angle
 
 // The code in the @init section gets executed on effect load,
 // on samplerate changes, and on start of playback.
@@ -48,7 +48,7 @@ function calculateMatrix()
 
   isInitialized == 0 ?
   (
-    i = 0; loop(16, matrixDSP[i] = matrixDSP[i];)
+    i = 0; loop(16, matrixDSP[i] = matrixDSP[i];);
     isInitialized = 1;
   )
 );
