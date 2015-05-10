@@ -15,13 +15,87 @@ out_pin:X
 out_pin:Y
 out_pin:Z
 
+slider0:0<0, 90, 1>Zoom Angle
+
 // The code in the @init section gets executed on effect load,
 // on samplerate changes, and on start of playback.
 @init
 
-initialized = 0;
-azimuth = 0;
+isInitialized = 0;
+azimuth = 180 * kDeg2Rad;
 elevation = 0;
+transformAngle = 0;
 
-a = malloc(4);
-b = malloc(8);
+// memory locations for 4x4 row-major matrices
+matrixTemp1 = malloc(16);
+matrixTemp2 = malloc(16);
+matrixRotateInv = malloc(16);
+matrixRotate = malloc(16);
+matrixZoom = malloc(16);
+
+// This is our destination.
+matrixNewDSP = malloc(16);
+matrixDSP = malloc(16);
+
+generateRotationMatrix(matrixRotateInv, -azimuth);
+generateRotationMatrix(matrixRotate, azimuth);
+
+function calculateMatrix()
+(
+  generateZoomMatrix(matrixZoom, transformAngle);
+  matrixMultiplication(matrixTemp1,   4, 4, matrixZoom, 4, 4, matrixRotateInv);
+  matrixMultiplication(matrixNewDSP,  4, 4, matrixRotate, 4, 4, matrixTemp1);
+
+  isInitialized == 0 ?
+  (
+    i = 0; loop(16, matrixDSP[i] = matrixDSP[i];)
+    isInitialized = 1;
+  )
+);
+
+@slider
+transformAngle = slider0 * kDeg2Rad;
+calculateMatrix();
+
+/**********************************************************
+Preprocessing prior to audio vector processing.
+**********************************************************/
+@block
+
+mInverseSamplesblock = 1. / samplesblock;
+
+// Counter is called "ii" rather than "i" in order to ensure that we do not use the same counter here as in other sections
+ii = 0;
+loop(16,
+  matrixInc[ii] = (matrixNewDSP[ii] - matrixDSP[ii]) * mInverseSamplesblock;
+  ii += 1;
+);
+
+/**********************************************************
+Calculate audio sample
+**********************************************************/
+@sample
+
+ii = 0;
+loop(16,
+  matrixDSP[ii] += matrixInc[ii];
+  ii += 1;
+);
+
+wIn = spl0;
+xIn = spl1;
+yIn = spl2;
+zIn = spl3;
+
+// Some transforms blow up if track is 2 channels only as spl2 and spl3 might be un-ininitiated.
+(num_ch == 2) ? (
+  yIn = 0.;
+  zIn = 0.;
+);
+
+// Matrix multiplication with input signal:
+spl0 = wIn * matrixDSP[0] + xIn  * matrixDSP[1]  + yIn * matrixDSP[2]  + zIn * matrixDSP[3];
+spl1 = wIn * matrixDSP[4] + xIn  * matrixDSP[5]  + yIn * matrixDSP[6]  + zIn * matrixDSP[7];
+spl2 = wIn * matrixDSP[8] + xIn  * matrixDSP[9]  + yIn * matrixDSP[10] + zIn * matrixDSP[11];
+spl3 = wIn * matrixDSP[12] + xIn * matrixDSP[13] + yIn * matrixDSP[14] + zIn * matrixDSP[15];
+
