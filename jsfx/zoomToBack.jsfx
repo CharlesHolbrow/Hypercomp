@@ -15,14 +15,16 @@ out_pin:X
 out_pin:Y
 out_pin:Z
 
-slider1:0<0, 90, 1>Zoom Angle
+slider1:0<0,2,1{zoom,focus}>Transform Type
+slider2:0<0, 90, 1>Zoom Angle
+slider3:180<-180, 180, 1>Azimuth: 0=front, 180=back
 
 // The code in the @init section gets executed on effect load,
 // on samplerate changes, and on start of playback.
 @init
 
 isInitialized = 0;
-azimuth = 180 * kDeg2Rad;
+azimuth = 0;
 elevation = 0;
 transformAngle = 0;
 
@@ -31,7 +33,7 @@ matrixTemp1 = malloc(16);
 matrixTemp2 = malloc(16);
 matrixRotateInv = malloc(16);
 matrixRotate = malloc(16);
-matrixZoom = malloc(16);
+matrixTransform = malloc(16);
 
 // This is our destination.
 matrixNewDSP = malloc(16);
@@ -42,7 +44,14 @@ generateRotationMatrix(matrixRotate, azimuth);
 
 function calculateMatrix()
 (
-  generateZoomMatrix(matrixZoom, transformAngle);
+  transformType == 0 ? (
+    generateZoomMatrix(matrixTransform, transformAngle);
+  ) : (
+    transformType == 1 ? (
+      generateFocusMatrix(matrixTransform, transformAngle);
+    );
+  );
+
   matrixMultiplication(matrixTemp1,   4, 4, matrixZoom, 4, 4, matrixRotateInv);
   matrixMultiplication(matrixNewDSP,  4, 4, matrixRotate, 4, 4, matrixTemp1);
 
@@ -54,7 +63,9 @@ function calculateMatrix()
 );
 
 @slider
-transformAngle = slider1 * kDeg2Rad;
+transformType = slider1;
+transformAngle = slider2 * kDeg2Rad;
+azimuth = slider3 * kDeg2Rad;
 calculateMatrix();
 
 /**********************************************************
