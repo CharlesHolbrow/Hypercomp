@@ -1,6 +1,5 @@
-desc: Adjust angle of rear-facing zoom transform. ATK for Reaper must be installed.
+desc: Focus and Zoom transform.
 
-// Import library with shared functions
 import atkConstantsAndMathsLibrary.jsfx-inc
 import atkMatrixLibrary.jsfx-inc
 import charlesUtils.jsfx-inc
@@ -15,16 +14,15 @@ out_pin:X
 out_pin:Y
 out_pin:Z
 
-slider1:0<0, 90, 1>Zoom Angle
+slider1:0<0, 90, 1>Focus Transform Angle
+slider2:0<0, 90, 1>Zoom Transform Angle
+slider3:0<-180, 180, 1>Azimuth: 0=front, 180=back
+
 
 // The code in the @init section gets executed on effect load,
 // on samplerate changes, and on start of playback.
 @init
-
 isInitialized = 0;
-azimuth = 180 * kDeg2Rad;
-elevation = 0;
-transformAngle = 0;
 
 // memory locations for 4x4 row-major matrices
 matrixTemp1 = malloc(16);
@@ -32,19 +30,23 @@ matrixTemp2 = malloc(16);
 matrixRotateInv = malloc(16);
 matrixRotate = malloc(16);
 matrixZoom = malloc(16);
+matrixFocus = malloc(16);
 
 // This is our destination.
 matrixNewDSP = malloc(16);
 matrixDSP = malloc(16);
 
-generateRotationMatrix(matrixRotateInv, -azimuth);
-generateRotationMatrix(matrixRotate, azimuth);
-
 function calculateMatrix()
 (
-  generateZoomMatrix(matrixZoom, transformAngle);
-  matrixMultiplication(matrixTemp1,   4, 4, matrixZoom, 4, 4, matrixRotateInv);
-  matrixMultiplication(matrixNewDSP,  4, 4, matrixRotate, 4, 4, matrixTemp1);
+  generateRotationMatrix(matrixRotateInv, -azimuth);
+  generateRotationMatrix(matrixRotate,    azimuth);
+
+  generateFocusMatrix(matrixFocus,  focusAngle);
+  generateZoomMatrix(matrixZoom,    zoomAngle);
+
+  matrixMultiplication(matrixTemp1,   4, 4, matrixZoom,   4, 4, matrixRotateInv);
+  matrixMultiplication(matrixTemp2,   4, 4, matrixFocus,  4, 4, matrixTemp1);
+  matrixMultiplication(matrixNewDSP,  4, 4, matrixRotate, 4, 4, matrixTemp2);
 
   isInitialized == 0 ?
   (
@@ -53,31 +55,33 @@ function calculateMatrix()
   )
 );
 
+
 @slider
-transformAngle = slider1 * kDeg2Rad;
+focusAngle = slider1 * kDeg2Rad;
+zoomAngle = slider2 * kDeg2Rad;
+azimuth = slider3 * kDeg2Rad;
 calculateMatrix();
 
-/**********************************************************
-Preprocessing prior to audio vector processing.
-**********************************************************/
+
+// @block is calculated before each @sample
+// Find how much we will change over each sample
+// MatrixDSP will be incremented by matrixInc on each @sample
+// By the end of the block, MatrixDSP will match MatrixNewDSP
 @block
+inverseSamplesblock = 1 / samplesblock;
 
-mInverseSamplesblock = 1. / samplesblock;
-
-// Counter is called "ii" rather than "i" in order to ensure that we do not use the same counter here as in other sections
-ii = 0;
-loop(16,
-  matrixInc[ii] = (matrixNewDSP[ii] - matrixDSP[ii]) * mInverseSamplesblock;
-  ii += 1;
+j = 0; loop(16,
+  matrixInc[j] = (matrixNewDSP[j] - matrixDSP[j]) * inverseSamplesblock;
+  j += 1;
 );
 
 /**********************************************************
 Calculate audio sample
+Credit to ATK
 **********************************************************/
 @sample
 
-ii = 0;
-loop(16,
+ii = 0; loop(16,
   matrixDSP[ii] += matrixInc[ii];
   ii += 1;
 );
