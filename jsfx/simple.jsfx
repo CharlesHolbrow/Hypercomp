@@ -3,7 +3,7 @@ desc: Ambisonic Level Detector
 import charlesUtils.jsfx-inc
 
 slider1:0.75<0, 1, 0.01>Display Threshold
-slider2:1<0.01, 4, 0.01>Scale Brightness
+slider2:1<0.01, 16, 0.01>Scale Brightness
 // slider3:0.5<0, 1, 0.1>Misc
 
 filename:0,left_x72.png
