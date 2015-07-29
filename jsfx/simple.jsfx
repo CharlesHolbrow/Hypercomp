@@ -1,10 +1,10 @@
-desc: Ambisonic Compressor
+desc: Ambisonic Level Detector
 
 import charlesUtils.jsfx-inc
 
 slider1:0.75<0, 1, 0.01>Display Threshold
-slider2:1<0, 2, 0.01>Scale Brightness
-slider3:0.5<0, 1, 0.1>Misc
+slider2:1<0.01, 4, 0.01>Scale Brightness
+// slider3:0.5<0, 1, 0.1>Misc
 
 filename:0,left_x72.png
 filename:1,right_x72.png
@@ -140,9 +140,10 @@ loop(box_height,
     total += level;
 
     //condition for viewing
+    level *= 1/(1 - display_threshold);
     level = pow(level, slider2);
     level -= display_threshold;
-    level *= 1/(1 - display_threshold);
+
 
     gfx_setpixel(level, 0, 0);
 
