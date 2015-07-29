@@ -1,0 +1,16 @@
+desc: show rms
+
+import charlesUtils.jsfx-inc
+
+slider1:1<0.0, 16, 0.001>Ch1 RMS
+
+@init 
+buff_size_ms = 100;
+buff_size_samples = floor(srate / 1000 * buff_size_ms);
+buff1 = create_buffer(buff_size_samples);
+
+@sample
+buff_push(buff1, spl0)
+
+@gfx
+slider1 = buff_rms(buff1);
